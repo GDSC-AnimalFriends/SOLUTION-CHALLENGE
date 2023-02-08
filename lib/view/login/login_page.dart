@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../routes/app_pages.dart';
 import '../common/common_button.dart';
 import '../common/common_input.dart';
-import 'login_base.dart';
+import 'login_base_widget.dart';
 
 //로그인 페이지
 class LoginPage extends StatelessWidget {
@@ -18,7 +18,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginBaseScreen(
+    return LoginBaseWidget(
+      resizeBottom: false,
       widgetList: [
         Text(
           '앱 네임',
@@ -26,19 +27,19 @@ class LoginPage extends StatelessWidget {
         ),
         Text(
           '소중한 사람, 확인해보세요',
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(height: 42),
-        CommonInput(
+        const CommonInput(
           hintText: '이메일',
-          focusBorderColor: Theme.of(context).primaryColor,
+          inputType: TextInputType.emailAddress,
           needHideText: false,
         ),
         const SizedBox(height: 12),
-        CommonInput(
+        const CommonInput(
           hintText: '비밀번호',
-          focusBorderColor: Theme.of(context).primaryColor,
-          needHideText: true,
+          inputType: TextInputType.text,
+          needHideText: false,
         ),
         const SizedBox(height: 42),
         CommonButton(

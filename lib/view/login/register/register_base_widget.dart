@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class LoginBaseScreen extends StatelessWidget {
+class RegisterBaseWidget extends StatelessWidget {
   final List<Widget> widgetList;
-  const LoginBaseScreen({
+  const RegisterBaseWidget({
     super.key,
     required this.widgetList,
   });
@@ -16,11 +16,9 @@ class LoginBaseScreen extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           color: Colors.white,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widgetList,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: widgetList,
           ),
         ),
       ),

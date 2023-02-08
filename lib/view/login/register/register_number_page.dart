@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
-import 'package:solution_challenge/view/common/common_button.dart';
+import 'package:solution_challenge/view/common/common_input.dart';
 
+import '../../common/common_button.dart';
 import 'register_base_widget.dart';
 
-class RegisterTypePage extends StatelessWidget {
-  const RegisterTypePage({super.key});
+class RegisterNumberPage extends StatelessWidget {
+  const RegisterNumberPage({super.key});
 
   void toNext() {
-    Get.toNamed(Routes.REGISTER_NAME);
+    Get.toNamed(Routes.REGISTER_COMPLETE);
   }
 
   @override
@@ -17,28 +18,14 @@ class RegisterTypePage extends StatelessWidget {
     return RegisterBaseWidget(
       widgetList: [
         Text(
-          '어떻게 오셨나요?',
+          '휴대전화 번호를 알려주세요',
           style: Theme.of(context).textTheme.headline2,
         ),
         const SizedBox(height: 50),
-        Row(
-          children: [
-            Flexible(
-              flex: 1,
-              child: Container(
-                color: Colors.grey,
-                height: 170,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              flex: 1,
-              child: Container(
-                color: Colors.grey,
-                height: 170,
-              ),
-            ),
-          ],
+        const CommonInput(
+          hintText: '( - ) 없이 입력하세요',
+          inputType: TextInputType.phone,
+          needHideText: false,
         ),
         const Spacer(),
         CommonButton(
@@ -49,5 +36,6 @@ class RegisterTypePage extends StatelessWidget {
         ),
       ],
     );
+    ;
   }
 }

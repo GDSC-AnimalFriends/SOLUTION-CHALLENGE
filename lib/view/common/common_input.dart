@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class CommonInput extends StatelessWidget {
   final String hintText;
-  final Color focusBorderColor;
+  final TextInputType inputType;
   final bool needHideText;
   const CommonInput({
     super.key,
     required this.hintText,
-    required this.focusBorderColor,
+    required this.inputType,
     required this.needHideText,
   });
 
@@ -18,14 +18,15 @@ class CommonInput extends StatelessWidget {
         hintText: hintText,
         labelStyle: const TextStyle(color: Colors.black),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 1, color: focusBorderColor),
+          borderSide:
+              BorderSide(width: 1, color: Theme.of(context).primaryColor),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
         ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
       ),
-      keyboardType: TextInputType.text,
+      keyboardType: inputType,
       obscureText: needHideText,
     );
   }

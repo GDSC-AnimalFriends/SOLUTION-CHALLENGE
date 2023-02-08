@@ -10,6 +10,8 @@ final ThemeData appThemeData = ThemeData(
     headline1:
         TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: black),
     headline2:
+        TextStyle(fontSize: 32, fontWeight: FontWeight.w500, color: black),
+    headline3:
         TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: black),
   ),
 );
