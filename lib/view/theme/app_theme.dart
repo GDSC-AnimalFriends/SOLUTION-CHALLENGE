@@ -8,6 +8,8 @@ final ThemeData appThemeData = ThemeData(
   fontFamily: null,
   textTheme: const TextTheme(
     headline1:
-        TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: black),
+        TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: black),
+    headline2:
+        TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: black),
   ),
 );
