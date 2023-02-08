@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:solution_challenge/bindings/login_binding.dart';
+import 'package:solution_challenge/bindings/register_binding.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
 import 'package:solution_challenge/view/login/register/register_complete_page.dart';
 import 'package:solution_challenge/view/login/register/register_name_page.dart';
@@ -17,18 +18,22 @@ class AppPages {
     GetPage(
       name: Routes.REGISTER_TYPE,
       page: () => const RegisterTypePage(),
+      binding: RegisterBinding(),
     ),
     GetPage(
       name: Routes.REGISTER_NAME,
       page: () => const RegisterNamePage(),
+      binding: RegisterBinding(),
     ),
     GetPage(
       name: Routes.REGISTER_NUMBER,
       page: () => const RegisterNumberPage(),
+      binding: RegisterBinding(),
     ),
     GetPage(
       name: Routes.REGISTER_COMPLETE,
       page: () => const RegisterCompletePage(),
+      binding: RegisterBinding(),
     ),
   ];
 }

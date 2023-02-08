@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/controller/login/register/register_controller.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/view/common/common_input.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
@@ -7,7 +8,7 @@ import 'package:solution_challenge/view/theme/app_colors.dart';
 import '../../common/common_button.dart';
 import 'register_base_widget.dart';
 
-class RegisterNamePage extends StatelessWidget {
+class RegisterNamePage extends GetView<RegisterController> {
   const RegisterNamePage({super.key});
 
   void toNext() {
@@ -24,7 +25,8 @@ class RegisterNamePage extends StatelessWidget {
           style: Theme.of(context).textTheme.headline2,
         ),
         const SizedBox(height: 50),
-        const CommonInput(
+        CommonInput(
+          controller: controller.editController,
           hintText: '이름을 입력하세요',
           inputType: TextInputType.name,
           needHideText: false,

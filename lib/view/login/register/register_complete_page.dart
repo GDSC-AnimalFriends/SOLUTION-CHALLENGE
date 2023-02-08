@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/controller/login/register/register_controller.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/common/common_input.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import 'register_base_widget.dart';
 
-class RegisterCompletePage extends StatelessWidget {
+class RegisterCompletePage extends GetView<RegisterController> {
   const RegisterCompletePage({super.key});
 
   void complete() {
@@ -24,19 +25,22 @@ class RegisterCompletePage extends StatelessWidget {
           style: Theme.of(context).textTheme.headline2,
         ),
         const SizedBox(height: 50),
-        const CommonInput(
+        CommonInput(
+          controller: controller.editController,
           hintText: '이메일을 입력하세요',
           inputType: TextInputType.emailAddress,
           needHideText: false,
         ),
         const SizedBox(height: 20),
-        const CommonInput(
+        CommonInput(
+          controller: controller.editController,
           hintText: '비밀번호를 입력하세요',
           inputType: TextInputType.emailAddress,
           needHideText: true,
         ),
         const SizedBox(height: 6),
-        const CommonInput(
+        CommonInput(
+          controller: controller.editController,
           hintText: '다시 입력하세요',
           inputType: TextInputType.emailAddress,
           needHideText: true,
