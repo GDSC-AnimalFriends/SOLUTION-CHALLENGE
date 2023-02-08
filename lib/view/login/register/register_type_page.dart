@@ -24,22 +24,10 @@ class RegisterTypePage extends StatelessWidget {
         ),
         const SizedBox(height: 50),
         Row(
-          children: [
-            Flexible(
-              flex: 1,
-              child: Container(
-                color: Colors.grey,
-                height: 170,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              flex: 1,
-              child: Container(
-                color: Colors.grey,
-                height: 170,
-              ),
-            ),
+          children: const [
+            TypeButton(typeName: "보호자"),
+            SizedBox(width: 10),
+            TypeButton(typeName: "노인")
           ],
         ),
         const Spacer(),
@@ -50,6 +38,37 @@ class RegisterTypePage extends StatelessWidget {
           onPressed: () => toNext(),
         ),
       ],
+    );
+  }
+}
+
+class TypeButton extends StatelessWidget {
+  final String typeName;
+  const TypeButton({
+    super.key,
+    required this.typeName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      flex: 1,
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          height: 170,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.grey[100],
+          ),
+          child: Center(
+            child: Text(
+              typeName,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
