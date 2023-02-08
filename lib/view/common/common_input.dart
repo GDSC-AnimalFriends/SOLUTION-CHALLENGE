@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
 
 class CommonInput extends StatelessWidget {
   final String hintText;
@@ -17,10 +18,9 @@ class CommonInput extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         labelStyle: const TextStyle(color: Colors.black),
-        focusedBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(width: 1, color: Theme.of(context).primaryColor),
-          borderRadius: const BorderRadius.all(Radius.circular(15)),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: primaryColor),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),

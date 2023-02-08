@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/common/common_input.dart';
-import 'package:solution_challenge/view/login/login_base_widget.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import 'register_base_widget.dart';
 
@@ -17,7 +16,7 @@ class RegisterCompletePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginBaseWidget(
+    return RegisterBaseWidget(
       resizeBottom: false,
       widgetList: [
         Text(
@@ -44,7 +43,7 @@ class RegisterCompletePage extends StatelessWidget {
         ),
         const Spacer(),
         CommonButton(
-          buttonColor: Theme.of(context).primaryColor,
+          buttonColor: primaryColor,
           textColor: Colors.white,
           buttonText: '완료',
           onPressed: () => complete(),

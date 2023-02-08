@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import 'register_base_widget.dart';
 
@@ -15,6 +16,7 @@ class RegisterTypePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RegisterBaseWidget(
+      resizeBottom: true,
       widgetList: [
         Text(
           '어떻게 오셨나요?',
@@ -42,7 +44,7 @@ class RegisterTypePage extends StatelessWidget {
         ),
         const Spacer(),
         CommonButton(
-          buttonColor: Theme.of(context).primaryColor,
+          buttonColor: primaryColor,
           textColor: Colors.white,
           buttonText: '다음',
           onPressed: () => toNext(),

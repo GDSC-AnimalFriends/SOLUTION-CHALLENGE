@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import '../../routes/app_pages.dart';
 import '../common/common_button.dart';
@@ -19,7 +20,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LoginBaseWidget(
-      resizeBottom: false,
       widgetList: [
         Text(
           '앱 네임',
@@ -39,11 +39,11 @@ class LoginPage extends StatelessWidget {
         const CommonInput(
           hintText: '비밀번호',
           inputType: TextInputType.text,
-          needHideText: false,
+          needHideText: true,
         ),
         const SizedBox(height: 42),
         CommonButton(
-          buttonColor: Theme.of(context).primaryColor,
+          buttonColor: primaryColor,
           textColor: Colors.white,
           buttonText: '로그인',
           onPressed: () => login(),
@@ -51,7 +51,7 @@ class LoginPage extends StatelessWidget {
         const SizedBox(height: 12),
         CommonButton(
           buttonColor: Colors.white,
-          textColor: Theme.of(context).primaryColor,
+          textColor: primaryColor,
           buttonText: '회원가입',
           onPressed: () => toSignUp(),
         ),

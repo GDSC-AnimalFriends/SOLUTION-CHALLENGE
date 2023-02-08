@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/view/common/common_input.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import '../../common/common_button.dart';
 import 'register_base_widget.dart';
@@ -16,6 +17,7 @@ class RegisterNumberPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RegisterBaseWidget(
+      resizeBottom: true,
       widgetList: [
         Text(
           '휴대전화 번호를 알려주세요',
@@ -29,7 +31,7 @@ class RegisterNumberPage extends StatelessWidget {
         ),
         const Spacer(),
         CommonButton(
-          buttonColor: Theme.of(context).primaryColor,
+          buttonColor: primaryColor,
           textColor: Colors.white,
           buttonText: '다음',
           onPressed: () => toNext(),
