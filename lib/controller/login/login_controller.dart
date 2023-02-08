@@ -15,4 +15,6 @@ class LoginController extends GetxController {
   void toSignUp() {
     Get.toNamed(Routes.REGISTER_TYPE);
   }
+
+  void tempValidation(String value) {}
 }

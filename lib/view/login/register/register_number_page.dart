@@ -11,10 +11,6 @@ import 'register_base_widget.dart';
 class RegisterNumberPage extends GetView<RegisterController> {
   const RegisterNumberPage({super.key});
 
-  void toNext() {
-    Get.toNamed(Routes.REGISTER_COMPLETE);
-  }
-
   @override
   Widget build(BuildContext context) {
     return RegisterBaseWidget(
@@ -26,7 +22,8 @@ class RegisterNumberPage extends GetView<RegisterController> {
         ),
         const SizedBox(height: 50),
         CommonInput(
-          controller: controller.editController,
+          controller: controller.phoneController,
+          validation: (value) => controller.tempValidation(value),
           hintText: '( - ) 없이 입력하세요',
           inputType: TextInputType.phone,
           needHideText: false,
@@ -36,7 +33,9 @@ class RegisterNumberPage extends GetView<RegisterController> {
           buttonColor: primaryColor,
           textColor: Colors.white,
           buttonText: '다음',
-          onPressed: () => toNext(),
+          onPressed: () =>
+              controller.registerPageChange(Routes.REGISTER_COMPLETE),
+          enabled: controller.buttonEnabled.value,
         ),
       ],
     );

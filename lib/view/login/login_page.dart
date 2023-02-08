@@ -26,6 +26,7 @@ class LoginPage extends GetView<LoginController> {
         const SizedBox(height: 42),
         CommonInput(
           controller: controller.emailInput,
+          validation: (value) => controller.tempValidation(value),
           hintText: '이메일',
           inputType: TextInputType.emailAddress,
           needHideText: false,
@@ -33,6 +34,7 @@ class LoginPage extends GetView<LoginController> {
         const SizedBox(height: 12),
         CommonInput(
           controller: controller.passwordInput,
+          validation: (value) => controller.tempValidation(value),
           hintText: '비밀번호',
           inputType: TextInputType.text,
           needHideText: true,
@@ -43,6 +45,7 @@ class LoginPage extends GetView<LoginController> {
           textColor: Colors.white,
           buttonText: '로그인',
           onPressed: () => controller.login(),
+          enabled: true,
         ),
         const SizedBox(height: 12),
         CommonButton(
@@ -50,6 +53,7 @@ class LoginPage extends GetView<LoginController> {
           textColor: primaryColor,
           buttonText: '회원가입',
           onPressed: () => controller.toSignUp(),
+          enabled: true,
         ),
       ],
     );

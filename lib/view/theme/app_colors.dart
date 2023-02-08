@@ -4,3 +4,4 @@ import 'package:flutter/material.dart';
 const Color primaryColor = Color(0xff707DF1);
 const Color black = Colors.black;
 const Color white = Colors.white;
+const Color buttonDisabled = Colors.grey;

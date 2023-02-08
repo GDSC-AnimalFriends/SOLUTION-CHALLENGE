@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/controller/login/register/register_controller.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import 'register_base_widget.dart';
 
-class RegisterTypePage extends StatelessWidget {
+class RegisterTypePage extends GetView<RegisterController> {
   const RegisterTypePage({super.key});
-
-  void toNext() {
-    Get.toNamed(Routes.REGISTER_NAME);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +22,9 @@ class RegisterTypePage extends StatelessWidget {
         const SizedBox(height: 50),
         Row(
           children: const [
-            TypeButton(typeName: "보호자"),
+            _TypeButton(typeName: "보호자"),
             SizedBox(width: 10),
-            TypeButton(typeName: "노인")
+            _TypeButton(typeName: "노인")
           ],
         ),
         const Spacer(),
@@ -35,16 +32,17 @@ class RegisterTypePage extends StatelessWidget {
           buttonColor: primaryColor,
           textColor: Colors.white,
           buttonText: '다음',
-          onPressed: () => toNext(),
+          onPressed: () => controller.registerPageChange(Routes.REGISTER_NAME),
+          enabled: true,
         ),
       ],
     );
   }
 }
 
-class TypeButton extends StatelessWidget {
+class _TypeButton extends StatelessWidget {
   final String typeName;
-  const TypeButton({
+  const _TypeButton({
     super.key,
     required this.typeName,
   });

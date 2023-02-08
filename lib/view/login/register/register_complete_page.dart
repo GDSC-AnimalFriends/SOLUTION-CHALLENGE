@@ -10,11 +10,6 @@ import 'register_base_widget.dart';
 class RegisterCompletePage extends GetView<RegisterController> {
   const RegisterCompletePage({super.key});
 
-  void complete() {
-    // Get.toNamed(Routes.REGISTER_NUMBER);
-    Get.snackbar("회원가입", "완료");
-  }
-
   @override
   Widget build(BuildContext context) {
     return RegisterBaseWidget(
@@ -26,21 +21,24 @@ class RegisterCompletePage extends GetView<RegisterController> {
         ),
         const SizedBox(height: 50),
         CommonInput(
-          controller: controller.editController,
+          controller: controller.emailController,
+          validation: (value) => controller.tempValidation(value),
           hintText: '이메일을 입력하세요',
           inputType: TextInputType.emailAddress,
           needHideText: false,
         ),
         const SizedBox(height: 20),
         CommonInput(
-          controller: controller.editController,
+          controller: controller.passwordController,
+          validation: (value) => controller.tempValidation(value),
           hintText: '비밀번호를 입력하세요',
           inputType: TextInputType.emailAddress,
           needHideText: true,
         ),
         const SizedBox(height: 6),
         CommonInput(
-          controller: controller.editController,
+          controller: controller.rePasswordController,
+          validation: (value) => controller.tempValidation(value),
           hintText: '다시 입력하세요',
           inputType: TextInputType.emailAddress,
           needHideText: true,
@@ -50,7 +48,8 @@ class RegisterCompletePage extends GetView<RegisterController> {
           buttonColor: primaryColor,
           textColor: Colors.white,
           buttonText: '완료',
-          onPressed: () => complete(),
+          onPressed: () => controller.registerComplete(),
+          enabled: controller.buttonEnabled.value,
         ),
       ],
     );

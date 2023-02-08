@@ -19,7 +19,6 @@ class RegisterBaseWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           width: double.infinity,
-          height: double.infinity,
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

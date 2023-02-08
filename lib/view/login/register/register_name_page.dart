@@ -11,10 +11,6 @@ import 'register_base_widget.dart';
 class RegisterNamePage extends GetView<RegisterController> {
   const RegisterNamePage({super.key});
 
-  void toNext() {
-    Get.toNamed(Routes.REGISTER_NUMBER);
-  }
-
   @override
   Widget build(BuildContext context) {
     return RegisterBaseWidget(
@@ -26,17 +22,24 @@ class RegisterNamePage extends GetView<RegisterController> {
         ),
         const SizedBox(height: 50),
         CommonInput(
-          controller: controller.editController,
+          controller: controller.nameController,
+          validation: (value) => controller.nameValidation(value),
           hintText: '이름을 입력하세요',
           inputType: TextInputType.name,
           needHideText: false,
         ),
         const Spacer(),
-        CommonButton(
-          buttonColor: primaryColor,
-          textColor: Colors.white,
-          buttonText: '다음',
-          onPressed: () => toNext(),
+        Obx(
+          () {
+            return CommonButton(
+              buttonColor: primaryColor,
+              textColor: Colors.white,
+              buttonText: '다음',
+              onPressed: () =>
+                  controller.registerPageChange(Routes.REGISTER_NUMBER),
+              enabled: controller.nameEnabled.value,
+            );
+          },
         ),
       ],
     );
