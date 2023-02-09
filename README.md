@@ -1,16 +1,16 @@
-# solution_challenge
+# GDSC 솔루션 챌린지
 
-A new Flutter project.
+## Desgin Pattern
 
-## Getting Started
+GetX Pattern
 
-This project is a starting point for a Flutter application.
+## Library
 
-A few resources to get you started if this is your first Flutter project:
+get: 4.6.5 
+firebase_core: 2.4.1 
+dio: 4.0.6 
+get_storage: 2.0.3 
+json_annotation: 4.8.0 
+build_runner: 2.3.3 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
