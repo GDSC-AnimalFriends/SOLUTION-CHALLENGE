@@ -15,7 +15,6 @@ class LoginBaseWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
           width: double.infinity,
-          height: double.infinity,
           color: Colors.white,
           child: SingleChildScrollView(
             child: Column(
