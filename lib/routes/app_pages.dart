@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:solution_challenge/bindings/home_binding.dart';
 import 'package:solution_challenge/bindings/login_binding.dart';
+import 'package:solution_challenge/view/home/home_page.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
 part './app_routes.dart';
 
@@ -10,5 +12,9 @@ class AppPages {
         name: Routes.LOGIN,
         page: () => const LoginPage(),
         binding: LoginBinding()),
+    GetPage(
+        name: Routes.HOME,
+        page: () => const HomePage(),
+        binding: HomeBinding()),
   ];
 }
