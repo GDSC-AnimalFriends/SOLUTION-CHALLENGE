@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:solution_challenge/bindings/home_binding.dart';
 import 'package:solution_challenge/bindings/login_binding.dart';
 import 'package:solution_challenge/bindings/register_binding.dart';
+import 'package:solution_challenge/view/home/home_page.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
 import 'package:solution_challenge/view/login/register/register_complete_page.dart';
 import 'package:solution_challenge/view/login/register/register_name_page.dart';
@@ -35,5 +37,9 @@ class AppPages {
       page: () => const RegisterCompletePage(),
       binding: RegisterBinding(),
     ),
+    GetPage(
+        name: Routes.HOME,
+        page: () => const HomePage(),
+        binding: HomeBinding()),
   ];
 }

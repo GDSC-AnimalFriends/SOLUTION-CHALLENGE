@@ -8,13 +8,10 @@ class LoginController extends GetxController {
   final passwordInput = TextEditingController();
 
   void login() {
-    Get.snackbar(
-        "로그인 정보", "이메일: ${emailInput.text} 비밀번호 : ${passwordInput.text}");
+    Get.offNamed(Routes.HOME);
   }
 
   void toSignUp() {
     Get.toNamed(Routes.REGISTER_TYPE);
   }
-
-  void tempValidation(String value) {}
 }
