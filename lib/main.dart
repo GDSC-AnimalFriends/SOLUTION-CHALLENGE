@@ -32,31 +32,31 @@ class MyPage extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           elevation: 0,
           title: Container(
-            height: 100,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 27, 0, 0),
-                    child: Text('오늘의 할일',style: TextStyle(color: Colors.grey),),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 27, 0, 0),
-                    child: Text('전체보기',style: TextStyle(color: Colors.grey)),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 27, 0, 0),
-                    child: Text('알림',style: TextStyle(color: Colors.grey)),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 27, 0, 0),
-                    child: Text('마이페이지',style: TextStyle(color: Colors.black)),
-                  ),
-                ]
-            )
+              height: 100,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 27, 0, 0),
+                      child: Text('오늘의 할일',style: TextStyle(color: Colors.grey),),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 27, 0, 0),
+                      child: Text('전체보기',style: TextStyle(color: Colors.grey)),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 27, 0, 0),
+                      child: Text('알림',style: TextStyle(color: Colors.grey)),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 27, 0, 0),
+                      child: Text('마이페이지',style: TextStyle(color: Colors.black)),
+                    ),
+                  ]
+              )
           ),
         ),
 
@@ -71,17 +71,16 @@ class MyPage extends StatelessWidget {
                     width: 90,
                     margin: EdgeInsets.fromLTRB(17, 50, 0, 0),
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Color(0xFF707DF1),
                       borderRadius: BorderRadius.circular(80),
                     ),
-
                   ),
                   Container(
                     height: 90,
                     width: 237,
                     margin: EdgeInsets.fromLTRB(22, 50, 0, 0),
                     decoration: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
+                      color: Color(0x3D707DF1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
@@ -94,17 +93,74 @@ class MyPage extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(0, 41, 0, 0),
               decoration: BoxDecoration(
                 border: Border(
-                  top: BorderSide(color: Colors.black),
-                )
+                  top: BorderSide(color: Colors.grey),
+                ),
+              ),
+              child: TextButton(
+                  onPressed: (){},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                        child: Text('자기 계정 관리',style: TextStyle(fontSize: 22, color: Colors.black),),
+                      ),
+                      Spacer(),
+                      Container(
+                          child: Icon(Icons.arrow_forward_ios, size: 25, color: Colors.black,)
+                      ),
+                    ],
+                  )
               ),
             ),
             Container(
               height: 81,
               width: 390,
               decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(color: Colors.black),
-                  ),
+                border: Border(
+                  top: BorderSide(color: Colors.grey),
+                ),
+              ),
+              child: TextButton(
+                  onPressed: (){},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                        child: Text('구독 관리',style: TextStyle(fontSize: 22, color: Colors.black),),
+                      ),
+                      Spacer(),
+                      Container(
+                          child: Icon(Icons.arrow_forward_ios, size: 25, color: Colors.black,)
+                      ),
+                    ],
+                  )
+              ),
+            ),
+            Container(
+              height: 81,
+              width: 390,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: Colors.grey),
+                ),
+              ),
+              child: TextButton(
+                onPressed: (){},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                      child: Text('돌봄신청 안내',style: TextStyle(fontSize: 22, color: Colors.black),),
+                    ),
+                    Spacer(),
+                    Container(
+                      child: Icon(Icons.arrow_forward_ios, size: 25, color: Colors.black,),
+                    ),
+                  ],
+                ),
               ),
             ),
 
@@ -112,8 +168,27 @@ class MyPage extends StatelessWidget {
               height: 81,
               width: 390,
               decoration: BoxDecoration(
-                  ),
+                border: Border(
+                  top: BorderSide(color: Colors.grey),
+                ),
               ),
+              child: TextButton(
+                onPressed: (){},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                      child: Text('설정',style: TextStyle(fontSize: 22, color: Colors.black),),
+                    ),
+                    Spacer(),
+                    Container(
+                      child: Icon(Icons.arrow_forward_ios, size: 25, color: Colors.black,),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
