@@ -9,51 +9,65 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _controller = PageController(
-    initialPage: 0,
-  );
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 4,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text("AppName"),
-            bottom: const PreferredSize(
-              preferredSize: Size.fromHeight(30.0),
-              child: TabBar(
-                indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    width: 4,
-                    color: Colors.black,
+        child: Builder(builder: (context) {
+          return Scaffold(
+            appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(70.0),
+                child: Theme(
+                  data: ThemeData(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                   ),
-                ),
-                isScrollable: true,
-                indicatorColor: Colors.blue,
-                tabs: [
-                  Tab(child: Text("오늘의 할 일")),
-                  Tab(child: Text("전체 보기")),
-                  Tab(child: Text("알림")),
-                  Tab(child: Text("마이페이지")),
-                ],
-              ),
+                  child: AppBar(
+                    backgroundColor: Colors.white,
+                    elevation: 0.0,
+                    centerTitle: false,
+                    bottom: PreferredSize(
+                      preferredSize: const Size.fromHeight(15.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: TabBar(
+                          splashFactory: NoSplash.splashFactory,
+                          indicatorColor: Colors.transparent,
+                          isScrollable: true,
+                          labelColor: Colors.black,
+                          unselectedLabelColor:
+                              const Color.fromARGB(255, 229, 229, 229),
+                          tabs: [
+                            textTab("오늘의 할 일", 22),
+                            textTab("할 일 전체보기", 22),
+                            textTab("알람", 22),
+                            textTab("마이페이지", 22),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )),
+            body: const TabBarView(
+              children: <Widget>[
+                TodayTodoPage(),
+                TodayTodoPage(),
+                TodayTodoPage(),
+                TodayTodoPage(),
+              ],
             ),
-          ),
-          body: const TabBarView(
-            children: <Widget>[
-              TodayTodoPage(),
-              TodayTodoPage(),
-              TodayTodoPage(),
-              TodayTodoPage(),
-            ],
-          ),
-        ));
+          );
+        }));
   }
+}
+
+Widget textTab(String text, double textSize) {
+  return Tab(
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: textSize,
+      ),
+    ),
+  );
 }
