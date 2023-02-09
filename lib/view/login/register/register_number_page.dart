@@ -23,20 +23,22 @@ class RegisterNumberPage extends GetView<RegisterController> {
         const SizedBox(height: 50),
         CommonInput(
           controller: controller.phoneController,
-          validation: (value) => controller.tempValidation(value),
+          validation: (value) => controller.phoneValidation(value),
           hintText: '( - ) 없이 입력하세요',
           inputType: TextInputType.phone,
           needHideText: false,
         ),
         const Spacer(),
-        CommonButton(
-          buttonColor: primaryColor,
-          textColor: Colors.white,
-          buttonText: '다음',
-          onPressed: () =>
-              controller.registerPageChange(Routes.REGISTER_COMPLETE),
-          enabled: controller.buttonEnabled.value,
-        ),
+        Obx(
+          () => CommonButton(
+            buttonColor: primaryColor,
+            textColor: Colors.white,
+            buttonText: '다음',
+            onPressed: () =>
+                controller.registerPageChange(Routes.REGISTER_COMPLETE),
+            enabled: controller.phoneEnabled.value,
+          ),
+        )
       ],
     );
     ;

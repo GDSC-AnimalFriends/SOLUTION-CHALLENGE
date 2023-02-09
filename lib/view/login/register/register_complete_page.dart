@@ -22,7 +22,7 @@ class RegisterCompletePage extends GetView<RegisterController> {
         const SizedBox(height: 50),
         CommonInput(
           controller: controller.emailController,
-          validation: (value) => controller.tempValidation(value),
+          validation: (value) => controller.emailValidation(value),
           hintText: '이메일을 입력하세요',
           inputType: TextInputType.emailAddress,
           needHideText: false,
@@ -30,27 +30,30 @@ class RegisterCompletePage extends GetView<RegisterController> {
         const SizedBox(height: 20),
         CommonInput(
           controller: controller.passwordController,
-          validation: (value) => controller.tempValidation(value),
+          validation: (value) => controller.setPassword(value),
           hintText: '비밀번호를 입력하세요',
-          inputType: TextInputType.emailAddress,
+          inputType: TextInputType.text,
           needHideText: true,
         ),
         const SizedBox(height: 6),
         CommonInput(
           controller: controller.rePasswordController,
-          validation: (value) => controller.tempValidation(value),
+          validation: (value) => controller.passwordValidation(value),
           hintText: '다시 입력하세요',
-          inputType: TextInputType.emailAddress,
+          inputType: TextInputType.text,
           needHideText: true,
         ),
         const Spacer(),
-        CommonButton(
-          buttonColor: primaryColor,
-          textColor: Colors.white,
-          buttonText: '완료',
-          onPressed: () => controller.registerComplete(),
-          enabled: controller.buttonEnabled.value,
-        ),
+        Obx(
+          () => CommonButton(
+            buttonColor: primaryColor,
+            textColor: Colors.white,
+            buttonText: '완료',
+            onPressed: () => controller.registerComplete(),
+            enabled: controller.emailEnabled.value &&
+                controller.passwordEnabled.value,
+          ),
+        )
       ],
     );
   }
