@@ -13,14 +13,25 @@ class _AllTodoPageState extends State<AllTodoPage> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            todoListView(todos, done, checkToDone),
-            doneListView(done, todos, checkToNotDone)
-          ],
-        ),
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              todoListView(todos, done, checkToDone),
+              doneListView(done, todos, checkToNotDone),
+            ],
+          ),
+          Positioned(
+            bottom: 20,
+            right: 5,
+            child: FloatingActionButton.extended(
+              backgroundColor: const Color.fromARGB(255, 112, 125, 241),
+              onPressed: () {},
+              label: const Text('할 일 추가'),
+              icon: const Icon(Icons.edit),
+            ),
+          )
+        ],
       ),
     );
   }
