@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solution_challenge/view/home/home_subpages/today_todo_page.dart';
+import 'package:solution_challenge/view/mypage/my_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                 TodayTodoPage(),
                 TodayTodoPage(),
                 TodayTodoPage(),
-                TodayTodoPage(),
+                MyPage(),
               ],
             ),
           );
