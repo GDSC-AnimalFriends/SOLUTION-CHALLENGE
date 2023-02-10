@@ -43,18 +43,17 @@ class RegisterCompletePage extends GetView<RegisterController> {
           inputType: TextInputType.text,
           needHideText: true,
         ),
-        const Spacer(),
-        Obx(
-          () => CommonButton(
-            buttonColor: primaryColor,
-            textColor: Colors.white,
-            buttonText: '완료',
-            onPressed: () => controller.registerComplete(),
-            enabled: controller.emailEnabled.value &&
-                controller.passwordEnabled.value,
-          ),
-        )
       ],
+      bottomSheet: Obx(
+        () => CommonButton(
+          buttonColor: primaryColor,
+          textColor: Colors.white,
+          buttonText: '완료',
+          onPressed: () => controller.registerComplete(),
+          enabled:
+              controller.emailEnabled.value && controller.passwordEnabled.value,
+        ),
+      ),
     );
   }
 }
