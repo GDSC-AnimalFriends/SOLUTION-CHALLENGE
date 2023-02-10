@@ -1,6 +1,12 @@
 import 'package:get/get.dart';
+import 'package:solution_challenge/bindings/home_binding.dart';
 import 'package:solution_challenge/bindings/login_binding.dart';
+import 'package:solution_challenge/bindings/register_binding.dart';
+import 'package:solution_challenge/view/home/home_page.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
+import 'package:solution_challenge/view/login/register/register_complete_page.dart';
+import 'package:solution_challenge/view/login/register/register_name_page.dart';
+import 'package:solution_challenge/view/login/register/register_number_page.dart';
 import 'package:solution_challenge/view/login/register/register_type_page.dart';
 import 'package:solution_challenge/view/my_page.dart';
 part './app_routes.dart';
@@ -15,12 +21,30 @@ class AppPages {
     GetPage(
       name: Routes.REGISTER_TYPE,
       page: () => const RegisterTypePage(),
+      binding: RegisterBinding(),
     ),
-
     GetPage(
+      name: Routes.REGISTER_NAME,
+      page: () => const RegisterNamePage(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: Routes.REGISTER_NUMBER,
+      page: () => const RegisterNumberPage(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: Routes.REGISTER_COMPLETE,
+      page: () => const RegisterCompletePage(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+        name: Routes.HOME,
+        page: () => const HomePage(),
+        binding: HomeBinding()),
+            GetPage(
       name: Routes.MYPAGE,
       page: () => const MyPage(),
-      //binding ?
     ),
   ];
 }

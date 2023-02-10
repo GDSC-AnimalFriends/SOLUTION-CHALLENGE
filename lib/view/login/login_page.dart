@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/controller/login/login_controller.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
 
-import '../../routes/app_pages.dart';
 import '../common/common_button.dart';
 import '../common/common_input.dart';
-import 'login_base.dart';
+import 'login_base_widget.dart';
 
 //로그인 페이지
-class LoginPage extends StatelessWidget {
+class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
-
-  void login() {
-    Get.toNamed(Routes.MYPAGE);
-  }
-
-  void toSignUp() {
-    Get.toNamed(Routes.REGISTER_TYPE);
-  }
-
+  
   @override
   Widget build(BuildContext context) {
-    return LoginBaseScreen(
+    return LoginBaseWidget(
       widgetList: [
         Text(
           '앱 네임',
@@ -28,33 +21,39 @@ class LoginPage extends StatelessWidget {
         ),
         Text(
           '소중한 사람, 확인해보세요',
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(height: 42),
         CommonInput(
+          controller: controller.emailInput,
+          validation: (value) => {value},
           hintText: '이메일',
-          focusBorderColor: Theme.of(context).primaryColor,
+          inputType: TextInputType.emailAddress,
           needHideText: false,
         ),
         const SizedBox(height: 12),
         CommonInput(
+          controller: controller.passwordInput,
+          validation: (value) => {value},
           hintText: '비밀번호',
-          focusBorderColor: Theme.of(context).primaryColor,
+          inputType: TextInputType.text,
           needHideText: true,
         ),
         const SizedBox(height: 42),
         CommonButton(
-          buttonColor: Theme.of(context).primaryColor,
+          buttonColor: primaryColor,
           textColor: Colors.white,
           buttonText: '로그인',
-          onPressed: () => login(),
+          onPressed: () => controller.login(),
+          enabled: true,
         ),
         const SizedBox(height: 12),
         CommonButton(
           buttonColor: Colors.white,
-          textColor: Theme.of(context).primaryColor,
+          textColor: primaryColor,
           buttonText: '회원가입',
-          onPressed: () => toSignUp(),
+          onPressed: () => controller.toSignUp(),
+          enabled: true,
         ),
       ],
     );

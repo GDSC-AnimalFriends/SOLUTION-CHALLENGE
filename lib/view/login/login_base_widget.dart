@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class LoginBaseScreen extends StatelessWidget {
+class LoginBaseWidget extends StatelessWidget {
   final List<Widget> widgetList;
-  const LoginBaseScreen({
+  const LoginBaseWidget({
     super.key,
     required this.widgetList,
   });
@@ -10,11 +10,11 @@ class LoginBaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
           width: double.infinity,
-          height: double.infinity,
           color: Colors.white,
           child: SingleChildScrollView(
             child: Column(
