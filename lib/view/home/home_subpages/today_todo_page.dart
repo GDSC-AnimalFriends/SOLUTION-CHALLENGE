@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+List todos = [];
+List done = [];
+
 class TodayTodoPage extends StatefulWidget {
   const TodayTodoPage({super.key});
 
@@ -8,16 +11,9 @@ class TodayTodoPage extends StatefulWidget {
 }
 
 class _TodayTodoPageState extends State<TodayTodoPage> {
-  List todos = [];
-  List done = [];
-
   @override
   void initState() {
     super.initState();
-    todos.add("Item1");
-    todos.add("Item2");
-    todos.add("Item3");
-    todos.add("Item4");
   }
 
   @override
@@ -37,7 +33,7 @@ class _TodayTodoPageState extends State<TodayTodoPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: todoListView(todos, done, selectTappedItem),
+            child: todoListView(todos, done, checkToDone),
           ),
           Align(
             alignment: Alignment.topLeft,
@@ -51,7 +47,7 @@ class _TodayTodoPageState extends State<TodayTodoPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: todoListView(done, todos, selectTappedItem),
+            child: doneListView(done, todos, checkToNotDone),
           ),
         ],
       ),
@@ -86,7 +82,41 @@ class _TodayTodoPageState extends State<TodayTodoPage> {
               color: Color.fromARGB(255, 112, 125, 241),
               size: 50.0,
             ),
-            onTap: () => onTap(index, subList),
+            onTap: () => onTap(index),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget doneListView(mainList, subList, onTap) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: mainList.length,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: ListTile(
+            title: Text(
+              mainList[index],
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 210, 210, 210),
+                decoration: TextDecoration.lineThrough,
+              ),
+            ),
+            subtitle: Text(
+              mainList[index],
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+                color: Color.fromARGB(255, 210, 210, 210),
+                decoration: TextDecoration.lineThrough,
+              ),
+            ),
+            onTap: () => onTap(index),
           ),
         );
       },
@@ -104,5 +134,15 @@ class _TodayTodoPageState extends State<TodayTodoPage> {
     );
   }
 
-  void selectTappedItem(int index, subList) {}
+  void checkToDone(int index) {
+    setState(() {
+      done.add(todos.removeAt(index));
+    });
+  }
+
+  void checkToNotDone(int index) {
+    setState(() {
+      todos.add(done.removeAt(index));
+    });
+  }
 }
