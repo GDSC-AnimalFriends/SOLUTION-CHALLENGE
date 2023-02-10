@@ -10,7 +10,7 @@ import 'login_base_widget.dart';
 //로그인 페이지
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return LoginBaseWidget(

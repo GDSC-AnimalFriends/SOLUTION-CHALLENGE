@@ -18,23 +18,27 @@ part './app_routes.dart';
 class AppPages {
   static final pages = [
     GetPage(
-        name: Routes.LOGIN,
-        page: () => const LoginPage(),
-        binding: LoginBinding()),
+      name: Routes.LOGIN,
+      page: () => const LoginPage(),
+      binding: LoginBinding(),
+    ),
     GetPage(
       name: Routes.REGISTER_TYPE,
       page: () => const RegisterTypePage(),
       binding: RegisterBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: Routes.REGISTER_NAME,
       page: () => const RegisterNamePage(),
       binding: RegisterBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: Routes.REGISTER_NUMBER,
       page: () => const RegisterNumberPage(),
       binding: RegisterBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: Routes.REGISTER_COMPLETE,
@@ -42,9 +46,10 @@ class AppPages {
       binding: RegisterBinding(),
     ),
     GetPage(
-        name: Routes.HOME,
-        page: () => const HomePage(),
-        binding: HomeBinding()),
+      name: Routes.HOME,
+      page: () => const HomePage(),
+      binding: HomeBinding(),
+    ),
     GetPage(
       name: Routes.MYPAGE,
       page: () => const MyPage(),

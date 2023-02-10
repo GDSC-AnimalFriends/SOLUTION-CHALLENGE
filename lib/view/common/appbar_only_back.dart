@@ -5,7 +5,6 @@ class AppBarOnlyBack extends StatelessWidget implements PreferredSizeWidget {
   const AppBarOnlyBack({super.key});
   void back() {
     Get.back();
-    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   @override

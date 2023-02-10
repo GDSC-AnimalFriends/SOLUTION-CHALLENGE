@@ -8,7 +8,7 @@ class LoginController extends GetxController {
   final passwordInput = TextEditingController();
 
   void login() {
-    Get.offNamed(Routes.HOME);
+    Get.toNamed(Routes.HOME);
   }
 
   void toSignUp() {
