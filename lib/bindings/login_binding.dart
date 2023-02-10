@@ -10,12 +10,3 @@ class LoginBinding implements Bindings {
     );
   }
 }
-
-class TodoBinding implements Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<TodoController>(() {
-      return TodoController();
-    });
-  }
-}
