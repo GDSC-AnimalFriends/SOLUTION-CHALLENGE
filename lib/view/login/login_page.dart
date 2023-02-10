@@ -10,7 +10,9 @@ import 'login_base.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  void login() {}
+  void login() {
+    Get.toNamed(Routes.MYPAGE);
+  }
 
   void toSignUp() {
     Get.toNamed(Routes.REGISTER_TYPE);

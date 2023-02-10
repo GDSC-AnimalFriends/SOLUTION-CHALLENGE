@@ -4,4 +4,6 @@ part of './app_pages.dart';
 abstract class Routes {
   static const LOGIN = '/login';
   static const REGISTER_TYPE = '/register_type';
+
+  static const MYPAGE = '/my_page';
 }
