@@ -17,13 +17,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.TODO, // ⭐ 테스트 하려고 잠시 바꾼 코드
+      initialRoute: Routes.LOGIN,
       getPages: AppPages.pages,
       theme: appThemeData,
       defaultTransition: Transition.fade, //전환 효과
     );
   }
 }
-
-
-

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:solution_challenge/bindings/home_binding.dart';
 import 'package:solution_challenge/bindings/login_binding.dart';
 import 'package:solution_challenge/bindings/register_binding.dart';
+import 'package:solution_challenge/bindings/todo_binding.dart';
 import 'package:solution_challenge/view/home/home_page.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
 import 'package:solution_challenge/view/todo/todo_page.dart';
@@ -49,10 +50,9 @@ class AppPages {
       page: () => const MyPage(),
     ),
     GetPage(
-        name: Routes.TODO,
-        page: () => const TodoPage(),
-        binding: TodoBinding()),
-    )
-
+      name: Routes.TODO,
+      page: () => const TodoPage(),
+      binding: TodoBinding(),
+    ),
   ];
 }
