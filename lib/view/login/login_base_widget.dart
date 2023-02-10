@@ -10,17 +10,20 @@ class LoginBaseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: white,
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
-          width: double.infinity,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widgetList,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: white,
+        body: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
+            width: double.infinity,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: widgetList,
+              ),
             ),
           ),
         ),

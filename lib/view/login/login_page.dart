@@ -39,7 +39,7 @@ class LoginPage extends GetView<LoginController> {
           inputType: TextInputType.text,
           needHideText: true,
         ),
-        const SizedBox(height: 42),
+        const SizedBox(height: 32),
         CommonButton(
           buttonColor: primaryColor,
           textColor: Colors.white,
