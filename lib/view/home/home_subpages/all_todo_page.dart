@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:solution_challenge/routes/app_pages.dart';
 import 'today_todo_page.dart';
 
 class AllTodoPage extends StatefulWidget {
@@ -26,7 +28,9 @@ class _AllTodoPageState extends State<AllTodoPage> {
             right: 5,
             child: FloatingActionButton.extended(
               backgroundColor: const Color.fromARGB(255, 112, 125, 241),
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.TODO);
+              },
               label: const Text('할 일 추가'),
               icon: const Icon(Icons.edit),
             ),
