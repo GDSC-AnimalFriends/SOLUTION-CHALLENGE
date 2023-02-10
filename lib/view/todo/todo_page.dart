@@ -11,7 +11,7 @@ class TodoPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 80,
+        toolbarHeight: 70,
         backgroundColor: Colors.white,
         elevation: 0, // 앱 바 아래 그림자
         title: Text(
@@ -25,22 +25,98 @@ class TodoPage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: '할 일을 입력하세요',
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: '할 일을 입력하세요',
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 80,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
                 ),
               ),
-              Text(
-                "투두페이지",
-                style: inputHintStyle,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('날짜 선택'),
+                ],
               ),
-            ],
-          ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 80,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('반복 선택'),
+                ],
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 80,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('누구의 할일 선택'),
+                ],
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 80,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                  bottom: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('알림 토글'),
+                ],
+              ),
+            ),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: '할 일 설명을 입력하세요',
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
