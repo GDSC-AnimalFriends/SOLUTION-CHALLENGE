@@ -1,10 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:solution_challenge/view/theme/app_text_theme.dart';
 
-class TodoPage extends StatelessWidget {
+class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
+
+  @override
+  State<TodoPage> createState() => _TodoPageState();
+}
+
+class _TodoPageState extends State<TodoPage> {
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,7 @@ class TodoPage extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: null,
+          onPressed: (null),
         ),
       ),
       body: SafeArea(
@@ -45,9 +53,22 @@ class TodoPage extends StatelessWidget {
                 ),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('날짜 선택'),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(width: 14),
+                          Text('날짜 선택'),
+                        ],
+                      )
+                    ],
+                  ),
+                  datePickButton(
+                    selectedDate: selectedDate,
+                  ),
                 ],
               ),
             ),
@@ -81,9 +102,15 @@ class TodoPage extends StatelessWidget {
                 ),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('누구의 할일 선택'),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 14),
+                      Text('누구의 할일: '),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -105,7 +132,18 @@ class TodoPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('알림 토글'),
+                  SizedBox(width: 14),
+                  Text(
+                    '알림',
+                    style: TextStyle(
+                      fontSize: 22,
+                    ),
+                  ), /*
+                  ToggleButtons(children: <Widget>[
+                    Icon(Icons.bluetooth),
+                    Icon(Icons.wifi),
+                    Icon(Icons.flash_on),
+                  ], isSelected: _isSelected) */
                 ],
               ),
             ),
@@ -115,10 +153,70 @@ class TodoPage extends StatelessWidget {
                   labelText: '할 일 설명을 입력하세요',
                 ),
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                width: double.infinity,
+                height: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color(0xff707DF1),
+                ),
+                child: Center(
+                  child: Text(
+                    "완료하기",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class datePickButton extends StatefulWidget {
+  const datePickButton({super.key, required selectedDate});
+
+  @override
+  State<datePickButton> createState() => _datePickButtonState();
+}
+
+class _datePickButtonState extends State<datePickButton> {
+  @override
+  Widget build(BuildContext context) {
+    DateTime selectedDate;
+    return IconButton(
+      onPressed: () {
+        showCupertinoDialog(
+          context: context,
+          barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
+          builder: (BuildContext context) {
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                color: Colors.white,
+                height: 300,
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.date,
+                  onDateTimeChanged: (DateTime date) {
+                    setState(() {
+                      selectedDate = date;
+                    });
+                  },
+                ),
+              ),
+            );
+          },
+        );
+      },
+      icon: Icon(Icons.arrow_forward_ios),
     );
   }
 }
