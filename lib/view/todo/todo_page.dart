@@ -7,6 +7,12 @@ import 'package:solution_challenge/view/theme/app_text_theme.dart';
 
 import '../theme/app_colors.dart';
 
+const List<Widget> state = <Widget>[
+  // 알림
+  Text('ON'),
+  Text('OFF'),
+];
+
 class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
 
@@ -16,7 +22,6 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   DateTime selectedDate = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +36,7 @@ class _TodoPageState extends State<TodoPage> {
             _AssignTodo(),
             _AlarmOnOff(),
             _PutTodoInfo(),
-            DoneButton(),
+            _DoneButton(),
           ],
         ),
       ),
@@ -40,10 +45,13 @@ class _TodoPageState extends State<TodoPage> {
 
   Expanded _PutTodoInfo() {
     return Expanded(
-      child: TextField(
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          labelText: '할 일 설명을 입력하세요',
+      child: Padding(
+        padding: EdgeInsets.only(left: 14),
+        child: TextField(
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              labelText: '할 일 설명을 입력하세요',
+              labelStyle: textfieldInfo),
         ),
       ),
     );
@@ -51,9 +59,11 @@ class _TodoPageState extends State<TodoPage> {
 
   Container _AlarmOnOff() {
     return Container(
+      padding: EdgeInsets.all(14),
       width: double.infinity,
       height: 80,
       decoration: BoxDecoration(
+        // 위 아래 테두리
         border: Border(
           top: BorderSide(
             color: grey,
@@ -66,20 +76,10 @@ class _TodoPageState extends State<TodoPage> {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 14),
-          Text(
-            '알림',
-            style: TextStyle(
-              fontSize: 22,
-            ),
-          ), /*
-                ToggleButtons(children: <Widget>[
-                  Icon(Icons.bluetooth),
-                  Icon(Icons.wifi),
-                  Icon(Icons.flash_on),
-                ], isSelected: _isSelected) => isSelected 를 선언해야하는듯?*/
+          Row(children: [Text('알림', style: todoPageText)]),
+          ToggleButton()
         ],
       ),
     );
@@ -108,15 +108,35 @@ class _TodoPageState extends State<TodoPage> {
                   SizedBox(width: 14),
                   Text(
                     '누구의 할일: ',
-                    style: TextStyle(fontSize: 22),
+                    style: todoPageText,
                   ),
+                  Text('나', style: todoPageText) // ⭐ 선택하는 것에 따라 바뀌게
                 ],
               )
             ],
           ),
-          datePickButton(
-            selectedDate: selectedDate, // ⭐ DatePick 대신!! 구독자 배정하기
-          ),
+          IconButton(
+            onPressed: () {
+              showCupertinoDialog(
+                context: context,
+                barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
+                builder: (BuildContext context) {
+                  return Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                        color: Colors.white,
+                        width: double.infinity,
+                        height: 300,
+                        child: Text(
+                          '구현하기',
+                          style: todoPageText,
+                        )),
+                  );
+                },
+              );
+            },
+            icon: Icon(Icons.arrow_forward_ios),
+          )
         ],
       ),
     );
@@ -124,17 +144,15 @@ class _TodoPageState extends State<TodoPage> {
 
   Container _PutTodo() {
     return Container(
+      padding: EdgeInsets.all(14),
       width: double.infinity,
       height: 80,
       child: Center(
         child: TextField(
-          decoration: InputDecoration(
-              border: InputBorder.none, // ⭐ 위에만 border 넣는 방법 알아보기
-              labelText: '   할 일을 입력하세요',
-              labelStyle: TextStyle(fontSize: 22, color: grey)
-              /* ⭐ sizedBox를 Row로 같이 하면 에러가 나서 일단은 텍스트로 띄워줬음 */
-              ),
-        ),
+            decoration: InputDecoration(
+                border: InputBorder.none, // ⭐ 위에만 border 넣는 방법 알아보기
+                labelText: '할 일을 입력하세요',
+                labelStyle: textfieldInfo)),
       ),
     );
   }
@@ -160,16 +178,13 @@ class _TodoPageState extends State<TodoPage> {
               Row(
                 children: [
                   SizedBox(width: 14),
-                  Text(
-                    '(날짜선택)',
-                    style: TextStyle(fontSize: 22),
-                  ),
+                  Text('$selectedDate', style: todoPageText),
                 ],
               )
             ],
           ),
           datePickButton(
-            selectedDate: selectedDate,
+            selectedDate: selectedDate.day,
           ),
         ],
       ),
@@ -197,23 +212,40 @@ class _TodoPageState extends State<TodoPage> {
               Row(
                 children: [
                   SizedBox(width: 14),
-                  Text(
-                    '반복: ',
-                    style: TextStyle(fontSize: 22),
-                  ),
+                  Text('반복: ', style: todoPageText),
+                  Text('없음', style: todoPageText) // ⭐ 선택하는 것에 따라 바뀌게
                 ],
-              )
+              ),
             ],
           ),
-          datePickButton(
-            selectedDate: selectedDate, // ⭐ DatePick 대신!! 예, 아니오 선택 구현하기
-          ),
+          IconButton(
+            onPressed: () {
+              showCupertinoDialog(
+                context: context,
+                barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
+                builder: (BuildContext context) {
+                  return Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                        color: Colors.white,
+                        width: double.infinity,
+                        height: 300,
+                        child: Text(
+                          '구현하기',
+                          style: todoPageText,
+                        )),
+                  );
+                },
+              );
+            },
+            icon: Icon(Icons.arrow_forward_ios),
+          )
         ],
       ),
     );
   }
 
-  Padding DoneButton() {
+  Padding _DoneButton() {
     // ⭐ 버튼으로 구현하기
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -233,9 +265,16 @@ class _TodoPageState extends State<TodoPage> {
 
   AppBar _AppBar() {
     return AppBar(
+      bottom: PreferredSize(
+          // 앱바 하단 선
+          child: Container(
+            color: grey,
+            height: 1.0,
+          ),
+          preferredSize: const Size.fromHeight(1.0)),
       toolbarHeight: 70,
+      elevation: 0.0,
       backgroundColor: Colors.white,
-      elevation: 0, // 앱 바 아래 그림자
       title: Text(
         '할 일 추가하기',
         style: TextStyle(color: black, fontSize: 22),
@@ -289,6 +328,39 @@ class _datePickButtonState extends State<datePickButton> {
         );
       },
       icon: Icon(Icons.arrow_forward_ios),
+    );
+  }
+}
+
+class ToggleButton extends StatefulWidget {
+  // ⭐ 토글 버튼 수정해야됨
+  const ToggleButton({super.key});
+
+  @override
+  State<ToggleButton> createState() => _ToggleButtonState();
+}
+
+class _ToggleButtonState extends State<ToggleButton> {
+  final List<bool> _isSelected = <bool>[false, true];
+  bool vertical = false;
+  @override
+  Widget build(BuildContext context) {
+    return ToggleButtons(
+      direction: vertical ? Axis.vertical : Axis.horizontal,
+      onPressed: (int index) {
+        setState(() {
+          for (int i = 0; i < _isSelected.length; i++) {
+            _isSelected[i] = i == index;
+          }
+        });
+      },
+      borderRadius: const BorderRadius.all(Radius.circular(100)),
+      selectedBorderColor: Colors.blue[700],
+      selectedColor: Colors.white,
+      fillColor: primaryColor,
+      color: primaryColor,
+      isSelected: _isSelected,
+      children: state,
     );
   }
 }

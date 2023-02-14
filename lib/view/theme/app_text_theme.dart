@@ -7,3 +7,9 @@ const TextStyle inputHintStyle =
 
 const TextStyle doneButtonStyle =
     TextStyle(color: white, fontSize: 24, fontWeight: FontWeight.w400);
+
+const TextStyle textfieldInfo =
+    TextStyle(fontSize: 22, color: grey, fontWeight: FontWeight.w400);
+
+const TextStyle todoPageText =
+    TextStyle(fontSize: 22, color: black, fontWeight: FontWeight.w400);
