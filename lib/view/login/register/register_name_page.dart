@@ -28,21 +28,17 @@ class RegisterNamePage extends GetView<RegisterController> {
           inputType: TextInputType.name,
           needHideText: false,
         ),
-        const Spacer(),
-        Obx(
-          () {
-            return CommonButton(
-              buttonColor: primaryColor,
-              textColor: Colors.white,
-              buttonText: '다음',
-              onPressed: () =>
-                  controller.registerPageChange(Routes.REGISTER_NUMBER),
-              enabled: controller.nameEnabled.value,
-            );
-          },
-        ),
       ],
+      bottomSheet: Obx(
+        () => CommonButton(
+          buttonColor: primaryColor,
+          textColor: Colors.white,
+          buttonText: '다음',
+          onPressed: () =>
+              controller.registerPageChange(Routes.REGISTER_NUMBER),
+          enabled: controller.nameEnabled.value,
+        ),
+      ),
     );
-    ;
   }
 }

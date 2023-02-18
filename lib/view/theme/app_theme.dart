@@ -18,6 +18,7 @@ final ThemeData appThemeData = ThemeData(
   appBarTheme: const AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: white,
+      statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light,
     ),
   ),

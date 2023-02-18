@@ -39,15 +39,14 @@ class RegisterTypePage extends GetView<RegisterController> {
             ),
           ],
         ),
-        const Spacer(),
-        CommonButton(
-          buttonColor: primaryColor,
-          textColor: Colors.white,
-          buttonText: '다음',
-          onPressed: () => controller.registerPageChange(Routes.REGISTER_NAME),
-          enabled: true,
-        ),
       ],
+      bottomSheet: CommonButton(
+        buttonColor: primaryColor,
+        textColor: Colors.white,
+        buttonText: '다음',
+        onPressed: () => controller.registerPageChange(Routes.REGISTER_NAME),
+        enabled: true,
+      ),
     );
   }
 }
