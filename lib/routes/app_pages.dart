@@ -41,8 +41,9 @@ class AppPages {
     GetPage(
         name: Routes.HOME,
         page: () => const HomePage(),
-        binding: HomeBinding()),
-            GetPage(
+        binding: HomeBinding()
+    ),
+    GetPage(
       name: Routes.MYPAGE,
       page: () => const MyPage(),
     ),
