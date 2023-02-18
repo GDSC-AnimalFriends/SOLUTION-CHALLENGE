@@ -20,7 +20,9 @@ class RegisterBaseWidget extends StatelessWidget {
       child: Scaffold(
         backgroundColor: white,
         resizeToAvoidBottomInset: resizeBottom,
-        appBar: const AppBarOnlyBack(),
+        appBar: const AppBarOnlyBack(
+          appBarTitle: "",
+        ),
         body: SafeArea(
           child: Stack(
             children: [

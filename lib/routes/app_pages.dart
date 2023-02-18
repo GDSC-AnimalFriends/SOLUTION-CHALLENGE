@@ -44,6 +44,7 @@ class AppPages {
       name: Routes.REGISTER_COMPLETE,
       page: () => const RegisterCompletePage(),
       binding: RegisterBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: Routes.HOME,

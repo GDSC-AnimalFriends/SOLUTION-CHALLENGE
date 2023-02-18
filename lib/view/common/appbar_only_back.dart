@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppBarOnlyBack extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarOnlyBack({super.key});
+  final String appBarTitle;
+  const AppBarOnlyBack({
+    super.key,
+    required this.appBarTitle,
+  });
   void back() {
     Get.back();
   }
@@ -10,6 +14,10 @@ class AppBarOnlyBack extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      title: Text(
+        appBarTitle,
+        style: Theme.of(context).textTheme.headline3,
+      ),
       leading: IconButton(
         onPressed: back,
         icon: const Icon(
@@ -17,7 +25,7 @@ class AppBarOnlyBack extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.black,
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       bottomOpacity: 0.0,
       elevation: 0.0,
     );
