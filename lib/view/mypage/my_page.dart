@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/view/mypage/manage_my_account/my_account_page.dart';
+import 'package:solution_challenge/view/mypage/manage_subscribe/subscriber_page.dart';
 
 
 class MyPage extends StatelessWidget {
@@ -69,7 +70,7 @@ class MyPage extends StatelessWidget {
                 ),
               ),
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => Get.to(const SubscriberManage()),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
