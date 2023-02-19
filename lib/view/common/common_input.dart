@@ -34,6 +34,7 @@ class CommonInput extends StatelessWidget {
       ),
       keyboardType: inputType,
       obscureText: needHideText,
+      autofocus: false,
     );
   }
 }

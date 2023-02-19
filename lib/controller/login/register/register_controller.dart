@@ -69,6 +69,7 @@ class RegisterController extends GetxController {
   // 화면 이동
   void registerPageChange(String route) {
     Get.toNamed(route);
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   // 회원가입 완료

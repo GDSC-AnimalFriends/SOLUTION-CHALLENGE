@@ -28,19 +28,17 @@ class RegisterNumberPage extends GetView<RegisterController> {
           inputType: TextInputType.phone,
           needHideText: false,
         ),
-        const Spacer(),
-        Obx(
-          () => CommonButton(
-            buttonColor: primaryColor,
-            textColor: Colors.white,
-            buttonText: '다음',
-            onPressed: () =>
-                controller.registerPageChange(Routes.REGISTER_COMPLETE),
-            enabled: controller.phoneEnabled.value,
-          ),
-        )
       ],
+      bottomSheet: Obx(
+        () => CommonButton(
+          buttonColor: primaryColor,
+          textColor: Colors.white,
+          buttonText: '다음',
+          onPressed: () =>
+              controller.registerPageChange(Routes.REGISTER_COMPLETE),
+          enabled: controller.phoneEnabled.value,
+        ),
+      ),
     );
-    ;
   }
 }

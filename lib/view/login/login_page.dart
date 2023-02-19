@@ -10,7 +10,7 @@ import 'login_base_widget.dart';
 //로그인 페이지
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return LoginBaseWidget(
@@ -39,7 +39,7 @@ class LoginPage extends GetView<LoginController> {
           inputType: TextInputType.text,
           needHideText: true,
         ),
-        const SizedBox(height: 42),
+        const SizedBox(height: 32),
         CommonButton(
           buttonColor: primaryColor,
           textColor: Colors.white,

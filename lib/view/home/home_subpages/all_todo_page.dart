@@ -1,58 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:solution_challenge/routes/app_pages.dart';
+import 'today_todo_page.dart';
 
-List todos = ["test1", "test2", "test3", "test4", "test5"];
-List done = [];
-
-class TodayTodoPage extends StatefulWidget {
-  const TodayTodoPage({super.key});
+class AllTodoPage extends StatefulWidget {
+  const AllTodoPage({super.key});
 
   @override
-  State<TodayTodoPage> createState() => _TodayTodoPageState();
+  State<AllTodoPage> createState() => _AllTodoPageState();
 }
 
-class _TodayTodoPageState extends State<TodayTodoPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _AllTodoPageState extends State<AllTodoPage> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 16.0,
-                ),
-                child: categoryText("남았어요"),
-              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              todoListView(todos, done, checkToDone),
+              doneListView(done, todos, checkToNotDone),
+            ],
+          ),
+          Positioned(
+            bottom: 20,
+            right: 5,
+            child: FloatingActionButton.extended(
+              backgroundColor: const Color.fromARGB(255, 112, 125, 241),
+              onPressed: () {
+                Get.toNamed(Routes.TODO);
+              },
+              label: const Text('할 일 추가'),
+              icon: const Icon(Icons.edit),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: todoListView(todos, done, checkToDone),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 16.0,
-                ),
-                child: categoryText("끝났어요"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: doneListView(done, todos, checkToNotDone),
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

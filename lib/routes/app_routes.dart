@@ -8,5 +8,6 @@ abstract class Routes {
   static const REGISTER_NUMBER = '/register_number';
   static const REGISTER_COMPLETE = '/register_complete';
   static const HOME = '/home';
-   static const MYPAGE = '/my_page';
+  static const MYPAGE = '/my_page';
+  static const TODO = '/todo';
 }
