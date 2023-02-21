@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/view/theme/app_text_theme.dart';
 
-import '../common/appbar_only_back.dart';
+import '../common/appbar_with_bottom_line.dart';
 import '../common/button_widget.dart';
 import '../theme/app_colors.dart';
 
@@ -33,9 +31,7 @@ class _TodoPageState extends State<TodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBarOnlyBack(
-        appBarTitle: '할일 추가하기',
-      ),
+      appBar: AppBarWithBottomLine(appBarTitle: '할일 추가하기'),
       body: SafeArea(
         child: Column(
           children: [
@@ -75,11 +71,11 @@ class _TodoPageState extends State<TodoPage> {
         // 위 아래 테두리
         border: Border(
           top: BorderSide(
-            color: grey,
+            color: TodoBorder,
             width: 1,
           ),
           bottom: BorderSide(
-            color: grey,
+            color: TodoBorder,
             width: 1,
           ),
         ),
@@ -101,7 +97,7 @@ class _TodoPageState extends State<TodoPage> {
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: grey,
+            color: TodoBorder,
             width: 1,
           ),
         ),
@@ -158,10 +154,11 @@ class _TodoPageState extends State<TodoPage> {
       height: 80,
       child: Center(
         child: TextField(
-            decoration: InputDecoration(
-                border: InputBorder.none, // ⭐ 위에만 border 넣는 방법 알아보기
-                labelText: '할 일을 입력하세요',
-                labelStyle: textfieldInfo)),
+          decoration: InputDecoration(
+              border: InputBorder.none, // ⭐ 위에만 border 넣는 방법 알아보기
+              labelText: '할 일을 입력하세요',
+              labelStyle: textfieldInfo),
+        ),
       ),
     );
   }
@@ -173,7 +170,7 @@ class _TodoPageState extends State<TodoPage> {
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: grey,
+            color: TodoBorder,
             width: 1,
           ),
         ),
@@ -221,7 +218,7 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   Padding _DoneButton() {
-    // ⭐ 버튼으로 구현하기
+    // ⭐ common Button 사용하기!
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(
@@ -289,7 +286,7 @@ class _DatePickState extends State<DatePick> {
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: grey,
+            color: TodoBorder,
             width: 1,
           ),
         ),
