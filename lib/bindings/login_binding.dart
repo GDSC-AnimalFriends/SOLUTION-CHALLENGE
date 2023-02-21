@@ -5,17 +5,8 @@ import 'package:solution_challenge/controller/login/login_controller.dart';
 class LoginBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LoginController>(() {
-      return LoginController();
-    });
-  }
-}
-
-class TodoBinding implements Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<TodoController>(() {
-      return TodoController();
-    });
+    Get.lazyPut<LoginController>(
+      () => LoginController(),
+    );
   }
 }
