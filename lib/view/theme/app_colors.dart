@@ -5,3 +5,5 @@ const Color primaryColor = Color(0xff707DF1);
 const Color black = Colors.black;
 const Color white = Colors.white;
 const Color buttonDisabled = Colors.grey;
+const Color grey = Color(0xffAAAAAA);
+const Color TodoBorder = Color(0xffE5E5E5);
