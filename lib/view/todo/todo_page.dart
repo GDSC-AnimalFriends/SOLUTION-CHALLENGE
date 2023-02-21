@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/view/theme/app_text_theme.dart';
 
+import '../common/appbar_only_back.dart';
+import '../common/button_widget.dart';
 import '../theme/app_colors.dart';
 
 const List<Widget> state = <Widget>[
@@ -31,7 +33,9 @@ class _TodoPageState extends State<TodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _AppBar(),
+      appBar: AppBarOnlyBack(
+        appBarTitle: '할일 추가하기',
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -231,75 +235,6 @@ class _TodoPageState extends State<TodoPage> {
           child: Text("완료하기", style: doneButtonStyle),
         ),
       ),
-    );
-  }
-
-  AppBar _AppBar() {
-    return AppBar(
-      bottom: PreferredSize(
-          // 앱바 하단 선
-          child: Container(
-            color: grey,
-            height: 1.0,
-          ),
-          preferredSize: const Size.fromHeight(1.0)),
-      toolbarHeight: 70,
-      elevation: 0.0,
-      backgroundColor: Colors.white,
-      title: Text(
-        '할 일 추가하기',
-        style: TextStyle(color: black, fontSize: 22),
-      ),
-      centerTitle: true,
-      leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back,
-          color: black,
-        ),
-        onPressed: () {}, // ⭐ 뒤로가기 버튼 누르면 뒤로가도록 구현
-      ),
-    );
-  }
-}
-
-class datePickButton extends StatefulWidget {
-  // ⭐ 선택한 날짜가 화면에 나타나도록 구현하기
-  const datePickButton({super.key, required selectedDate});
-
-  @override
-  State<datePickButton> createState() => _datePickButtonState();
-}
-
-class _datePickButtonState extends State<datePickButton> {
-  @override
-  Widget build(BuildContext context) {
-    DateTime selectedDate;
-    return IconButton(
-      onPressed: () {
-        showCupertinoDialog(
-          context: context,
-          barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
-          builder: (BuildContext context) {
-            return Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                color: Colors.white,
-                height: 300,
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  onDateTimeChanged: (DateTime date) {
-                    print(date);
-                    setState(() {
-                      selectedDate = date;
-                    });
-                  },
-                ),
-              ),
-            );
-          },
-        );
-      },
-      icon: Icon(Icons.arrow_forward_ios),
     );
   }
 }
