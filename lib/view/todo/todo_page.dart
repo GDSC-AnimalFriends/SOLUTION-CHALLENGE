@@ -13,6 +13,12 @@ const List<Widget> state = <Widget>[
   Text('OFF'),
 ];
 
+const List<Widget> dayOfTheWeek = <Widget>[
+  Text('월'),
+  Text('화'),
+  Text('수'),
+];
+
 class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
 
@@ -21,7 +27,6 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +36,7 @@ class _TodoPageState extends State<TodoPage> {
         child: Column(
           children: [
             _PutTodo(),
-            _DatePick(),
+            DatePick(),
             _Repeat(),
             _AssignTodo(),
             _AlarmOnOff(),
@@ -153,40 +158,6 @@ class _TodoPageState extends State<TodoPage> {
                 border: InputBorder.none, // ⭐ 위에만 border 넣는 방법 알아보기
                 labelText: '할 일을 입력하세요',
                 labelStyle: textfieldInfo)),
-      ),
-    );
-  }
-
-  Container _DatePick() {
-    return Container(
-      width: double.infinity,
-      height: 80,
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: grey,
-            width: 1,
-          ),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  SizedBox(width: 14),
-                  Text('$selectedDate', style: todoPageText),
-                ],
-              )
-            ],
-          ),
-          datePickButton(
-            selectedDate: selectedDate.day,
-          ),
-        ],
       ),
     );
   }
@@ -317,6 +288,7 @@ class _datePickButtonState extends State<datePickButton> {
                 child: CupertinoDatePicker(
                   mode: CupertinoDatePickerMode.date,
                   onDateTimeChanged: (DateTime date) {
+                    print(date);
                     setState(() {
                       selectedDate = date;
                     });
@@ -362,5 +334,66 @@ class _ToggleButtonState extends State<ToggleButton> {
       isSelected: _isSelected,
       children: state,
     );
+  }
+}
+
+class DatePick extends StatefulWidget {
+  const DatePick({super.key});
+
+  @override
+  State<DatePick> createState() => _DatePickState();
+}
+
+class _DatePickState extends State<DatePick> {
+  DateTime selectedDate = DateTime.now();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 80,
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: grey,
+            width: 1,
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  SizedBox(width: 14),
+                  Text(
+                      '${selectedDate.year}.${selectedDate.month}.${selectedDate.day}',
+                      style: todoPageText),
+                ],
+              )
+            ],
+          ),
+          datePickButton(
+            selectedDate: selectedDate,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RepeatPickButton extends StatefulWidget {
+  const RepeatPickButton({super.key});
+
+  @override
+  State<RepeatPickButton> createState() => _RepeatPickButtonState();
+}
+
+class _RepeatPickButtonState extends State<RepeatPickButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
