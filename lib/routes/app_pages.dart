@@ -5,6 +5,7 @@ import 'package:solution_challenge/bindings/register_binding.dart';
 import 'package:solution_challenge/bindings/todo_binding.dart';
 import 'package:solution_challenge/view/home/home_page.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
+import 'package:solution_challenge/view/todo/new_todo_page.dart';
 import 'package:solution_challenge/view/todo/todo_page.dart';
 import 'package:solution_challenge/view/login/register/register_complete_page.dart';
 import 'package:solution_challenge/view/login/register/register_name_page.dart';
@@ -58,6 +59,11 @@ class AppPages {
     GetPage(
       name: Routes.TODO,
       page: () => const TodoPage(),
+      binding: TodoBinding(),
+    ),
+    GetPage(
+      name: Routes.NEWTODO,
+      page: () => const NewTodoPage(),
       binding: TodoBinding(),
     ),
   ];

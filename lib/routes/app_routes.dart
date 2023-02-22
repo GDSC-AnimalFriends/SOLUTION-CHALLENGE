@@ -10,4 +10,5 @@ abstract class Routes {
   static const HOME = '/home';
   static const MYPAGE = '/my_page';
   static const TODO = '/todo';
+  static const NEWTODO = '/new_todo';
 }
