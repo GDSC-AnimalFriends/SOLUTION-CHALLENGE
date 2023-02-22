@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'today_todo_page.dart';
+import '../../../controller/home/list_controller.dart';
 
-class AllTodoPage extends StatefulWidget {
-  const AllTodoPage({super.key});
+class AllTodoPage extends StatelessWidget {
+  AllTodoPage({super.key});
+  final ListController listController = Get.put(ListController());
 
-  @override
-  State<AllTodoPage> createState() => _AllTodoPageState();
-}
-
-class _AllTodoPageState extends State<AllTodoPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,8 +16,8 @@ class _AllTodoPageState extends State<AllTodoPage> {
         children: [
           Column(
             children: [
-              todoListView(todos, done, checkToDone),
-              doneListView(done, todos, checkToNotDone),
+              todoListView(),
+              doneListView(),
             ],
           ),
           Positioned(
@@ -40,72 +37,82 @@ class _AllTodoPageState extends State<AllTodoPage> {
     );
   }
 
-  Widget todoListView(mainList, subList, onTap) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: mainList.length,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: ListTile(
-            title: Text(
-              mainList[index],
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+  Widget todoListView() {
+    return Obx(
+      () => ListView.builder(
+        shrinkWrap: true,
+        itemCount: listController.todos.length,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: ListTile(
+              title: Text(
+                listController.todos[index],
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            subtitle: Text(
-              mainList[index],
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
+              subtitle: Text(
+                listController.todos[index],
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
+              trailing: const Icon(
+                Icons.circle_outlined,
+                color: Color.fromARGB(255, 112, 125, 241),
+                size: 50.0,
+              ),
+              onTap: () {
+                listController.checkToDone(index);
+                listController.update();
+              },
             ),
-            trailing: const Icon(
-              Icons.circle_outlined,
-              color: Color.fromARGB(255, 112, 125, 241),
-              size: 50.0,
-            ),
-            onTap: () => onTap(index),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
-  Widget doneListView(mainList, subList, onTap) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: mainList.length,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: ListTile(
-            title: Text(
-              mainList[index],
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 210, 210, 210),
-                decoration: TextDecoration.lineThrough,
+  Widget doneListView() {
+    return Obx(
+      () => ListView.builder(
+        shrinkWrap: true,
+        itemCount: listController.done.length,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: ListTile(
+              title: Text(
+                listController.done[index],
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 210, 210, 210),
+                  decoration: TextDecoration.lineThrough,
+                ),
               ),
-            ),
-            subtitle: Text(
-              mainList[index],
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-                color: Color.fromARGB(255, 210, 210, 210),
-                decoration: TextDecoration.lineThrough,
+              subtitle: Text(
+                listController.done[index],
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Color.fromARGB(255, 210, 210, 210),
+                  decoration: TextDecoration.lineThrough,
+                ),
               ),
+              onTap: () {
+                listController.checkToTodos(index);
+                listController.update();
+              },
             ),
-            onTap: () => onTap(index),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -118,17 +125,5 @@ class _AllTodoPageState extends State<AllTodoPage> {
         fontSize: 20,
       ),
     );
-  }
-
-  void checkToDone(int index) {
-    setState(() {
-      done.add(todos.removeAt(index));
-    });
-  }
-
-  void checkToNotDone(int index) {
-    setState(() {
-      todos.add(done.removeAt(index));
-    });
   }
 }
