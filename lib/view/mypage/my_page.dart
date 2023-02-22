@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/view/mypage/info_care_apply/info_care_apply_page.dart';
 import 'package:solution_challenge/view/mypage/manage_my_account/my_account_page.dart';
 import 'package:solution_challenge/view/mypage/manage_subscribe/subscriber_page.dart';
+import 'package:solution_challenge/view/mypage/setting_app/setting_page.dart';
 
 
 class MyPage extends StatelessWidget {
@@ -15,14 +17,14 @@ class MyPage extends StatelessWidget {
           children: <Widget>[
             Container(
               child: Row(
-                children: [
+                children:[
                   Container(
                     height: 90,
                     width: 90,
                     margin: EdgeInsets.fromLTRB(17, 50, 0, 0),
                     decoration: BoxDecoration(
                       color: Color(0xFF707DF1),
-                      borderRadius: BorderRadius.circular(80),
+                      shape: BoxShape.circle,
                     ),
                   ),
                   Container(
@@ -47,7 +49,8 @@ class MyPage extends StatelessWidget {
                 ),
               ),
               child: TextButton(
-                  onPressed: () =>Get.to(const MyAccountManage()),
+                  //onPressed: ()=> Get.toNamed(Routes.MYACCOUNT_MANAGE),
+                  onPressed: ()=> Get.to(const MyAccountManage()),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -94,7 +97,7 @@ class MyPage extends StatelessWidget {
                 ),
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () => Get.to(const InfoCareApply()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -118,7 +121,7 @@ class MyPage extends StatelessWidget {
                 ),
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () => Get.to(const SettingPage()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
