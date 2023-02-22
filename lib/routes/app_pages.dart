@@ -84,6 +84,10 @@ class AppPages {
       page: () => const SettingPage(),
       binding: MyPageBinding(),
     ),
-
+    GetPage(
+      name: Routes.NEWTODO,
+      page: () => const NewTodoPage(),
+      binding: TodoBinding(),
+    ),
   ];
 }

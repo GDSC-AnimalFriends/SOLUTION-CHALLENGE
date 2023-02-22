@@ -3,15 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/view/theme/app_text_theme.dart';
 
+import '../../controller/todo/todo_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
-import '../common/button_widget.dart';
 import '../theme/app_colors.dart';
-
-const List<Widget> state = <Widget>[
-  // 알림
-  Text('ON'),
-  Text('OFF'),
-];
+import 'todo_alram_toggle_button.dart';
 
 const List<Widget> dayOfTheWeek = <Widget>[
   Text('월'),
@@ -84,7 +79,7 @@ class _TodoPageState extends State<TodoPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [Text('알림', style: todoPageText)]),
-          ToggleButton()
+          AlramToggleButton(),
         ],
       ),
     );
@@ -236,39 +231,6 @@ class _TodoPageState extends State<TodoPage> {
   }
 }
 
-class ToggleButton extends StatefulWidget {
-  // ⭐ 토글 버튼 수정해야됨
-  const ToggleButton({super.key});
-
-  @override
-  State<ToggleButton> createState() => _ToggleButtonState();
-}
-
-class _ToggleButtonState extends State<ToggleButton> {
-  final List<bool> _isSelected = <bool>[false, true];
-  bool vertical = false;
-  @override
-  Widget build(BuildContext context) {
-    return ToggleButtons(
-      direction: vertical ? Axis.vertical : Axis.horizontal,
-      onPressed: (int index) {
-        setState(() {
-          for (int i = 0; i < _isSelected.length; i++) {
-            _isSelected[i] = i == index;
-          }
-        });
-      },
-      borderRadius: const BorderRadius.all(Radius.circular(100)),
-      selectedBorderColor: Colors.blue[700],
-      selectedColor: Colors.white,
-      fillColor: primaryColor,
-      color: primaryColor,
-      isSelected: _isSelected,
-      children: state,
-    );
-  }
-}
-
 class DatePick extends StatefulWidget {
   const DatePick({super.key});
 
@@ -312,6 +274,47 @@ class _DatePickState extends State<DatePick> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class datePickButton extends StatefulWidget {
+  // ⭐ 선택한 날짜가 화면에 나타나도록 구현 수정하기
+  const datePickButton({super.key, required selectedDate});
+
+  @override
+  State<datePickButton> createState() => _datePickButtonState();
+}
+
+class _datePickButtonState extends State<datePickButton> {
+  @override
+  Widget build(BuildContext context) {
+    DateTime selectedDate;
+    return IconButton(
+      onPressed: () {
+        showCupertinoDialog(
+          context: context,
+          barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
+          builder: (BuildContext context) {
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                color: Colors.white,
+                height: 300,
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.date,
+                  onDateTimeChanged: (DateTime date) {
+                    setState(() {
+                      selectedDate = date;
+                    });
+                  },
+                ),
+              ),
+            );
+          },
+        );
+      },
+      icon: Icon(Icons.arrow_forward_ios),
     );
   }
 }
