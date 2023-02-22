@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/controller/my_page/my_page_controller.dart';
+import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/view/mypage/info_care_apply/info_care_apply_page.dart';
-import 'package:solution_challenge/view/mypage/manage_my_account/my_account_page.dart';
 import 'package:solution_challenge/view/mypage/manage_subscribe/subscriber_page.dart';
 import 'package:solution_challenge/view/mypage/setting_app/setting_page.dart';
 
 
-class MyPage extends StatelessWidget {
+class MyPage extends GetView<MyPageController> {
   const MyPage({super.key});
 
   @override
@@ -49,8 +50,7 @@ class MyPage extends StatelessWidget {
                 ),
               ),
               child: TextButton(
-                  //onPressed: ()=> Get.toNamed(Routes.MYACCOUNT_MANAGE),
-                  onPressed: ()=> Get.to(const MyAccountManage()),
+                  onPressed: ()=> Get.toNamed(Routes.MYACCOUNT_MANAGE),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
