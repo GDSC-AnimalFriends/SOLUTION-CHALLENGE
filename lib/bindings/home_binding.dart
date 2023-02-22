@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:solution_challenge/bindings/mypage_binding.dart';
 import 'package:solution_challenge/controller/home/home_controller.dart';
 
 class HomeBinding implements Bindings {
@@ -7,5 +8,6 @@ class HomeBinding implements Bindings {
     Get.lazyPut<HomeController>(() {
       return HomeController();
     });
+    MyPageBinding().dependencies();
   }
 }
