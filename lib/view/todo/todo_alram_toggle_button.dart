@@ -11,7 +11,6 @@ const List<Widget> state = <Widget>[
 ];
 
 class AlramToggleButton extends StatefulWidget {
-  // ⭐ 토글 버튼 수정해야됨
   const AlramToggleButton({super.key});
 
   @override
@@ -34,10 +33,10 @@ class _AlramToggleButtonState extends State<AlramToggleButton> {
                   }
                   if (_isSelected[0] == true) {
                     controller.AlramEnabled = true.obs;
-                    print(controller.AlramEnabled);
+                    print('알람 상태: ${controller.AlramEnabled}');
                   } else {
                     controller.AlramEnabled = false.obs;
-                    print(controller.AlramEnabled);
+                    print('알람 상태: ${controller.AlramEnabled}');
                   }
                 });
               },

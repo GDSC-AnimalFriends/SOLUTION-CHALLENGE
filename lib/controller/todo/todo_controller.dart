@@ -9,14 +9,8 @@ class TodoController extends GetxController {
   Rx<DateTime> TodoDate = DateTime.now().obs;
 
   RxBool RepeatEnabled = false.obs; // 반복
-  void ChangeRepeatEnabled(RepeatEnabled) {
-    RepeatEnabled!;
-  }
 
   RxBool AlramEnabled = false.obs; // 알람
-  void ChangeAlramEnabled(AlramEnabled) {
-    AlramEnabled!;
-  }
 }
 
 // ❓ 사용자 배정은 타입을 어떻게 해야할까

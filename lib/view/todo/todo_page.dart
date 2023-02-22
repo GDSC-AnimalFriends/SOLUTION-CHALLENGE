@@ -6,13 +6,7 @@ import 'package:solution_challenge/view/theme/app_text_theme.dart';
 import '../../controller/todo/todo_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
 import '../theme/app_colors.dart';
-import 'new_new_toggle_button.dart';
-
-const List<Widget> state = <Widget>[
-  // 알림
-  Text('ON'),
-  Text('OFF'),
-];
+import 'todo_alram_toggle_button.dart';
 
 const List<Widget> dayOfTheWeek = <Widget>[
   Text('월'),
