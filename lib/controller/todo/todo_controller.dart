@@ -6,26 +6,22 @@ class TodoController extends GetxController {
 
   final todoInfoInput = TextEditingController(); // 투두 설명
 
-  Rx<DateTime> selectedDate = DateTime.now().obs; // 투두 날짜
-  Rx<DateTime> TodoDate = DateTime.now().obs;
+  Rx<DateTime> todoDate = DateTime.now().obs; // 투두 날짜
 
   RxBool RepeatEnabled = false.obs; // 반복
 
   void RepeatEnableChange() {
     RepeatEnabled.value = !RepeatEnabled.value;
-    print('반복 상태: ${RepeatEnabled.value}');
   }
 
   RxBool AlramEnabled = false.obs; // 알람
 
   void AlramEnable() {
     AlramEnabled.value = true;
-    print('알람 상태: ${AlramEnabled.value}');
   }
 
   void AlramDisable() {
     AlramEnabled.value = false;
-    print('알람 상태: ${AlramEnabled.value}');
   }
 
   void back() {
