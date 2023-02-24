@@ -10,6 +10,7 @@ abstract class Routes {
   static const HOME = '/home';
   static const MYPAGE = '/my_page';
   static const TODO = '/todo';
+  static const NEWTODO = '/new_todo';
   static const MYACCOUNT_MANAGE = '/manage_my_account';
   static const SUBSCRIBER_MANAGE = '/manage_subscribe';
   static const INFO_CARE_APPLY = '/info_care_apply';
