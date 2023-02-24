@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
-
-import '../theme/app_text_theme.dart';
 
 class TodoInput extends StatelessWidget {
   final TextEditingController controller;
@@ -33,7 +30,7 @@ class TodoInput extends StatelessWidget {
         border: enableBottomBorder
             ? Border(
                 bottom: BorderSide(
-                  color: TodoBorder,
+                  color: todoBorder,
                   width: 1,
                 ),
               )
