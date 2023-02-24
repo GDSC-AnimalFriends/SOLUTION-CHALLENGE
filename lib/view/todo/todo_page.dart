@@ -26,7 +26,7 @@ class TodoPage extends GetView<TodoController> {
             _TodoInput(),
             _DatePick(context),
             _Repeat(context),
-            _AssignTodo(context),
+            _AssignUser(context),
             _Alram(),
             _TodoInfoInput(),
             _DoneButton(),
@@ -130,17 +130,31 @@ class TodoPage extends GetView<TodoController> {
                   return Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                        padding: EdgeInsets.all(14),
-                        color: Colors.white,
-                        width: double.infinity,
-                        height: 400,
-                        child: Text(
-                          '반복 선택하기',
-                          style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.black,
-                              backgroundColor: null),
-                        )),
+                      padding: EdgeInsets.all(14),
+                      color: Colors.white,
+                      width: double.infinity,
+                      height: 400,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(
+                            () => _TypeButton(
+                              typeName: "반복",
+                              selected: controller.RepeatEnabled.value,
+                              onPressed: () => controller.RepeatEnable(),
+                            ),
+                          ),
+                          SizedBox(width: 14),
+                          Obx(
+                            () => _TypeButton(
+                              typeName: "미반복",
+                              selected: !controller.RepeatEnabled.value,
+                              onPressed: () => controller.RepeatDisable(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
               );
@@ -152,7 +166,7 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Container _AssignTodo(BuildContext context) {
+  Container _AssignUser(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -257,6 +271,42 @@ class TodoPage extends GetView<TodoController> {
             controller.back();
           },
           enabled: true),
+    );
+  }
+}
+
+class _TypeButton extends StatelessWidget {
+  final String typeName;
+  final bool selected;
+  final GestureTapCallback onPressed;
+  const _TypeButton(
+      {required this.typeName,
+      required this.selected,
+      required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      flex: 1,
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          height: 170,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: selected ? primaryColor : Colors.grey[100],
+          ),
+          child: Center(
+            child: Text(
+              typeName,
+              style: selected
+                  ? const TextStyle(
+                      fontSize: 32, fontWeight: FontWeight.w500, color: white)
+                  : Theme.of(context).textTheme.headline2,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
