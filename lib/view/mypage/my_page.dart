@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/my_page/my_page_controller.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
-import 'package:solution_challenge/view/mypage/info_care_apply/info_care_apply_page.dart';
-import 'package:solution_challenge/view/mypage/manage_subscribe/subscriber_page.dart';
-import 'package:solution_challenge/view/mypage/setting_app/setting_page.dart';
 
 
 class MyPage extends GetView<MyPageController> {
@@ -73,7 +70,7 @@ class MyPage extends GetView<MyPageController> {
                 ),
               ),
               child: TextButton(
-                  onPressed: () => Get.to(const SubscriberManage()),
+                  onPressed: () => Get.toNamed(Routes.SUBSCRIBER_MANAGE),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -97,7 +94,7 @@ class MyPage extends GetView<MyPageController> {
                 ),
               ),
               child: TextButton(
-                onPressed: () => Get.to(const InfoCareApply()),
+                onPressed: () => Get.toNamed(Routes.INFO_CARE_APPLY),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -121,7 +118,7 @@ class MyPage extends GetView<MyPageController> {
                 ),
               ),
               child: TextButton(
-                onPressed: () => Get.to(const SettingPage()),
+                onPressed: () => Get.toNamed(Routes.SETTING),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
