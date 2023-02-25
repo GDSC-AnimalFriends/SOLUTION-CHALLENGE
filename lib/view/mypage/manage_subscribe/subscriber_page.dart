@@ -18,7 +18,9 @@ class SubscriberManage extends GetView<SubscriberManageController> {
         appBar: AppBarOnlyBack(
           appBarTitle: '구독 관리',
         ),
-        body: subscriberListView(),
+        body:
+          subscriberListView(),
+
       ),
     );
   }
@@ -71,50 +73,30 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                 () => FlutterToggleTab(
                   width: 50,
                 borderRadius: 15,
-                selectedIndex: controller.tabTextIndexSelected.value,
                 selectedBackgroundColors: const [primaryColor, lightPrimaryColor],
                 selectedTextStyle: const TextStyle(color: Colors.white),
-                unSelectedTextStyle: const TextStyle(),
+                unSelectedTextStyle: const TextStyle(color: Colors.black),
                 labels: controller.listTextTabToggle,
-                selectedLabelIndex: (index) => controller.toggle(index),
-                isScroll: false,
+                selectedLabelIndex: (buttonIndex) { //buttonIndex가 togglebutton(0,1) 중 index
+                  controller.subscriberButtonIndex[index].value = buttonIndex;
+                },
+                  selectedIndex: controller.subscriberButtonIndex[index].value,
+                isScroll: true,
                 ),
                 ),
                 Obx(
-                () => Text(
-                "Index selected : ${controller.tabTextIndexSelected.value}",
+                () => Text("Index selected : ${controller.subscriberButtonIndex[index].value}",),
                 ),
-
-
-                // ToggleButtons(
-                //     children: [
-                //       Text('허용'),
-                //       Text('거부'),
-                //     ],
-                //     selectedColor: Colors.white,
-                //     borderRadius: BorderRadius.circular(4.0),
-                //     constraints: BoxConstraints(minWidth: 100.0, minHeight: 40.0),
-                //     isSelected: controller.selections,
-                //     fillColor: Colors.purpleAccent,
-                //     onPressed: (index){
-                //       setState((){
-                //         for(int i =0; i < controller.selections.length; i++){
-                //           controller.selections[i] = i == index;
-                //         }
-                //       });
-                //     },
-                //
-                //
-                //
-                // )
-
-                )],
+                SizedBox(height: 16.0),
+                Text('Selected button index: ${index}',),
+              ],
             ),
           );
         }
     );
   }
 }
+
 
 // class SubscriberManage extends StatefulWidget {
 //   const SubscriberManage({super.key});
