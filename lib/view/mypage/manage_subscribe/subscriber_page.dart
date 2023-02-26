@@ -17,6 +17,10 @@ class SubscriberManage extends GetView<SubscriberManageController> {
           appBarTitle: '구독 관리',
         ),
         body: subscriberListView(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){},
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }
