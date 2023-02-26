@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
 import 'package:solution_challenge/bindings/home_binding.dart';
 import 'package:solution_challenge/bindings/login_binding.dart';
+import 'package:solution_challenge/bindings/mypage_binding.dart';
 import 'package:solution_challenge/bindings/register_binding.dart';
 import 'package:solution_challenge/bindings/todo_binding.dart';
 import 'package:solution_challenge/view/home/home_page.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
+import 'package:solution_challenge/view/mypage/info_care_apply/info_care_apply_page.dart';
+import 'package:solution_challenge/view/mypage/manage_my_account/my_account_page.dart';
+import 'package:solution_challenge/view/mypage/manage_subscribe/subscriber_page.dart';
+import 'package:solution_challenge/view/mypage/setting_app/setting_page.dart';
 import 'package:solution_challenge/view/todo/todo_page.dart';
 import 'package:solution_challenge/view/login/register/register_complete_page.dart';
 import 'package:solution_challenge/view/login/register/register_name_page.dart';
@@ -52,13 +57,34 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: Routes.MYPAGE,
-      page: () => const MyPage(),
-    ),
-    GetPage(
       name: Routes.TODO,
       page: () => const TodoPage(),
       binding: TodoBinding(),
+    ),
+    GetPage(
+      name: Routes.MYPAGE,
+      page: () => const MyPage(),
+      binding: MyPageBinding(),
+    ),
+    GetPage(
+      name: Routes.MYACCOUNT_MANAGE,
+      page: () => const MyAccountManage(),
+      binding: MyPageBinding(),
+    ),
+    GetPage(
+      name: Routes.SUBSCRIBER_MANAGE,
+      page: () => const SubscriberManage(),
+      binding: MyPageBinding(),
+    ),
+    GetPage(
+      name: Routes.INFO_CARE_APPLY,
+      page: () => const InfoCareApply(),
+      binding: MyPageBinding(),
+    ),
+    GetPage(
+      name: Routes.SETTING,
+      page: () => const SettingPage(),
+      binding: MyPageBinding(),
     ),
   ];
 }
