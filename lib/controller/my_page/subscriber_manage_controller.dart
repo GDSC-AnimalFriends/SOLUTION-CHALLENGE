@@ -2,26 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SubscriberManageController extends GetxController {
-  final List<String> subscribers = <String>['승우','여경','지수'];
-  final List<RxInt> subscriberButtonIndex = <RxInt>[0.obs,0.obs,0.obs];
+  final RxList<String> subscribers = <String>['승우', '여경', '지수'].obs;
+  final List<RxInt> subscriberButtonIndex = <RxInt>[0.obs, 0.obs, 0.obs];
   final listTextTabToggle = ["수정허용", "수정거부"];
 
-  List<Data> data = [
-    Data(
-      title: 'Tile 1',
-      description: 'Description for Tile 1',
-    ),
-    Data(
-      title: 'Tile 2',
-      description: 'Description for Tile 2',
-    ),
-    Data(
-      title: 'Tile 3',
-      description: 'Description for Tile 3',
-    ),
-  ];
 
-  void openDialog(index){
+  void openDialog(index) {
     Get.dialog(
       AlertDialog(
         title: Text('정말 ${subscribers[index]}님을 구독 취소하시겠습니까?'),
@@ -42,13 +28,6 @@ class SubscriberManageController extends GetxController {
       ),
     );
   }
-}
-
-class Data {
-  final String title;
-  final String description;
-
-  Data({required this.title, required this.description});
 }
 
 
