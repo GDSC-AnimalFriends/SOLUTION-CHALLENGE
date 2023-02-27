@@ -13,34 +13,41 @@ class MyPage extends GetView<MyPageController> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(
-              child: Row(
-                children:[
-                  Container(
-                    height: 90,
-                    width: 90,
-                    margin: EdgeInsets.fromLTRB(17, 50, 0, 0),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF707DF1),
-                      shape: BoxShape.circle,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 120,
+                child: Row(
+                  children:[
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+                        height: 90,
+                        width: 90,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF707DF1),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 90,
-                    width: 237,
-                    margin: EdgeInsets.fromLTRB(22, 50, 0, 0),
-                    decoration: BoxDecoration(
-                      color: Color(0x3D707DF1),
-                      borderRadius: BorderRadius.circular(12),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          color: Color(0x3D707DF1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Container(
               height: 80,
               width: 390,
-              margin: EdgeInsets.fromLTRB(0, 41, 0, 0),
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(color: Colors.grey),

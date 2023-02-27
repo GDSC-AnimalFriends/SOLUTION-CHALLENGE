@@ -26,7 +26,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
   }
 
   Widget subscriberListView() {
-    return ListView.builder(
+    return Obx(() => ListView.builder(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.all(10),
         itemCount: controller.subscribers.length,
@@ -96,7 +96,9 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                 ),
               ),
           );
-        });
+        }
+        )
+    );
   }
 }
 
