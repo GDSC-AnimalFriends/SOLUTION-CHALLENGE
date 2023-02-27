@@ -13,64 +13,56 @@ class MyPage extends GetView<MyPageController> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 120,
-                child: Row(
-                  children:[
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        height: 90,
-                        width: 90,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF707DF1),
-                          shape: BoxShape.circle,
-                        ),
+            Container(
+              height: 220,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 8.0),
+                    child: Container(
+                      height: 120,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF707DF1),
+                        shape: BoxShape.circle,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        decoration: BoxDecoration(
-                          color: Color(0x3D707DF1),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  TextButton(
+                      onPressed: () => Get.toNamed(Routes.MYACCOUNT_MANAGE),
+                      child: Text('프로필 사진 변경', style: TextStyle(fontSize: 22, color: Color(0xFF707DF1),))
+                  )
+                ],
               ),
             ),
             Container(
-              height: 80,
-              width: 390,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.grey),
-                ),
+              height: 50,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(13, 0, 13, 0),
+              child: Row(
+                children: [
+                  Text('계정 정보'),
+                  Spacer(),
+                  Text('sfdsfwerw@gmail.com')
+                ],
               ),
-              child: TextButton(
-                  onPressed: ()=> Get.toNamed(Routes.MYACCOUNT_MANAGE),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
-                        child: Text('자기 계정 관리', style: TextStyle(fontSize: 22, color: Colors.black),),
-                      ),
-                      Spacer(),
-                      Icon(Icons.arrow_forward_ios, size: 25, color: Colors.black,)
-                    ],
-                  )
+            ),
+            Container(
+              height: 60,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(13, 10, 13, 10),
+              child: Row(
+                children: [
+                  Text('이름'),
+                  Spacer(),
+                  Text('안승우'),
+                ],
               ),
             ),
             Container(
               height: 81,
-              width: 390,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(color: Colors.grey),
@@ -79,13 +71,9 @@ class MyPage extends GetView<MyPageController> {
               child: TextButton(
                   onPressed: () => Get.toNamed(Routes.SUBSCRIBER_MANAGE),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
-                        child: Text('구독 관리',
-                          style: TextStyle(fontSize: 22, color: Colors.black),),
-                      ),
+                      Text('구독 관리',
+                        style: TextStyle(fontSize: 22, color: Colors.black),),
                       Spacer(),
                       Icon(Icons.arrow_forward_ios, size: 25, color: Colors.black,)
                     ],
@@ -94,7 +82,8 @@ class MyPage extends GetView<MyPageController> {
             ),
             Container(
               height: 81,
-              width: 390,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(color: Colors.grey),
@@ -103,13 +92,9 @@ class MyPage extends GetView<MyPageController> {
               child: TextButton(
                 onPressed: () => Get.toNamed(Routes.INFO_CARE_APPLY),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
-                      child: Text('돌봄신청 안내',
-                        style: TextStyle(fontSize: 22, color: Colors.black),),
-                    ),
+                    Text('돌봄신청 안내',
+                      style: TextStyle(fontSize: 22, color: Colors.black),),
                     Spacer(),
                     Icon(Icons.arrow_forward_ios, size: 25, color: Colors.black,)
                   ],
@@ -118,7 +103,7 @@ class MyPage extends GetView<MyPageController> {
             ),
             Container(
               height: 81,
-              width: 390,
+              width: double.infinity,
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(color: Colors.grey),
@@ -127,7 +112,6 @@ class MyPage extends GetView<MyPageController> {
               child: TextButton(
                 onPressed: () => Get.toNamed(Routes.SETTING),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
                       margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
