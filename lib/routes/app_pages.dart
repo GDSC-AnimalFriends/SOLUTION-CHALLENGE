@@ -93,9 +93,9 @@ class AppPages {
       page: () => const SubscribeAddPage(),
       binding: MyPageBinding(),
     ),
-     GetPage(
-      name: Routes.Alarm,
-      page: () => const AlarmPage(),
+    GetPage(
+      name: Routes.ALARM,
+      page: () => AlarmPage(),
       binding: MyPageBinding(),
     ),
   ];
