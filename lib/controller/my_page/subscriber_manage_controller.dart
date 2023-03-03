@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/routes/app_pages.dart';
 
 class SubscriberManageController extends GetxController {
   final RxList<String> subscribers = <String>['승우', '여경', '지수'].obs;
   final List<RxInt> subscriberButtonIndex = <RxInt>[0.obs, 0.obs, 0.obs];
   final listTextTabToggle = ["수정허용", "수정거부"];
-
 
   void openDialog(index) {
     Get.dialog(
@@ -15,19 +15,17 @@ class SubscriberManageController extends GetxController {
         actions: [
           TextButton(
               onPressed: () => {
-                subscribers.removeAt(index),
-                Get.back(),
-              },
-              child: Text('네')
-          ),
-          TextButton(
-              onPressed: () => Get.back(),
-              child: Text('아니요')
-          )
+                    subscribers.removeAt(index),
+                    Get.back(),
+                  },
+              child: Text('네')),
+          TextButton(onPressed: () => Get.back(), child: Text('아니요'))
         ],
       ),
     );
   }
+
+  void toAddSubscirber() {
+    Get.toNamed(Routes.SUBSCRIBE_ADD);
+  }
 }
-
-
