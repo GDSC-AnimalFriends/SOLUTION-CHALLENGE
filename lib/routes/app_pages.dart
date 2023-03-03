@@ -89,7 +89,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.ALARM,
-      page: () => const AlarmPage(),
+      page: () => AlarmPage(),
       binding: MyPageBinding(),
     ),
   ];

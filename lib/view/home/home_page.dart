@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 TodayTodoPage(),
                 AllTodoPage(),
-                const AlarmPage(),
+                AlarmPage(),
                 const MyPage(),
               ],
             ),
