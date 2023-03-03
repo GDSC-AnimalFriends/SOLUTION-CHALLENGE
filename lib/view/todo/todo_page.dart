@@ -9,6 +9,7 @@ import 'package:solution_challenge/view/theme/app_colors.dart';
 import 'package:solution_challenge/view/todo/todo_alram_toggle_button.dart';
 import 'package:solution_challenge/view/todo/todo_input.dart';
 
+import '../../controller/home/list_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
 import '../theme/app_text_theme.dart';
 
@@ -17,6 +18,7 @@ class TodoPage extends GetView<TodoController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ListController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarWithBottomLine(appBarTitle: '할일 추가하기'),
@@ -268,7 +270,9 @@ class TodoPage extends GetView<TodoController> {
           textColor: white,
           buttonText: '완료하기',
           onPressed: () {
-            controller.back();
+            Get.find<ListController>().newonInit(controller.todoInfoInput.text);
+            Get.back();
+            print(Get.find<ListController>().todos);
           },
           enabled: true),
     );

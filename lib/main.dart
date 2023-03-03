@@ -17,7 +17,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.TODO,
+      initialRoute: Routes.HOME,
       getPages: AppPages.pages,
       theme: appThemeData,
       defaultTransition: Transition.fade, //전환 효과
