@@ -1,46 +1,34 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solution_challenge/view/theme/app_text_theme.dart';
+import 'package:solution_challenge/controller/todo/todo_controller.dart';
+import 'package:solution_challenge/view/common/common_button.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
+import 'package:solution_challenge/view/todo/todo_alram_toggle_button.dart';
+import 'package:solution_challenge/view/todo/todo_input.dart';
 
 import '../common/appbar_with_bottom_line.dart';
-import '../common/button_widget.dart';
-import '../theme/app_colors.dart';
+import '../theme/app_text_theme.dart';
 
-const List<Widget> state = <Widget>[
-  // 알림
-  Text('ON'),
-  Text('OFF'),
-];
-
-const List<Widget> dayOfTheWeek = <Widget>[
-  Text('월'),
-  Text('화'),
-  Text('수'),
-];
-
-class TodoPage extends StatefulWidget {
+class TodoPage extends GetView<TodoController> {
   const TodoPage({super.key});
 
-  @override
-  State<TodoPage> createState() => _TodoPageState();
-}
-
-class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarWithBottomLine(appBarTitle: '할일 추가하기'),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
-            _PutTodo(),
-            DatePick(),
-            _Repeat(),
-            _AssignTodo(),
-            _AlarmOnOff(),
-            _PutTodoInfo(),
+            _TodoInput(),
+            _DatePick(context),
+            _Repeat(context),
+            _AssignUser(context),
+            _Alram(),
+            _TodoInfoInput(),
             _DoneButton(),
           ],
         ),
@@ -48,129 +36,75 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
-  Expanded _PutTodoInfo() {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.only(left: 14),
-        child: TextField(
-          decoration: InputDecoration(
-              border: InputBorder.none,
-              labelText: '할 일 설명을 입력하세요',
-              labelStyle: textfieldInfo),
-        ),
-      ),
-    );
+  TodoInput _TodoInput() {
+    return TodoInput(
+        controller: controller.todoInput,
+        hintText: '할 일을 입력하세요',
+        inputType: TextInputType.text,
+        enableBottomBorder: true,
+        heightLimit: true,
+        maxLine: 1,
+        maxLength: 30);
   }
 
-  Container _AlarmOnOff() {
+  Container _DatePick(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
       height: 80,
       decoration: BoxDecoration(
-        // 위 아래 테두리
         border: Border(
-          top: BorderSide(
-            color: TodoBorder,
-            width: 1,
-          ),
-          bottom: BorderSide(
-            color: TodoBorder,
-            width: 1,
-          ),
+          bottom: BorderSide(color: todoBorder, width: 1),
         ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(children: [Text('알림', style: todoPageText)]),
-          ToggleButton()
-        ],
-      ),
-    );
-  }
-
-  Container _AssignTodo() {
-    return Container(
-      width: double.infinity,
-      height: 80,
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: TodoBorder,
-            width: 1,
-          ),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  SizedBox(width: 14),
-                  Text(
-                    '누구의 할일: ',
-                    style: todoPageText,
-                  ),
-                  Text('나', style: todoPageText) // ⭐ 선택하는 것에 따라 바뀌게
-                ],
-              )
-            ],
-          ),
+          Obx(() => Text(
+              '${controller.todoDate.value.year}. ${controller.todoDate.value.month}. ${controller.todoDate.value.day}')),
           IconButton(
             onPressed: () {
               showCupertinoDialog(
+                barrierLabel: '날짜 선택 다이얼로그',
                 context: context,
                 barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
                 builder: (BuildContext context) {
                   return Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                        color: Colors.white,
-                        width: double.infinity,
-                        height: 300,
-                        child: Text(
-                          '구현하기',
-                          style: todoPageText,
-                        )),
+                      color: Colors.white,
+                      height: 400,
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        minimumDate: DateTime.now(),
+                        onDateTimeChanged: (DateTime date) {
+                          controller.todoDate.value = date;
+                          print(
+                            '선택 날짜: ${controller.todoDate.value}',
+                          );
+                        },
+                      ),
+                    ),
                   );
                 },
               );
             },
             icon: Icon(Icons.arrow_forward_ios),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Container _PutTodo() {
+  Container _Repeat(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
       height: 80,
-      child: Center(
-        child: TextField(
-          decoration: InputDecoration(
-              border: InputBorder.none, // ⭐ 위에만 border 넣는 방법 알아보기
-              labelText: '할 일을 입력하세요',
-              labelStyle: textfieldInfo),
-        ),
-      ),
-    );
-  }
-
-  Container _Repeat() {
-    return Container(
-      width: double.infinity,
-      height: 80,
       decoration: BoxDecoration(
         border: Border(
-          top: BorderSide(
-            color: TodoBorder,
+          bottom: BorderSide(
+            color: todoBorder,
             width: 1,
           ),
         ),
@@ -178,115 +112,69 @@ class _TodoPageState extends State<TodoPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Row(
             children: [
-              Row(
-                children: [
-                  SizedBox(width: 14),
-                  Text('반복: ', style: todoPageText),
-                  Text('없음', style: todoPageText) // ⭐ 선택하는 것에 따라 바뀌게
-                ],
+              Text('반복 : '),
+              Obx(
+                () => controller.RepeatEnabled.value ? Text('있음') : Text('없음'),
               ),
             ],
           ),
           IconButton(
             onPressed: () {
               showCupertinoDialog(
+                barrierLabel: '반복 선택 다이얼로그',
                 context: context,
                 barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
                 builder: (BuildContext context) {
                   return Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                        color: Colors.white,
-                        width: double.infinity,
-                        height: 300,
-                        child: Text(
-                          '구현하기',
-                          style: todoPageText,
-                        )),
+                      padding: EdgeInsets.all(14),
+                      color: Colors.white,
+                      width: double.infinity,
+                      height: 400,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(
+                            () => _TypeButton(
+                              typeName: "반복",
+                              selected: controller.RepeatEnabled.value,
+                              onPressed: () => controller.RepeatEnable(),
+                            ),
+                          ),
+                          SizedBox(width: 14),
+                          Obx(
+                            () => _TypeButton(
+                              typeName: "미반복",
+                              selected: !controller.RepeatEnabled.value,
+                              onPressed: () => controller.RepeatDisable(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
               );
             },
             icon: Icon(Icons.arrow_forward_ios),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Padding _DoneButton() {
-    // ⭐ common Button 사용하기!
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Container(
-        width: double.infinity,
-        height: 70,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: primaryColor,
-        ),
-        child: Center(
-          child: Text("완료하기", style: doneButtonStyle),
-        ),
-      ),
-    );
-  }
-}
-
-class ToggleButton extends StatefulWidget {
-  // ⭐ 토글 버튼 수정해야됨
-  const ToggleButton({super.key});
-
-  @override
-  State<ToggleButton> createState() => _ToggleButtonState();
-}
-
-class _ToggleButtonState extends State<ToggleButton> {
-  final List<bool> _isSelected = <bool>[false, true];
-  bool vertical = false;
-  @override
-  Widget build(BuildContext context) {
-    return ToggleButtons(
-      direction: vertical ? Axis.vertical : Axis.horizontal,
-      onPressed: (int index) {
-        setState(() {
-          for (int i = 0; i < _isSelected.length; i++) {
-            _isSelected[i] = i == index;
-          }
-        });
-      },
-      borderRadius: const BorderRadius.all(Radius.circular(100)),
-      selectedBorderColor: Colors.blue[700],
-      selectedColor: Colors.white,
-      fillColor: primaryColor,
-      color: primaryColor,
-      isSelected: _isSelected,
-      children: state,
-    );
-  }
-}
-
-class DatePick extends StatefulWidget {
-  const DatePick({super.key});
-
-  @override
-  State<DatePick> createState() => _DatePickState();
-}
-
-class _DatePickState extends State<DatePick> {
-  DateTime selectedDate = DateTime.now();
-  @override
-  Widget build(BuildContext context) {
+  Container _AssignUser(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(14),
       width: double.infinity,
       height: 80,
       decoration: BoxDecoration(
         border: Border(
-          top: BorderSide(
-            color: TodoBorder,
+          bottom: BorderSide(
+            color: todoBorder,
             width: 1,
           ),
         ),
@@ -294,38 +182,131 @@ class _DatePickState extends State<DatePick> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Row(
             children: [
-              Row(
-                children: [
-                  SizedBox(width: 14),
-                  Text(
-                      '${selectedDate.year}.${selectedDate.month}.${selectedDate.day}',
-                      style: todoPageText),
-                ],
-              )
+              Text('누구의 할일 : '),
+              Obx(
+                () => controller.RepeatEnabled.value ? Text('있음') : Text('없음'),
+              ),
             ],
           ),
-          datePickButton(
-            selectedDate: selectedDate,
+          IconButton(
+            onPressed: () {
+              showCupertinoDialog(
+                barrierLabel: '할일 사용자 배정 다이얼로그',
+                context: context,
+                barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
+                builder: (BuildContext context) {
+                  return Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                        padding: EdgeInsets.all(14),
+                        color: Colors.white,
+                        width: double.infinity,
+                        height: 400,
+                        child: Text(
+                          '할일 배정하기',
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.black,
+                              backgroundColor: null),
+                        )),
+                  );
+                },
+              );
+            },
+            icon: Icon(Icons.arrow_forward_ios),
           ),
         ],
       ),
     );
   }
+
+  Container _Alram() {
+    return Container(
+      padding: EdgeInsets.all(14),
+      width: double.infinity,
+      height: 80,
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: todoBorder, width: 1),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Obx(() => Text('알림 : ${controller.AlramEnabled.value}')),
+            ],
+          ),
+          AlramToggleButton(),
+        ],
+      ),
+    );
+  }
+
+  Expanded _TodoInfoInput() {
+    return Expanded(
+      child: TodoInput(
+        controller: controller.todoInfoInput,
+        hintText: '할 일 설명을 입력하세요',
+        inputType: TextInputType.text,
+        enableBottomBorder: false,
+        heightLimit: false,
+        maxLine: 7,
+        maxLength: 100,
+      ),
+    );
+  }
+
+  Padding _DoneButton() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
+      child: CommonButton(
+          buttonColor: primaryColor,
+          textColor: white,
+          buttonText: '완료하기',
+          onPressed: () {
+            controller.back();
+          },
+          enabled: true),
+    );
+  }
 }
 
-class RepeatPickButton extends StatefulWidget {
-  const RepeatPickButton({super.key});
+class _TypeButton extends StatelessWidget {
+  final String typeName;
+  final bool selected;
+  final GestureTapCallback onPressed;
+  const _TypeButton(
+      {required this.typeName,
+      required this.selected,
+      required this.onPressed});
 
-  @override
-  State<RepeatPickButton> createState() => _RepeatPickButtonState();
-}
-
-class _RepeatPickButtonState extends State<RepeatPickButton> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Flexible(
+      flex: 1,
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          height: 170,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: selected ? primaryColor : Colors.grey[100],
+          ),
+          child: Center(
+            child: Text(
+              typeName,
+              style: selected
+                  ? const TextStyle(
+                      fontSize: 32, fontWeight: FontWeight.w500, color: white)
+                  : Theme.of(context).textTheme.headline2,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

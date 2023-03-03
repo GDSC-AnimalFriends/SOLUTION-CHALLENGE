@@ -3,14 +3,9 @@ import 'package:solution_challenge/view/home/home_subpages/today_todo_page.dart'
 import 'package:solution_challenge/view/home/home_subpages/all_todo_page.dart';
 import 'package:solution_challenge/view/mypage/my_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -50,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 )),
-            body: const TabBarView(
+            body: TabBarView(
               children: <Widget>[
                 TodayTodoPage(),
                 AllTodoPage(),
