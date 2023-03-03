@@ -10,8 +10,9 @@ class ListController extends GetxController {
     super.onInit();
   }
 
-  void newonInit(String s) {
-    todos.add(s);
+  void newonInit(String todo) {
+    // Todo 추가 페이지에서 사용하려고 지수가 새로 만들었어요.
+    todos.add(todo);
     super.onInit();
   }
 

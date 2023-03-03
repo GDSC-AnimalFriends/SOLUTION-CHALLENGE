@@ -270,7 +270,7 @@ class TodoPage extends GetView<TodoController> {
           textColor: white,
           buttonText: '완료하기',
           onPressed: () {
-            Get.find<ListController>().newonInit(controller.todoInfoInput.text);
+            Get.find<ListController>().newonInit(controller.todoInput.text);
             Get.back();
             print(Get.find<ListController>().todos);
           },
