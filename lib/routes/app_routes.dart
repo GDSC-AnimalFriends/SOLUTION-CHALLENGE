@@ -14,4 +14,6 @@ abstract class Routes {
   static const SUBSCRIBER_MANAGE = '/manage_subscribe';
   static const INFO_CARE_APPLY = '/info_care_apply';
   static const SETTING = '/setting_app';
+  static const ALARM = '/alarm';
+  static const SUBSCRIBE_ADD = "/subscribe_add";
 }
