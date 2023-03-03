@@ -10,6 +10,11 @@ class ListController extends GetxController {
     super.onInit();
   }
 
+  void newonInit(String s) {
+    todos.add(s);
+    super.onInit();
+  }
+
   void checkToDone(int index) {
     done.add(todos.removeAt(index));
     refresh();
