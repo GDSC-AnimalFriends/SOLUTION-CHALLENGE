@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solution_challenge/view/home/home_subpages/alarm_page.dart';
 import 'package:solution_challenge/view/home/home_subpages/today_todo_page.dart';
 import 'package:solution_challenge/view/home/home_subpages/all_todo_page.dart';
 import 'package:solution_challenge/view/mypage/my_page.dart';
@@ -49,8 +50,8 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 TodayTodoPage(),
                 AllTodoPage(),
-                TodayTodoPage(),
-                MyPage(),
+                const AlarmPage(),
+                const MyPage(),
               ],
             ),
           );
