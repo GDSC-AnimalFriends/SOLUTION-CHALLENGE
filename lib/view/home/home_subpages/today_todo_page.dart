@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/home/list_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../data/model/todo_model.dart';
 
 class TodayTodoPage extends StatelessWidget {
   TodayTodoPage({super.key});
   final ListController listController = Get.put(ListController());
+  final FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class TodayTodoPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: doneListView(),
             ),
+            testButton(),
           ],
         ),
       ),
@@ -135,5 +139,32 @@ class TodayTodoPage extends StatelessWidget {
         fontSize: 20,
       ),
     );
+  }
+
+  Widget testButton() {
+    return FloatingActionButton(onPressed: () async {
+      final todo = Todo(
+        date: DateTime(
+          2023,
+        ),
+        title: "도트 찍기",
+        repeat: [
+          {"월": true},
+        ],
+        user: "nhg1113@icloud.com",
+        creator: "NOGUEN",
+        alarm: true,
+        description: "고앵이 도트 찍기",
+        complete: false,
+      );
+      final docRef = db
+          .collection("todos")
+          .withConverter(
+            fromFirestore: Todo.fromFirestore,
+            toFirestore: (Todo todo, options) => todo.toFirestore(),
+          )
+          .doc("todotodo");
+      await docRef.set(todo);
+    });
   }
 }
