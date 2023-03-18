@@ -5,6 +5,7 @@ part 'todo_model.g.dart';
 @JsonSerializable()
 class TodoModel {
   TodoModel({
+    required this.todoid,
     required this.date,
     required this.title,
     required this.repeat,
@@ -15,6 +16,7 @@ class TodoModel {
     required this.complete,
   });
 
+  DateTime todoid;
   DateTime date;
   String title;
   List<Map<String, bool>> repeat;

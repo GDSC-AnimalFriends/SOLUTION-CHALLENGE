@@ -7,6 +7,7 @@ part of 'todo_model.dart';
 // **************************************************************************
 
 TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
+      todoid: DateTime.parse(json['todoid'] as String),
       date: DateTime.parse(json['date'] as String),
       title: json['title'] as String,
       repeat: (json['repeat'] as List<dynamic>)
@@ -20,6 +21,7 @@ TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
     );
 
 Map<String, dynamic> _$TodoModelToJson(TodoModel instance) => <String, dynamic>{
+      'todoid': instance.todoid.toIso8601String(),
       'date': instance.date.toIso8601String(),
       'title': instance.title,
       'repeat': instance.repeat,

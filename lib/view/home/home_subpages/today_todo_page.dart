@@ -145,10 +145,10 @@ class TodayTodoPage extends StatelessWidget {
 
   Widget testButton() {
     return FloatingActionButton(onPressed: () async {
-      DatabaseReference ref =
-          FirebaseDatabase.instance.ref("users/noguen/randomvalue");
+      DatabaseReference ref = FirebaseDatabase.instance.ref("users/");
 
       final todo = TodoModel(
+        todoid: DateTime.now(),
         date: DateTime(
           2023,
         ),
