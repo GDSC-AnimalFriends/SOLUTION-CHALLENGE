@@ -18,7 +18,7 @@ class RegisterNumberPage extends GetView<RegisterController> {
       widgetList: [
         Text(
           '휴대전화 번호를 알려주세요',
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         const SizedBox(height: 50),
         CommonInput(

@@ -17,11 +17,11 @@ class LoginPage extends GetView<LoginController> {
       widgetList: [
         Text(
           '앱 네임',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
         Text(
           '소중한 사람, 확인해보세요',
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
         const SizedBox(height: 42),
         CommonInput(

@@ -29,10 +29,11 @@ class _AlramToggleButtonState extends State<AlramToggleButton> {
                   for (int i = 0; i < _isSelected.length; i++) {
                     _isSelected[i] = i == index;
                   }
-                  if (_isSelected[0] == true)
-                    controller.AlramEnable();
-                  else
-                    controller.AlramDisable();
+                  if (_isSelected[0] == true) {
+                    controller.alramEnable();
+                  } else {
+                    controller.alramDisable();
+                  }
                 });
               },
               borderRadius: const BorderRadius.all(Radius.circular(100)),

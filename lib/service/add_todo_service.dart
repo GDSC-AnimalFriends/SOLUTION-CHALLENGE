@@ -5,12 +5,18 @@ class AddTodoService {
   DatabaseReference ref = FirebaseDatabase.instance.ref("users/");
 
   void addTodo({required TodoModel todo, required String username}) {
-    //등록할 todo와 어떤 username를 매개변수로 넘겨주면 데이터베이스에 해당 todo를 넣어줌.
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("users/$username/${todo.todoid.toString()}");
+    ref.set(todo.toJson());
   }
 
-  void deleteTodo({required String todouid, required String username}) {
-    //등록한 todo uid와 어떤 username를 매개변수로 넘겨주면 데이터베이스에 해당 todo를 제거함.
+  void deleteTodo({required String todoid, required String username}) {
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("users/$username/$todoid");
+    ref.remove();
   }
 
-  void updateTodo({required String todouid, required String username}) {}
+  void updateTodo({required String todouid, required TodoModel todo}) {
+    //등록한 todo uid를 수정함.
+  }
 }

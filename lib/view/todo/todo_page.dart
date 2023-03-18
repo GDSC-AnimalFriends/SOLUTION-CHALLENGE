@@ -11,7 +11,6 @@ import 'package:solution_challenge/view/todo/todo_input.dart';
 
 import '../../controller/home/list_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
-import '../theme/app_text_theme.dart';
 
 class TodoPage extends GetView<TodoController> {
   const TodoPage({super.key});
@@ -25,20 +24,20 @@ class TodoPage extends GetView<TodoController> {
       body: SafeArea(
         child: ListView(
           children: [
-            _TodoInput(),
-            _DatePick(context),
-            _Repeat(context),
-            _AssignUser(context),
-            _Alram(),
-            _TodoInfoInput(),
-            _DoneButton(),
+            _todoInput(),
+            _datePick(context),
+            _repeat(context),
+            _assignUser(context),
+            _alram(),
+            _todoInfoInput(),
+            _doneButton(),
           ],
         ),
       ),
     );
   }
 
-  TodoInput _TodoInput() {
+  TodoInput _todoInput() {
     return TodoInput(
         controller: controller.todoInput,
         hintText: '할 일을 입력하세요',
@@ -49,7 +48,7 @@ class TodoPage extends GetView<TodoController> {
         maxLength: 30);
   }
 
-  Container _DatePick(BuildContext context) {
+  Container _datePick(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -81,9 +80,6 @@ class TodoPage extends GetView<TodoController> {
                         minimumDate: DateTime.now(),
                         onDateTimeChanged: (DateTime date) {
                           controller.todoDate.value = date;
-                          print(
-                            '선택 날짜: ${controller.todoDate.value}',
-                          );
                         },
                       ),
                     ),
@@ -98,7 +94,7 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Container _Repeat(BuildContext context) {
+  Container _repeat(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -118,7 +114,7 @@ class TodoPage extends GetView<TodoController> {
             children: [
               Text('반복 : '),
               Obx(
-                () => controller.RepeatEnabled.value ? Text('있음') : Text('없음'),
+                () => controller.repeatEnabled.value ? Text('있음') : Text('없음'),
               ),
             ],
           ),
@@ -142,16 +138,16 @@ class TodoPage extends GetView<TodoController> {
                           Obx(
                             () => _TypeButton(
                               typeName: "반복",
-                              selected: controller.RepeatEnabled.value,
-                              onPressed: () => controller.RepeatEnable(),
+                              selected: controller.repeatEnabled.value,
+                              onPressed: () => controller.repeatEnable(),
                             ),
                           ),
                           SizedBox(width: 14),
                           Obx(
                             () => _TypeButton(
                               typeName: "미반복",
-                              selected: !controller.RepeatEnabled.value,
-                              onPressed: () => controller.RepeatDisable(),
+                              selected: !controller.repeatEnabled.value,
+                              onPressed: () => controller.repeatDisable(),
                             ),
                           ),
                         ],
@@ -168,7 +164,7 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Container _AssignUser(BuildContext context) {
+  Container _assignUser(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -188,7 +184,7 @@ class TodoPage extends GetView<TodoController> {
             children: [
               Text('누구의 할일 : '),
               Obx(
-                () => controller.RepeatEnabled.value ? Text('있음') : Text('없음'),
+                () => controller.repeatEnabled.value ? Text('있음') : Text('없음'),
               ),
             ],
           ),
@@ -224,7 +220,7 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Container _Alram() {
+  Container _alram() {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -239,7 +235,7 @@ class TodoPage extends GetView<TodoController> {
         children: [
           Row(
             children: [
-              Obx(() => Text('알림 : ${controller.AlramEnabled.value}')),
+              Obx(() => Text('알림 : ${controller.alramEnabled.value}')),
             ],
           ),
           AlramToggleButton(),
@@ -248,7 +244,7 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Expanded _TodoInfoInput() {
+  Expanded _todoInfoInput() {
     return Expanded(
       child: TodoInput(
         controller: controller.todoInfoInput,
@@ -262,7 +258,7 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Padding _DoneButton() {
+  Padding _doneButton() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
       child: CommonButton(
@@ -272,7 +268,6 @@ class TodoPage extends GetView<TodoController> {
           onPressed: () {
             Get.find<ListController>().newonInit(controller.todoInput.text);
             Get.back();
-            print(Get.find<ListController>().todos);
           },
           enabled: true),
     );
@@ -306,7 +301,7 @@ class _TypeButton extends StatelessWidget {
               style: selected
                   ? const TextStyle(
                       fontSize: 32, fontWeight: FontWeight.w500, color: white)
-                  : Theme.of(context).textTheme.headline2,
+                  : Theme.of(context).textTheme.displayMedium,
             ),
           ),
         ),

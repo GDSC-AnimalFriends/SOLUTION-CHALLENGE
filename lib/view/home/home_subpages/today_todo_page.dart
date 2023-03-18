@@ -9,7 +9,6 @@ class TodayTodoPage extends StatelessWidget {
   TodayTodoPage({super.key});
   final ListController listController = Get.put(ListController());
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  DatabaseReference ref = FirebaseDatabase.instance.ref();
 
   @override
   Widget build(BuildContext context) {

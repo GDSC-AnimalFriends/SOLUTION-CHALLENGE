@@ -29,7 +29,7 @@ class SubscribeAddPage extends GetView<SubscribeAddController> {
                   children: [
                     Text(
                       "이메일로 검색해보세요",
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context).textTheme.displaySmall,
                     ),
                     const SizedBox(height: 16),
                     CommonInput(
@@ -76,7 +76,7 @@ class _SearchResult extends GetView<SubscribeAddController> {
       children: [
         Text(
           "검색 결과",
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
         const SizedBox(height: 12),
         Container(
