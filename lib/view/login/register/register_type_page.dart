@@ -17,7 +17,7 @@ class RegisterTypePage extends GetView<RegisterController> {
       widgetList: [
         Text(
           '어떻게 오셨나요?',
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         const SizedBox(height: 50),
         Row(
@@ -78,7 +78,7 @@ class _TypeButton extends StatelessWidget {
               style: selected
                   ? const TextStyle(
                       fontSize: 32, fontWeight: FontWeight.w500, color: white)
-                  : Theme.of(context).textTheme.headline2,
+                  : Theme.of(context).textTheme.displayMedium,
             ),
           ),
         ),

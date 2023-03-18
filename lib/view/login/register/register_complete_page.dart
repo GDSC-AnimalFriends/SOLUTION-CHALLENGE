@@ -17,7 +17,7 @@ class RegisterCompletePage extends GetView<RegisterController> {
       widgetList: [
         Text(
           '거의 다 끝났어요',
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         const SizedBox(height: 50),
         CommonInput(

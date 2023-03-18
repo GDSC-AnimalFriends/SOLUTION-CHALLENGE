@@ -11,7 +11,7 @@ class InfoCareApply extends StatefulWidget {
 class _InfoCareApplyState extends State<InfoCareApply> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
         appBar: AppBarOnlyBack(
           appBarTitle: '돌봄신청 안내',

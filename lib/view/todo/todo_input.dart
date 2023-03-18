@@ -23,18 +23,18 @@ class TodoInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(14),
+      padding: const EdgeInsets.all(14),
       width: double.infinity,
       height: heightLimit ? 80 : null,
       decoration: BoxDecoration(
         border: enableBottomBorder
-            ? Border(
+            ? const Border(
                 bottom: BorderSide(
                   color: todoBorder,
                   width: 1,
                 ),
               )
-            : Border(),
+            : const Border(),
       ),
       child: Center(
         child: TextField(
@@ -44,7 +44,7 @@ class TodoInput extends StatelessWidget {
           decoration: InputDecoration(
             border: InputBorder.none, // TextField 자체의 하단 선 제거
             hintText: hintText,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               fontSize: 10,
             ),
           ),

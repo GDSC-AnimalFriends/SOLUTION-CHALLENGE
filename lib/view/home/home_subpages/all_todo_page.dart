@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
-import 'today_todo_page.dart';
 import '../../../controller/home/list_controller.dart';
 
 class AllTodoPage extends StatelessWidget {

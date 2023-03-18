@@ -9,7 +9,6 @@ class TodayTodoPage extends StatelessWidget {
   TodayTodoPage({super.key});
   final ListController listController = Get.put(ListController());
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  DatabaseReference ref = FirebaseDatabase.instance.ref();
 
   @override
   Widget build(BuildContext context) {
@@ -145,10 +144,10 @@ class TodayTodoPage extends StatelessWidget {
 
   Widget testButton() {
     return FloatingActionButton(onPressed: () async {
-      DatabaseReference ref =
-          FirebaseDatabase.instance.ref("users/noguen/randomvalue");
+      DatabaseReference ref = FirebaseDatabase.instance.ref("users/");
 
       final todo = TodoModel(
+        todoid: DateTime.now(),
         date: DateTime(
           2023,
         ),

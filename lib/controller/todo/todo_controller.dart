@@ -10,22 +10,22 @@ class TodoController extends GetxController {
 
   ///////////////// ▼ 반복 ▼
 
-  RxBool RepeatEnabled = false.obs; // 반복 여부
+  RxBool repeatEnabled = false.obs; // 반복 여부
 
-  void RepeatEnable() {
+  void repeatEnable() {
     // 반복 ON
-    RepeatEnabled.value = true;
+    repeatEnabled.value = true;
   }
 
-  void RepeatDisable() {
+  void repeatDisable() {
     // 반복 OFF
-    RepeatEnabled.value = false;
+    repeatEnabled.value = false;
   }
 
-  RxBool RepeatEveryWeek = false.obs; // 매주 반복
-  RxBool RepeatEveryDay = false.obs; // 매일 반복
+  RxBool repeatEveryWeek = false.obs; // 매주 반복
+  RxBool repeatEveryDay = false.obs; // 매일 반복
 
-  List<RxBool> WeekSelected = <RxBool>[
+  List<RxBool> weekSelected = <RxBool>[
     false.obs, // 월
     false.obs, // 화
     false.obs, // 수
@@ -37,16 +37,16 @@ class TodoController extends GetxController {
 
   ///////////////// ▼ 알람 ▼
 
-  RxBool AlramEnabled = false.obs; // 알람 여부
+  RxBool alramEnabled = false.obs; // 알람 여부
 
-  void AlramEnable() {
+  void alramEnable() {
     // 알람 ON
-    AlramEnabled.value = true;
+    alramEnabled.value = true;
   }
 
-  void AlramDisable() {
+  void alramDisable() {
     // 알람 OFF
-    AlramEnabled.value = false;
+    alramEnabled.value = false;
   }
   ///////////////// ▼ 뒤로가기 ▼
 
