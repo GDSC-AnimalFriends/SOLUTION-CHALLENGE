@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:solution_challenge/data/model/todo_model.dart';
 
-class AddTodoService {
+class TodoService {
   DatabaseReference ref = FirebaseDatabase.instance.ref("users/");
 
   void addTodo({required TodoModel todo, required String username}) {
