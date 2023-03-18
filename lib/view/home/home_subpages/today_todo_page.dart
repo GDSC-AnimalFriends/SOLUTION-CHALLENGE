@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/home/list_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import '../../../data/model/todo_model.dart';
 
 class TodayTodoPage extends StatelessWidget {
   TodayTodoPage({super.key});
   final ListController listController = Get.put(ListController());
   final FirebaseFirestore db = FirebaseFirestore.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref();
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +145,10 @@ class TodayTodoPage extends StatelessWidget {
 
   Widget testButton() {
     return FloatingActionButton(onPressed: () async {
-      final todo = Todo(
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref("users/noguen/randomvalue");
+
+      final todo = TodoModel(
         date: DateTime(
           2023,
         ),
@@ -157,14 +162,8 @@ class TodayTodoPage extends StatelessWidget {
         description: "고앵이 도트 찍기",
         complete: false,
       );
-      final docRef = db
-          .collection("todos")
-          .withConverter(
-            fromFirestore: Todo.fromFirestore,
-            toFirestore: (Todo todo, options) => todo.toFirestore(),
-          )
-          .doc("todotodo");
-      await docRef.set(todo);
+
+      ref.set(todo.toJson());
     });
   }
 }

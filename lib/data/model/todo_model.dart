@@ -1,53 +1,31 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class Todo {
-  final DateTime? date;
-  final String? title;
-  final List<Map<String, bool>>? repeat;
-  final String? user;
-  final String? creator;
-  final bool? alarm;
-  final String? description;
-  final bool? complete;
+part 'todo_model.g.dart';
 
-  Todo({
-    this.date,
-    this.title,
-    this.repeat,
-    this.user,
-    this.creator,
-    this.alarm,
-    this.description,
-    this.complete,
+@JsonSerializable()
+class TodoModel {
+  TodoModel({
+    required this.date,
+    required this.title,
+    required this.repeat,
+    required this.user,
+    required this.creator,
+    required this.alarm,
+    required this.description,
+    required this.complete,
   });
 
-  factory Todo.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  ) {
-    final data = snapshot.data();
-    return Todo(
-      date: data?['date'],
-      title: data?['title'],
-      repeat: data?['repeat'],
-      user: data?['user'],
-      creator: data?['creator'],
-      alarm: data?['alarm'],
-      description: data?['description'],
-      complete: data?['complete'],
-    );
-  }
+  DateTime date;
+  String title;
+  List<Map<String, bool>> repeat;
+  String user;
+  String creator;
+  bool alarm;
+  String description;
+  bool complete;
 
-  Map<String, dynamic> toFirestore() {
-    return {
-      if (date != null) "date": date,
-      if (title != null) "title": title,
-      if (repeat != null) "repeat": repeat,
-      if (user != null) "user": user,
-      if (creator != null) "creator": creator,
-      if (alarm != null) "alarm": alarm,
-      if (description != null) "description": description,
-      if (complete != complete) "alarm": complete,
-    };
-  }
+  factory TodoModel.fromJson(Map<String, dynamic> json) =>
+      _$TodoModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TodoModelToJson(this);
 }
