@@ -4,12 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/todo/todo_controller.dart';
+import 'package:solution_challenge/data/model/todo_model.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 import 'package:solution_challenge/view/todo/todo_alram_toggle_button.dart';
 import 'package:solution_challenge/view/todo/todo_input.dart';
 
-import '../../controller/home/list_controller.dart';
+import '../../controller/home/todo_list_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
 
 class TodoPage extends GetView<TodoController> {
@@ -17,7 +18,7 @@ class TodoPage extends GetView<TodoController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ListController());
+    Get.put(TodoListController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarWithBottomLine(appBarTitle: '할일 추가하기'),
@@ -259,6 +260,22 @@ class TodoPage extends GetView<TodoController> {
   }
 
   Padding _doneButton() {
+    TodoModel todo = TodoModel(
+      todoid: DateTime.now().toString().replaceAll('.', '_'),
+      date: DateTime(
+        2023,
+      ),
+      title: "도트 찍기",
+      repeat: [
+        {"월": true},
+      ],
+      user: "nhg1113@icloud.com",
+      creator: "NOGUEN",
+      alarm: true,
+      description: "고앵이 도트 찍기",
+      complete: false,
+    );
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
       child: CommonButton(
@@ -266,7 +283,7 @@ class TodoPage extends GetView<TodoController> {
           textColor: white,
           buttonText: '완료하기',
           onPressed: () {
-            Get.find<ListController>().newonInit(controller.todoInput.text);
+            Get.find<TodoListController>().addTodo(todo);
             Get.back();
           },
           enabled: true),
