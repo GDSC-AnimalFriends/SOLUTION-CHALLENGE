@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
-import '../../../controller/home/list_controller.dart';
+
+import '../../../controller/home/todo_list_controller.dart';
 
 class AllTodoPage extends StatelessWidget {
   AllTodoPage({super.key});
-  final ListController listController = Get.put(ListController());
+  final TodoListController todoListController = Get.put(TodoListController());
 
   @override
   Widget build(BuildContext context) {
@@ -40,21 +41,21 @@ class AllTodoPage extends StatelessWidget {
     return Obx(
       () => ListView.builder(
         shrinkWrap: true,
-        itemCount: listController.todos.length,
+        itemCount: todoListController.todos.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: ListTile(
               title: Text(
-                listController.todos[index],
+                todoListController.todos[index].title,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               subtitle: Text(
-                listController.todos[index],
+                todoListController.todos[index].description,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
@@ -66,8 +67,8 @@ class AllTodoPage extends StatelessWidget {
                 size: 50.0,
               ),
               onTap: () {
-                listController.checkToDone(index);
-                listController.update();
+                todoListController.checkToDone(index);
+                todoListController.update();
               },
             ),
           );
@@ -80,14 +81,14 @@ class AllTodoPage extends StatelessWidget {
     return Obx(
       () => ListView.builder(
         shrinkWrap: true,
-        itemCount: listController.done.length,
+        itemCount: todoListController.done.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: ListTile(
               title: Text(
-                listController.done[index],
+                todoListController.done[index].title,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -96,7 +97,7 @@ class AllTodoPage extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                listController.done[index],
+                todoListController.done[index].description,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
@@ -105,8 +106,8 @@ class AllTodoPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                listController.checkToTodos(index);
-                listController.update();
+                todoListController.checkToTodos(index);
+                todoListController.update();
               },
             ),
           );

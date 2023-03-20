@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solution_challenge/controller/home/list_controller.dart';
+import 'package:solution_challenge/controller/home/todo_list_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:solution_challenge/service/todo_service.dart';
 import '../../../data/model/todo_model.dart';
 
 class TodayTodoPage extends StatelessWidget {
   TodayTodoPage({super.key});
-  final ListController listController = Get.put(ListController());
+  final TodoListController todoListController = Get.put(TodoListController());
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
@@ -56,21 +57,21 @@ class TodayTodoPage extends StatelessWidget {
     return Obx(
       () => ListView.builder(
         shrinkWrap: true,
-        itemCount: listController.todos.length,
+        itemCount: todoListController.todos.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: ListTile(
               title: Text(
-                listController.todos[index],
+                todoListController.todos[index].title,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               subtitle: Text(
-                listController.todos[index],
+                todoListController.todos[index].description,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
@@ -82,8 +83,8 @@ class TodayTodoPage extends StatelessWidget {
                 size: 50.0,
               ),
               onTap: () {
-                listController.checkToDone(index);
-                listController.update();
+                todoListController.checkToDone(index);
+                todoListController.update();
               },
             ),
           );
@@ -96,14 +97,14 @@ class TodayTodoPage extends StatelessWidget {
     return Obx(
       () => ListView.builder(
         shrinkWrap: true,
-        itemCount: listController.done.length,
+        itemCount: todoListController.done.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: ListTile(
               title: Text(
-                listController.done[index],
+                todoListController.done[index].title,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -112,7 +113,7 @@ class TodayTodoPage extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                listController.done[index],
+                todoListController.done[index].title,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
@@ -121,8 +122,8 @@ class TodayTodoPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                listController.checkToTodos(index);
-                listController.update();
+                todoListController.checkToTodos(index);
+                todoListController.update();
               },
             ),
           );
@@ -143,11 +144,9 @@ class TodayTodoPage extends StatelessWidget {
   }
 
   Widget testButton() {
-    return FloatingActionButton(onPressed: () async {
-      DatabaseReference ref = FirebaseDatabase.instance.ref("users/");
-
-      final todo = TodoModel(
-        todoid: DateTime.now(),
+    return FloatingActionButton(onPressed: () {
+      TodoModel todo = TodoModel(
+        todoid: DateTime.now().toString().replaceAll('.', '_'),
         date: DateTime(
           2023,
         ),
@@ -161,8 +160,7 @@ class TodayTodoPage extends StatelessWidget {
         description: "고앵이 도트 찍기",
         complete: false,
       );
-
-      ref.set(todo.toJson());
+      TodoService().addTodo(todo: todo, username: "noguen");
     });
   }
 }

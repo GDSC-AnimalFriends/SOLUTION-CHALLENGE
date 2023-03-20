@@ -16,7 +16,7 @@ class TodoModel {
     required this.complete,
   });
 
-  DateTime todoid;
+  String todoid;
   DateTime date;
   String title;
   List<Map<String, bool>> repeat;
