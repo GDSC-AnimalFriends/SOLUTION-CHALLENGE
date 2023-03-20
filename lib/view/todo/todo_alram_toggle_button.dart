@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solution_challenge/controller/todo/todo_controller.dart';
 
+import '../../controller/home/todo_list_controller.dart';
 import '../theme/app_colors.dart';
 
 const List<Widget> onOffList = <Widget>[
@@ -21,8 +21,8 @@ class _AlramToggleButtonState extends State<AlramToggleButton> {
   final List<bool> _isSelected = <bool>[false, true];
   @override
   Widget build(BuildContext context) {
-    Get.put(TodoController());
-    return GetBuilder<TodoController>(
+    Get.put(TodoListController());
+    return GetBuilder<TodoListController>(
         builder: (controller) => ToggleButtons(
               onPressed: (int index) {
                 setState(() {
@@ -30,9 +30,9 @@ class _AlramToggleButtonState extends State<AlramToggleButton> {
                     _isSelected[i] = i == index;
                   }
                   if (_isSelected[0] == true) {
-                    controller.alramEnable();
+                    controller.alramCheck();
                   } else {
-                    controller.alramDisable();
+                    controller.alramCheck();
                   }
                 });
               },

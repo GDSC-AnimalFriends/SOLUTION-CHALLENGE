@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/home/todo_list_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:solution_challenge/service/todo_service.dart';
 import '../../../data/model/todo_model.dart';
 
@@ -147,10 +146,12 @@ class TodayTodoPage extends StatelessWidget {
     return FloatingActionButton(onPressed: () {
       TodoModel todo = TodoModel(
         todoid: DateTime.now().toString().replaceAll('.', '_'),
+        alarmDate: DateTime(2023),
         date: DateTime(
           2023,
         ),
         title: "도트 찍기",
+        repeatType: 1,
         repeat: [
           {"월": true},
         ],

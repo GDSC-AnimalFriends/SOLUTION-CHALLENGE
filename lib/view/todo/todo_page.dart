@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solution_challenge/controller/todo/todo_controller.dart';
 import 'package:solution_challenge/data/model/todo_model.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
@@ -13,7 +12,7 @@ import 'package:solution_challenge/view/todo/todo_input.dart';
 import '../../controller/home/todo_list_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
 
-class TodoPage extends GetView<TodoController> {
+class TodoPage extends GetView<TodoListController> {
   const TodoPage({super.key});
 
   @override
@@ -40,13 +39,14 @@ class TodoPage extends GetView<TodoController> {
 
   TodoInput _todoInput() {
     return TodoInput(
-        controller: controller.todoInput,
-        hintText: '할 일을 입력하세요',
-        inputType: TextInputType.text,
-        enableBottomBorder: true,
-        heightLimit: true,
-        maxLine: 1,
-        maxLength: 30);
+      controller: controller.todoInput,
+      hintText: '할 일을 입력하세요',
+      inputType: TextInputType.text,
+      enableBottomBorder: true,
+      heightLimit: true,
+      maxLine: 1,
+      maxLength: 30,
+    );
   }
 
   Container _datePick(BuildContext context) {
@@ -140,7 +140,7 @@ class TodoPage extends GetView<TodoController> {
                             () => _TypeButton(
                               typeName: "반복",
                               selected: controller.repeatEnabled.value,
-                              onPressed: () => controller.repeatEnable(),
+                              onPressed: () => controller.repeatCheck(),
                             ),
                           ),
                           SizedBox(width: 14),
@@ -148,7 +148,7 @@ class TodoPage extends GetView<TodoController> {
                             () => _TypeButton(
                               typeName: "미반복",
                               selected: !controller.repeatEnabled.value,
-                              onPressed: () => controller.repeatDisable(),
+                              onPressed: () => controller.repeatCheck(),
                             ),
                           ),
                         ],
@@ -248,7 +248,7 @@ class TodoPage extends GetView<TodoController> {
   Expanded _todoInfoInput() {
     return Expanded(
       child: TodoInput(
-        controller: controller.todoInfoInput,
+        controller: controller.todoDescriptionInput,
         hintText: '할 일 설명을 입력하세요',
         inputType: TextInputType.text,
         enableBottomBorder: false,
@@ -262,10 +262,14 @@ class TodoPage extends GetView<TodoController> {
   Padding _doneButton() {
     TodoModel todo = TodoModel(
       todoid: DateTime.now().toString().replaceAll('.', '_'),
+      alarmDate: DateTime(
+        2023,
+      ),
       date: DateTime(
         2023,
       ),
       title: "도트 찍기",
+      repeatType: 1,
       repeat: [
         {"월": true},
       ],
