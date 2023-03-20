@@ -14,8 +14,8 @@ class TodoListController extends GetxController {
   RxBool repeatEnabled = false.obs; // 반복 여부
   RxBool repeatEveryWeek = false.obs; // 매주 반복
   RxBool repeatEveryDay = false.obs; //매일 반복
+  RxBool complete = false.obs;
 
-  RxBool alramEnabled = false.obs;
   TodoModel todo = TodoModel(
     todoid: "",
     date: DateTime.now(),
@@ -62,7 +62,7 @@ class TodoListController extends GetxController {
   ];
 
   void alramCheck() {
-    alramEnabled.value ? alramEnabled.value = false : alramEnabled.value = true;
+    alarmEnabled.value ? alarmEnabled.value = false : alarmEnabled.value = true;
   }
 
   void back() {
