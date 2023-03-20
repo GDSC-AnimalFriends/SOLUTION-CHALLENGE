@@ -14,7 +14,6 @@ class TodoListController extends GetxController {
   RxBool repeatEnabled = false.obs; // 반복 여부
   RxBool repeatEveryWeek = false.obs; // 매주 반복
   RxBool repeatEveryDay = false.obs; //매일 반복
-  RxBool complete = false.obs;
 
   TodoModel todo = TodoModel(
     todoid: "",

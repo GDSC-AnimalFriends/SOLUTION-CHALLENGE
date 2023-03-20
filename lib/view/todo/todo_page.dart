@@ -143,8 +143,8 @@ class TodoPage extends GetView<TodoListController> {
                           Obx(
                             () => _TypeButton(
                               typeName: "반복",
-                              selected: controller.repeatEnabled.value,
-                              onPressed: () => controller.repeatCheck(),
+                              selected: todoListController.repeatEnabled.value,
+                              onPressed: () => todoListController.repeatCheck(),
                             ),
                           ),
                           SizedBox(width: 14),
