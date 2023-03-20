@@ -1,16 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:solution_challenge/view/common/appbar_only_back.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
-class InfoCareApply extends StatefulWidget {
+import '../../../controller/my_page/info_care_apply_controller.dart';
+import '../../../routes/app_pages.dart';
+
+class InfoCareApply extends GetView<CheckHowToApply> {
   const InfoCareApply({Key? key}) : super(key: key);
 
-  @override
-  State<InfoCareApply> createState() => _InfoCareApplyState();
-}
-
-class _InfoCareApplyState extends State<InfoCareApply> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,6 +19,7 @@ class _InfoCareApplyState extends State<InfoCareApply> {
           appBarTitle: '돌봄신청 안내',
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 17, 0, 17),
@@ -86,15 +87,13 @@ class _InfoCareApplyState extends State<InfoCareApply> {
               padding: const EdgeInsets.fromLTRB(27, 10, 27, 0),
               child: Container(
                 height: 105,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                ),
+                width: MediaQuery.of(context).size.width*0.86,
                 child: Stack(
                   children: [
-                    Positioned(
-                      top: 8,
-                      child: Align(
-                        alignment: Alignment.center,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Positioned(
+                        top: 8,
                         child: Container(
                           height: 90,
                           width: MediaQuery.of(context).size.width*0.85,
@@ -107,17 +106,21 @@ class _InfoCareApplyState extends State<InfoCareApply> {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(9, 27, 9, 7),
-                      height: 70,
-                      child: AutoSizeText(
-                          '일상생활 영위가 어려운 취약노인에게 적절한 돌봄서비스를 제공하여 안정적인 노후생활 보장 및 노인의 기능, 건강 유지를 통한 기능악화를 예방하는 서비스입니다.',
-                        style: TextStyle(
-                            fontSize: 14,
-                          color: Colors.black54,
-                        ),
-                        maxLines: 4,
-                      )
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(9, 27, 9, 7),
+                        height: 70,
+                          width: MediaQuery.of(context).size.width*0.84,
+                        child: AutoSizeText(
+                            '일상생활 영위가 어려운 취약노인에게 적절한 돌봄서비스를 제공하여 안정적인 노후생활 보장 및 노인의 기능, 건강 유지를 통한 기능악화를 예방하는 서비스입니다.',
+                          style: TextStyle(
+                              fontSize: 14,
+                            color: Colors.black54,
+                          ),
+                          maxLines: 4,
+                        )
+                      ),
                     ),
                     Positioned(
                         left: 12,
@@ -161,7 +164,7 @@ class _InfoCareApplyState extends State<InfoCareApply> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
-                      onTap: (){},
+                      onTap: () => Get.toNamed(Routes.CHECKAPPLY),
                       child: Container(
                         //margin: EdgeInsets.only(right: 15,bottom: 10),
                         height: MediaQuery.of(context).size.width*0.3,
