@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solution_challenge/controller/todo/todo_controller.dart';
 import 'package:solution_challenge/data/model/todo_model.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
@@ -13,43 +12,45 @@ import 'package:solution_challenge/view/todo/todo_input.dart';
 import '../../controller/home/todo_list_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
 
-class TodoPage extends GetView<TodoController> {
+class TodoPage extends GetView<TodoListController> {
   const TodoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(TodoListController());
+    TodoListController todoListcontroller = Get.put(TodoListController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarWithBottomLine(appBarTitle: '할일 추가하기'),
       body: SafeArea(
         child: ListView(
           children: [
-            _todoInput(),
-            _datePick(context),
-            _repeat(context),
-            _assignUser(context),
-            _alram(),
-            _todoInfoInput(),
-            _doneButton(),
+            _todoInput(todoListcontroller),
+            _datePick(context, todoListcontroller),
+            _repeat(context, todoListcontroller),
+            _assignUser(context, todoListcontroller),
+            _alram(todoListcontroller),
+            _todoInfoInput(todoListcontroller),
+            _doneButton(todoListcontroller),
           ],
         ),
       ),
     );
   }
 
-  TodoInput _todoInput() {
+  TodoInput _todoInput(TodoListController todoListController) {
     return TodoInput(
-        controller: controller.todoInput,
-        hintText: '할 일을 입력하세요',
-        inputType: TextInputType.text,
-        enableBottomBorder: true,
-        heightLimit: true,
-        maxLine: 1,
-        maxLength: 30);
+      controller: todoListController.todoInput,
+      hintText: '할 일을 입력하세요',
+      inputType: TextInputType.text,
+      enableBottomBorder: true,
+      heightLimit: true,
+      maxLine: 1,
+      maxLength: 30,
+    );
   }
 
-  Container _datePick(BuildContext context) {
+  Container _datePick(
+      BuildContext context, TodoListController todoListController) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -63,7 +64,7 @@ class TodoPage extends GetView<TodoController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Obx(() => Text(
-              '${controller.todoDate.value.year}. ${controller.todoDate.value.month}. ${controller.todoDate.value.day}')),
+              '${todoListController.todoDate.value.year}. ${todoListController.todoDate.value.month}. ${controller.todoDate.value.day}')),
           IconButton(
             onPressed: () {
               showCupertinoDialog(
@@ -80,7 +81,7 @@ class TodoPage extends GetView<TodoController> {
                         mode: CupertinoDatePickerMode.date,
                         minimumDate: DateTime.now(),
                         onDateTimeChanged: (DateTime date) {
-                          controller.todoDate.value = date;
+                          todoListController.todoDate.value = date;
                         },
                       ),
                     ),
@@ -95,7 +96,8 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Container _repeat(BuildContext context) {
+  Container _repeat(
+      BuildContext context, TodoListController todoListController) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -115,7 +117,9 @@ class TodoPage extends GetView<TodoController> {
             children: [
               Text('반복 : '),
               Obx(
-                () => controller.repeatEnabled.value ? Text('있음') : Text('없음'),
+                () => todoListController.repeatEnabled.value
+                    ? Text('있음')
+                    : Text('없음'),
               ),
             ],
           ),
@@ -139,8 +143,8 @@ class TodoPage extends GetView<TodoController> {
                           Obx(
                             () => _TypeButton(
                               typeName: "반복",
-                              selected: controller.repeatEnabled.value,
-                              onPressed: () => controller.repeatEnable(),
+                              selected: todoListController.repeatEnabled.value,
+                              onPressed: () => todoListController.repeatCheck(),
                             ),
                           ),
                           SizedBox(width: 14),
@@ -148,7 +152,7 @@ class TodoPage extends GetView<TodoController> {
                             () => _TypeButton(
                               typeName: "미반복",
                               selected: !controller.repeatEnabled.value,
-                              onPressed: () => controller.repeatDisable(),
+                              onPressed: () => controller.repeatCheck(),
                             ),
                           ),
                         ],
@@ -165,7 +169,8 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Container _assignUser(BuildContext context) {
+  Container _assignUser(
+      BuildContext context, TodoListController todoListController) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -185,7 +190,9 @@ class TodoPage extends GetView<TodoController> {
             children: [
               Text('누구의 할일 : '),
               Obx(
-                () => controller.repeatEnabled.value ? Text('있음') : Text('없음'),
+                () => todoListController.repeatEnabled.value
+                    ? Text('있음')
+                    : Text('없음'),
               ),
             ],
           ),
@@ -221,7 +228,7 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Container _alram() {
+  Container _alram(TodoListController todoListController) {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -236,7 +243,7 @@ class TodoPage extends GetView<TodoController> {
         children: [
           Row(
             children: [
-              Obx(() => Text('알림 : ${controller.alramEnabled.value}')),
+              Obx(() => Text('알림 : ${todoListController.alarmEnabled.value}')),
             ],
           ),
           AlramToggleButton(),
@@ -245,10 +252,10 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Expanded _todoInfoInput() {
+  Expanded _todoInfoInput(TodoListController todoListController) {
     return Expanded(
       child: TodoInput(
-        controller: controller.todoInfoInput,
+        controller: todoListController.todoDescriptionInput,
         hintText: '할 일 설명을 입력하세요',
         inputType: TextInputType.text,
         enableBottomBorder: false,
@@ -259,20 +266,20 @@ class TodoPage extends GetView<TodoController> {
     );
   }
 
-  Padding _doneButton() {
+  Padding _doneButton(TodoListController todoListController) {
     TodoModel todo = TodoModel(
       todoid: DateTime.now().toString().replaceAll('.', '_'),
-      date: DateTime(
-        2023,
-      ),
-      title: "도트 찍기",
+      alarmDate: todoListController.alarmDate.value,
+      date: todoListController.todoDate.value,
+      title: todoListController.todoInput.text,
+      repeatType: 1,
       repeat: [
         {"월": true},
       ],
       user: "nhg1113@icloud.com",
       creator: "NOGUEN",
-      alarm: true,
-      description: "고앵이 도트 찍기",
+      alarm: todoListController.alarmEnabled.value,
+      description: todoListController.todoDescriptionInput.text,
       complete: false,
     );
 

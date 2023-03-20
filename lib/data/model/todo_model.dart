@@ -7,7 +7,9 @@ class TodoModel {
   TodoModel({
     required this.todoid,
     required this.date,
+    required this.alarmDate,
     required this.title,
+    required this.repeatType,
     required this.repeat,
     required this.user,
     required this.creator,
@@ -18,7 +20,9 @@ class TodoModel {
 
   String todoid;
   DateTime date;
+  DateTime alarmDate;
   String title;
+  int repeatType;
   List<Map<String, bool>> repeat;
   String user;
   String creator;
