@@ -13,13 +13,13 @@ class SubscriberManage extends GetView<SubscriberManageController> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBarOnlyBack(
+        appBar: const AppBarOnlyBack(
           appBarTitle: '구독 관리',
         ),
         body: subscriberListView(),
         floatingActionButton: FloatingActionButton(
           onPressed: () => controller.toAddSubscirber(),
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
     );
@@ -28,7 +28,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
   Widget subscriberListView() {
     return Obx(() => ListView.builder(
         scrollDirection: Axis.vertical,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         itemCount: controller.subscribers.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
@@ -41,24 +41,24 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                   ),
                   borderRadius: BorderRadius.circular(9.0)),
               child: ExpansionTile(
-                title: Container(
+                title: SizedBox(
                   height: 75,
                   child: Row(
                     children: [
                       Container(
                         height: 60,
                         width: 60,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                           shape: BoxShape.circle,
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(18, 18, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(18, 18, 0, 0),
                         child: Column(
                           children: [
-                            Text('${controller.subscribers[index]}'),
-                            Text('mail'),
+                            Text(controller.subscribers[index]),
+                            const Text('mail'),
                           ],
                         ),
                       ),
@@ -66,7 +66,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                   ),
                 ),
                 children: [
-                  Text('권한 설정'),
+                  const Text('권한 설정'),
                   Obx(
                     () => FlutterToggleTab(
                       width: 50,
@@ -88,10 +88,10 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                       isScroll: true,
                     ),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   TextButton(
                     onPressed: () => controller.openDialog(index),
-                    child: Text('구독 취소'),
+                    child: const Text('구독 취소'),
                   ),
                 ],
               ),

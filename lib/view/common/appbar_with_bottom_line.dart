@@ -17,7 +17,7 @@ class AppBarWithBottomLine extends StatelessWidget
     return AppBar(
         title: Text(
           appBarTitle,
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -31,11 +31,12 @@ class AppBarWithBottomLine extends StatelessWidget
         bottomOpacity: 1.0,
         elevation: 0.0,
         bottom: PreferredSize(
-            child: Container(
-              color: Color(0xffE5E5E5),
-              height: 1,
-            ),
-            preferredSize: const Size.fromHeight(1)));
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            color: const Color(0xffE5E5E5),
+            height: 1,
+          ),
+        ));
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solution_challenge/view/common/appbar_only_back.dart';
 
-
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
 
@@ -12,12 +11,11 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
-        appBar: AppBarOnlyBack(
-          appBarTitle: '설정',
-        )
-      ),
+          appBar: AppBarOnlyBack(
+        appBarTitle: '설정',
+      )),
     );
   }
 }

@@ -16,7 +16,7 @@ class AppBarOnlyBack extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         appBarTitle,
-        style: Theme.of(context).textTheme.headline3,
+        style: Theme.of(context).textTheme.displaySmall,
       ),
       centerTitle: true,
       leading: IconButton(
