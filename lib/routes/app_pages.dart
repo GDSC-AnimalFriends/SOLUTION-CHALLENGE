@@ -7,7 +7,9 @@ import 'package:solution_challenge/bindings/todo_binding.dart';
 import 'package:solution_challenge/view/home/home_page.dart';
 import 'package:solution_challenge/view/home/home_subpages/alarm_page.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
+import 'package:solution_challenge/view/mypage/info_care_apply/check_how_to_apply.dart';
 import 'package:solution_challenge/view/mypage/info_care_apply/info_care_apply_page.dart';
+import 'package:solution_challenge/view/mypage/info_care_apply/official_page_webview.dart';
 import 'package:solution_challenge/view/mypage/manage_my_account/my_account_page.dart';
 import 'package:solution_challenge/view/mypage/manage_subscribe/subscribe_add_page.dart';
 import 'package:solution_challenge/view/mypage/manage_subscribe/subscriber_page.dart';
@@ -96,6 +98,16 @@ class AppPages {
     GetPage(
       name: Routes.ALARM,
       page: () => AlarmPage(),
+      binding: MyPageBinding(),
+    ),
+    GetPage(
+      name: Routes.CHECKAPPLY,
+      page: () => const CheckHowToApply(),
+      binding: MyPageBinding(),
+    ),
+    GetPage(
+      name: Routes.OFFICIAL_PAGE,
+      page: () => const OfficialPageWebview(),
       binding: MyPageBinding(),
     ),
   ];
