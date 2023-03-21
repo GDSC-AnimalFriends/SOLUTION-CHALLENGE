@@ -151,7 +151,8 @@ class TodayTodoPage extends StatelessWidget {
           2023,
         ),
         title: "도트 찍기",
-        repeatType: 1,
+        dayRepeat: false,
+        weekRepeat: true,
         repeat: [
           {"월": true},
         ],
