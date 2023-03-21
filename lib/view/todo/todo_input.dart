@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:solution_challenge/controller/home/todo_list_controller.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
 class TodoInput extends StatelessWidget {
@@ -41,7 +40,6 @@ class TodoInput extends StatelessWidget {
       child: Center(
         child: TextField(
           maxLines: maxLine,
-          // maxLength: maxLength,
           controller: controller,
           decoration: InputDecoration(
             border: InputBorder.none, // TextField 자체의 하단 선 제거

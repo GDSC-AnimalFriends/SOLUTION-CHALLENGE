@@ -5,7 +5,6 @@ class TodoService {
   void addTodo({required TodoModel todo, required String username}) {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref("users/$username/${todo.todoid.toString().replaceAll('.', '_')}");
-    print(todo.toJson());
     ref.set(todo.toJson());
   }
 
