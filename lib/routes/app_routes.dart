@@ -17,4 +17,6 @@ abstract class Routes {
   static const ALARM = '/alarm';
   static const SUBSCRIBE_ADD = "/subscribe_add";
   static const CHECKAPPLY = "/check_how_to_apply";
+  static const OFFICIAL_PAGE = "/offcial_page_webview";
+
 }

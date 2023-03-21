@@ -29,20 +29,21 @@ class CheckHowToApply extends StatelessWidget {
                     Container(
                       child: Row(
                         children: [
-                          Icon(Icons.play_arrow_rounded),
-                          Text('노인맞춤돌봄서비스 대상자'),
+                          Icon(Icons.play_arrow_rounded, color: primaryColor,),
+                          Text('노인맞춤돌봄서비스 대상자',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                         ],
                       ),
                     ),
                     Center(
                       child: Container(
+                        margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: Column(
                           children: [
                             Text(
-                                '만 65세 이상 1)국민기초생활수급자, 2)차상위계층 또는 3)기초연금수급자로서 유사 중복사업 자격에 해당되지 않는 자'),
+                                '√ 만 65세 이상 1) 국민기초생활수급자, 2) 차상위계층 또는 3) 기초연금수급자로서 유사 중복사업 자격에 해당되지 않는 자'),
                             Text(
-                                '· 사회관계 단절, 신체적 기능 저하, 정신적 어려움 등으로 돌봄이 필요한 노인'),
+                                '√ 사회관계 단절, 신체적 기능 저하, 정신적 어려움 등으로 돌봄이 필요한 노인'),
                             Text(
                                 '√ 특화서비스 및 사후관리는 서비스 대상자 선정기준에 해당되지 않지만, 서비스 제공이 필요하다고 판단되는 경우 자문위원단에 특화서비스 이용 기준 예외자 승인 절차를 통해 선정가능')
                           ],
@@ -64,13 +65,14 @@ class CheckHowToApply extends StatelessWidget {
                   Container(
                     child: Row(
                       children: [
-                        Icon(Icons.play_arrow_rounded),
-                        Text('노인맞춤돌봄서비스 대상자'),
+                        Icon(Icons.play_arrow_rounded, color: primaryColor),
+                        Text('노인맞춤돌봄서비스 대상자',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                       ],
                     ),
                   ),
                   Center(
                     child: Container(
+                        margin: EdgeInsets.only(top: 8.0),
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: Text('노인맞춤돌봄서비스 신청자격이 있는 노인 또는 그 가족')),
                   ),
@@ -88,13 +90,14 @@ class CheckHowToApply extends StatelessWidget {
                   Container(
                     child: Row(
                       children: [
-                        Icon(Icons.play_arrow_rounded),
-                        Text('신청 또는 신청자격 확인하기'),
+                        Icon(Icons.play_arrow_rounded, color: primaryColor),
+                        Text('신청 또는 신청자격 확인하기',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                       ],
                     ),
                   ),
                   Center(
                     child: Container(
+                      margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: Row(
                         children: [
@@ -115,7 +118,7 @@ class CheckHowToApply extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 30),
+                            padding: EdgeInsets.only(left: 35),
                             child: Container(
                               child: Text('√ 방문 신청 또는\n√ 전화･우편･팩스 신청'),
                             ),
@@ -136,8 +139,8 @@ class CheckHowToApply extends StatelessWidget {
                     margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
                     child: Row(
                       children: [
-                        Icon(Icons.play_arrow_rounded),
-                        Text('노인맞춤돌봄서비스 제공 절차'),
+                        Icon(Icons.play_arrow_rounded, color: primaryColor,),
+                        Text('노인맞춤돌봄서비스 제공 절차',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                       ],
                     ),
                   ),

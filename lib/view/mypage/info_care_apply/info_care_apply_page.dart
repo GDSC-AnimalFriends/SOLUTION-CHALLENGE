@@ -1,19 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:solution_challenge/controller/my_page/apply_care_controller.dart';
+import 'package:solution_challenge/controller/my_page/my_page_controller.dart';
 import 'package:solution_challenge/view/common/appbar_only_back.dart';
+import 'package:solution_challenge/view/mypage/info_care_apply/official_page_webview.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
-import '../../../controller/my_page/info_care_apply_controller.dart';
 import '../../../routes/app_pages.dart';
 
-class InfoCareApply extends GetView<CheckHowToApply> {
+class InfoCareApply extends GetView<ApplyCareController> {
   const InfoCareApply({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBarOnlyBack(
           appBarTitle: '돌봄신청 안내',
@@ -54,22 +56,17 @@ class InfoCareApply extends GetView<CheckHowToApply> {
                           )
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Positioned(
-                        bottom: 10,
-                        child: Container(
-                          height: 140,
-                          width: MediaQuery.of(context).size.width*0.80,
-                          decoration: BoxDecoration(
-
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage('assets/images/care_picture.jpg')
-                                )
-                            )
-                            ),
-                      ),
+                    Center(
+                      child: Container(
+                        height: 140,
+                        width: MediaQuery.of(context).size.width*0.80,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/images/care_picture.jpg')
+                              )
+                          )
+                          ),
                     )
                   ],
                 ),
@@ -90,10 +87,9 @@ class InfoCareApply extends GetView<CheckHowToApply> {
                 width: MediaQuery.of(context).size.width*0.86,
                 child: Stack(
                   children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Positioned(
-                        top: 8,
+                    Positioned(
+                      top: 8,
+                      child: Center(
                         child: Container(
                           height: 90,
                           width: MediaQuery.of(context).size.width*0.85,
@@ -106,21 +102,10 @@ class InfoCareApply extends GetView<CheckHowToApply> {
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(9, 27, 9, 7),
-                        height: 70,
-                          width: MediaQuery.of(context).size.width*0.84,
-                        child: AutoSizeText(
-                            '일상생활 영위가 어려운 취약노인에게 적절한 돌봄서비스를 제공하여 안정적인 노후생활 보장 및 노인의 기능, 건강 유지를 통한 기능악화를 예방하는 서비스입니다.',
-                          style: TextStyle(
-                              fontSize: 14,
-                            color: Colors.black54,
-                          ),
-                          maxLines: 4,
-                        )
-                      ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(9, 27, 9, 7),
+                        width: MediaQuery.of(context).size.width*0.84,
+                      child: Text('일상생활 영위가 어려운 취약노인에게 적절한 돌봄서비스를 제공하여 안정적인 노후생활 보장 및 노인의 기능, 건강 유지를 통한 기능악화를 예방하는 서비스입니다.',style: TextStyle(color: Colors.black54),),
                     ),
                     Positioned(
                         left: 12,
@@ -196,7 +181,7 @@ class InfoCareApply extends GetView<CheckHowToApply> {
                     ),
                     Spacer(),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: () => Get.toNamed(Routes.OFFICIAL_PAGE),//Get.to(OfficialPageWebview()),
                       child: Container(
                         height: MediaQuery.of(context).size.width*0.3,
                         width: MediaQuery.of(context).size.width*0.38,

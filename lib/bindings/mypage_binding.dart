@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:solution_challenge/controller/my_page/apply_care_controller.dart';
 import 'package:solution_challenge/controller/my_page/my_page_controller.dart';
 import 'package:solution_challenge/controller/my_page/subscribe_add_controller.dart';
 
@@ -9,6 +10,10 @@ class MyPageBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<MyPageController>(() {
       return MyPageController();
+    });
+
+    Get.lazyPut<ApplyCareController>(() {
+      return ApplyCareController();
     });
 
     Get.lazyPut<SubscribeAddController>(() {
