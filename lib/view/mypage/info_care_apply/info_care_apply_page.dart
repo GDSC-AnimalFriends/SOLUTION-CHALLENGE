@@ -16,6 +16,7 @@ class InfoCareApply extends GetView<ApplyCareController> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       home: Scaffold(
         appBar: AppBarOnlyBack(
           appBarTitle: '돌봄신청 안내',
