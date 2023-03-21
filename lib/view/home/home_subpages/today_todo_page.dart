@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/home/todo_list_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:solution_challenge/service/todo_service.dart';
-import '../../../data/model/todo_model.dart';
 
 class TodayTodoPage extends StatelessWidget {
   TodayTodoPage({super.key});
@@ -45,7 +43,6 @@ class TodayTodoPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: doneListView(),
             ),
-            testButton(),
           ],
         ),
       ),
@@ -140,28 +137,5 @@ class TodayTodoPage extends StatelessWidget {
         fontSize: 20,
       ),
     );
-  }
-
-  Widget testButton() {
-    return FloatingActionButton(onPressed: () {
-      TodoModel todo = TodoModel(
-        todoid: DateTime.now().toString().replaceAll('.', '_'),
-        alarmDate: DateTime(2023),
-        date: DateTime(
-          2023,
-        ),
-        title: "도트 찍기",
-        repeatType: 1,
-        repeat: [
-          {"월": true},
-        ],
-        user: "nhg1113@icloud.com",
-        creator: "NOGUEN",
-        alarm: true,
-        description: "고앵이 도트 찍기",
-        complete: false,
-      );
-      TodoService().addTodo(todo: todo, username: "noguen");
-    });
   }
 }

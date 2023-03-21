@@ -9,7 +9,8 @@ class TodoModel {
     required this.date,
     required this.alarmDate,
     required this.title,
-    required this.repeatType,
+    required this.dayRepeat,
+    required this.weekRepeat,
     required this.repeat,
     required this.user,
     required this.creator,
@@ -22,7 +23,8 @@ class TodoModel {
   DateTime date;
   DateTime alarmDate;
   String title;
-  int repeatType;
+  bool dayRepeat;
+  bool weekRepeat;
   List<Map<String, bool>> repeat;
   String user;
   String creator;

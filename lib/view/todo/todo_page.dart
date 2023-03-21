@@ -17,7 +17,7 @@ class TodoPage extends GetView<TodoListController> {
 
   @override
   Widget build(BuildContext context) {
-    TodoListController todoListcontroller = Get.put(TodoListController());
+    TodoListController todoListcontroller = Get.put(TodoListController()).obs();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarWithBottomLine(appBarTitle: '할일 추가하기'),
@@ -117,7 +117,8 @@ class TodoPage extends GetView<TodoListController> {
             children: [
               Text('반복 : '),
               Obx(
-                () => todoListController.repeatEnabled.value
+                () => todoListController.weekRepeatEnabled.value ||
+                        todoListController.dayRepeatEnabled.value
                     ? Text('있음')
                     : Text('없음'),
               ),
@@ -143,16 +144,18 @@ class TodoPage extends GetView<TodoListController> {
                           Obx(
                             () => _TypeButton(
                               typeName: "반복",
-                              selected: todoListController.repeatEnabled.value,
-                              onPressed: () => todoListController.repeatCheck(),
+                              selected:
+                                  todoListController.weekRepeatEnabled.value,
+                              onPressed: () =>
+                                  todoListController.weekRepeatCheck(),
                             ),
                           ),
                           SizedBox(width: 14),
                           Obx(
                             () => _TypeButton(
                               typeName: "미반복",
-                              selected: !controller.repeatEnabled.value,
-                              onPressed: () => controller.repeatCheck(),
+                              selected: !controller.weekRepeatEnabled.value,
+                              onPressed: () => controller.weekRepeatCheck(),
                             ),
                           ),
                         ],
@@ -190,7 +193,7 @@ class TodoPage extends GetView<TodoListController> {
             children: [
               Text('누구의 할일 : '),
               Obx(
-                () => todoListController.repeatEnabled.value
+                () => todoListController.weekRepeatEnabled.value
                     ? Text('있음')
                     : Text('없음'),
               ),
@@ -267,22 +270,6 @@ class TodoPage extends GetView<TodoListController> {
   }
 
   Padding _doneButton(TodoListController todoListController) {
-    TodoModel todo = TodoModel(
-      todoid: DateTime.now().toString().replaceAll('.', '_'),
-      alarmDate: todoListController.alarmDate.value,
-      date: todoListController.todoDate.value,
-      title: todoListController.todoInput.text,
-      repeatType: 1,
-      repeat: [
-        {"월": true},
-      ],
-      user: "nhg1113@icloud.com",
-      creator: "NOGUEN",
-      alarm: todoListController.alarmEnabled.value,
-      description: todoListController.todoDescriptionInput.text,
-      complete: false,
-    );
-
     return Padding(
       padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
       child: CommonButton(
@@ -290,6 +277,22 @@ class TodoPage extends GetView<TodoListController> {
           textColor: white,
           buttonText: '완료하기',
           onPressed: () {
+            TodoModel todo = TodoModel(
+              todoid: DateTime.now().toString().replaceAll('.', '_'),
+              alarmDate: todoListController.alarmDate.value,
+              date: todoListController.todoDate.value,
+              title: todoListController.todoInput.text,
+              dayRepeat: false,
+              weekRepeat: true,
+              repeat: [
+                {"월": true},
+              ],
+              user: "nhg1113@icloud.com",
+              creator: "NOGUEN",
+              alarm: todoListController.alarmEnabled.value,
+              description: todoListController.todoDescriptionInput.text,
+              complete: false,
+            );
             Get.find<TodoListController>().addTodo(todo);
             Get.back();
           },

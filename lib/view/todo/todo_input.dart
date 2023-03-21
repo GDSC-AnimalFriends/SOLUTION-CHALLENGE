@@ -9,6 +9,7 @@ class TodoInput extends StatelessWidget {
   final int maxLine;
   final int maxLength;
   final bool heightLimit;
+
   const TodoInput({
     super.key,
     required this.controller,
@@ -39,7 +40,6 @@ class TodoInput extends StatelessWidget {
       child: Center(
         child: TextField(
           maxLines: maxLine,
-          // maxLength: maxLength,
           controller: controller,
           decoration: InputDecoration(
             border: InputBorder.none, // TextField 자체의 하단 선 제거
