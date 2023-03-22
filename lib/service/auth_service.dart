@@ -62,7 +62,7 @@ class AuthService with StorageUtil {
   }
 
   //로그아웃
-  void signOut() async {
+  void logout() async {
     await firebaseAuth.signOut();
   }
 }

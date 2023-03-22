@@ -145,6 +145,33 @@ class MyPage extends GetView<MyPageController> {
               ),
             ),
           ),
+          Container(
+            height: 81,
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
+            decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(color: Colors.grey),
+              ),
+            ),
+            child: TextButton(
+              onPressed: () => controller.logout(),
+              child: Row(
+                children: const [
+                  Text(
+                    '로그아웃',
+                    style: TextStyle(fontSize: 22, color: Colors.black),
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 25,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
