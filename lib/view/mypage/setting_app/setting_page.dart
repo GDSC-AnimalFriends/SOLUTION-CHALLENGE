@@ -11,11 +11,10 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-          appBar: AppBarOnlyBack(
+    return const Scaffold(
+      appBar: AppBarOnlyBack(
         appBarTitle: '설정',
-      )),
+      ),
     );
   }
 }

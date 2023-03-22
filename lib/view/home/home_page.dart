@@ -3,6 +3,7 @@ import 'package:solution_challenge/view/home/home_subpages/alarm_page.dart';
 import 'package:solution_challenge/view/home/home_subpages/today_todo_page.dart';
 import 'package:solution_challenge/view/home/home_subpages/all_todo_page.dart';
 import 'package:solution_challenge/view/mypage/my_page.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,6 +14,7 @@ class HomePage extends StatelessWidget {
         length: 4,
         child: Builder(builder: (context) {
           return Scaffold(
+            backgroundColor: white,
             appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(70.0),
                 child: Theme(

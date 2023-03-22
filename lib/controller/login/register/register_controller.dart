@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/data/model/user_model.dart';
+import 'package:solution_challenge/routes/app_pages.dart';
+import 'package:solution_challenge/service/auth_service.dart';
 
 class RegisterController extends GetxController {
+  AuthService authService = AuthService();
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
@@ -14,6 +18,8 @@ class RegisterController extends GetxController {
   Rx<bool> emailEnabled = false.obs;
   Rx<String> password = "".obs;
   Rx<bool> passwordEnabled = false.obs;
+
+  RxInt registerResult = 9.obs;
 
   //타입을 변경해요
   void changeType() {
@@ -55,6 +61,11 @@ class RegisterController extends GetxController {
   // 비밀번호 가져오기
   void setPassword(String value) {
     password.value = value;
+    if (value.isNotEmpty && value == rePasswordController.text) {
+      passwordEnabled.value = true;
+    } else {
+      passwordEnabled.value = false;
+    }
   }
 
   // 다시 쓴 비밀번호 규칙
@@ -73,15 +84,27 @@ class RegisterController extends GetxController {
   }
 
   // 회원가입 완료
-  void registerComplete() {
-    Get.snackbar(
-      "계정 정보",
-      "이름 : ${nameController.text}\n번호 : ${phoneController.text}\n이메일 : ${emailController.text}\n비밀번호: ${passwordController.text}\n타입 : ${!typeSelected.value ? "보호자" : "노인"}",
+  Future<void> registerComplete() async {
+    final userModel = UserModel(
+      name: nameController.text,
+      phone: phoneController.text,
+      email: emailController.text,
     );
+
+    registerResult.value = await authService.register(
+      userModel,
+      rePasswordController.text,
+      typeSelected.value,
+    );
+
+    if (registerResult.value == 0) {
+      Get.offAllNamed(Routes.HOME);
+      _clearAllState();
+    }
   }
 
   //상태 초기화
-  void clearAllState() {
+  void _clearAllState() {
     nameController.clear();
     phoneController.clear();
     emailController.clear();

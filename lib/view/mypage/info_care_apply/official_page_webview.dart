@@ -9,12 +9,11 @@ class OfficialPageWebview extends GetView<ApplyCareController> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBarOnlyBack(appBarTitle: ' ',),
-        body: WebViewWidget(controller: controller.getController()),
+    return Scaffold(
+      appBar: AppBarOnlyBack(
+        appBarTitle: ' ',
       ),
+      body: WebViewWidget(controller: controller.getController()),
     );
   }
 }

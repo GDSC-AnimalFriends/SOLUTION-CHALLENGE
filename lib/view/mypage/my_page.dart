@@ -9,8 +9,8 @@ class MyPage extends GetView<MyPageController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return SingleChildScrollView(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           SizedBox(
@@ -23,16 +23,17 @@ class MyPage extends GetView<MyPageController> {
                     height: 120,
                     width: 120,
                     decoration: const BoxDecoration(
-                      color: primaryColor,
+                      color: todoBorder,
                       shape: BoxShape.circle,
                     ),
+                    child: Image.network(controller.imgUrl),
                   ),
                 ),
                 TextButton(
                     onPressed: () => Get.toNamed(Routes.MYACCOUNT_MANAGE),
                     child: const Text('프로필 사진 변경',
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                           color: primaryColor,
                         )))
               ],
@@ -43,10 +44,10 @@ class MyPage extends GetView<MyPageController> {
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
             child: Row(
-              children: const [
-                Text('계정 정보'),
-                Spacer(),
-                Text('sfdsfwerw@gmail.com'),
+              children: [
+                const Text('계정 정보'),
+                const Spacer(),
+                Text(controller.user.email!),
               ],
             ),
           ),
@@ -55,10 +56,10 @@ class MyPage extends GetView<MyPageController> {
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(13, 10, 13, 10),
             child: Row(
-              children: const [
-                Text('이름'),
-                Spacer(),
-                Text('안승우'),
+              children: [
+                const Text('이름'),
+                const Spacer(),
+                Text(controller.user.displayName!),
               ],
             ),
           ),
@@ -136,6 +137,33 @@ class MyPage extends GetView<MyPageController> {
                   ),
                   const Spacer(),
                   const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 25,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+            ),
+          ),
+          Container(
+            height: 81,
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
+            decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(color: Colors.grey),
+              ),
+            ),
+            child: TextButton(
+              onPressed: () => controller.logout(),
+              child: Row(
+                children: const [
+                  Text(
+                    '로그아웃',
+                    style: TextStyle(fontSize: 22, color: Colors.black),
+                  ),
+                  Spacer(),
+                  Icon(
                     Icons.arrow_forward_ios,
                     size: 25,
                     color: Colors.black,

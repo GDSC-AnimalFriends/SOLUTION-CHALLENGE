@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:solution_challenge/controller/login/register/register_controller.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/common/common_input.dart';
+import 'package:solution_challenge/view/common/visible_control_text.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import 'register_base_widget.dart';
@@ -27,11 +28,15 @@ class RegisterCompletePage extends GetView<RegisterController> {
           inputType: TextInputType.emailAddress,
           needHideText: false,
         ),
+        Obx(() => VisibleControlText(
+              visible: controller.registerResult.value == 2,
+              text: "이미 가입된 이메일입니다",
+            )),
         const SizedBox(height: 20),
         CommonInput(
           controller: controller.passwordController,
           validation: (value) => controller.setPassword(value),
-          hintText: '비밀번호를 입력하세요',
+          hintText: '6자 이상 비밀번호를 입력하세요',
           inputType: TextInputType.text,
           needHideText: true,
         ),
@@ -43,6 +48,10 @@ class RegisterCompletePage extends GetView<RegisterController> {
           inputType: TextInputType.text,
           needHideText: true,
         ),
+        Obx(() => VisibleControlText(
+              visible: controller.registerResult.value == 1,
+              text: "6자 이상 비밀번호가 필요합니다",
+            )),
       ],
       bottomSheet: Obx(
         () => CommonButton(

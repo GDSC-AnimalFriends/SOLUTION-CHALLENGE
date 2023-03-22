@@ -7,11 +7,9 @@ class MyAccountManage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        appBar: AppBarOnlyBack(
-          appBarTitle: '자기 계정 관리',
-        ),
+    return const Scaffold(
+      appBar: AppBarOnlyBack(
+        appBarTitle: '자기 계정 관리',
       ),
     );
   }

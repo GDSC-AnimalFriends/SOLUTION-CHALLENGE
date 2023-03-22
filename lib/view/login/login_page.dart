@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/login/login_controller.dart';
+import 'package:solution_challenge/view/common/visible_control_text.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import '../common/common_button.dart';
@@ -31,6 +32,10 @@ class LoginPage extends GetView<LoginController> {
           inputType: TextInputType.emailAddress,
           needHideText: false,
         ),
+        Obx(() => VisibleControlText(
+              visible: controller.loginResult.value == 1,
+              text: "이메일을 확인해주세요",
+            )),
         const SizedBox(height: 12),
         CommonInput(
           controller: controller.passwordInput,
@@ -39,6 +44,10 @@ class LoginPage extends GetView<LoginController> {
           inputType: TextInputType.text,
           needHideText: true,
         ),
+        Obx(() => VisibleControlText(
+              visible: controller.loginResult.value == 2,
+              text: "비밀번호를 확인해주세요",
+            )),
         const SizedBox(height: 32),
         CommonButton(
           buttonColor: primaryColor,
