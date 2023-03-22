@@ -1,7 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/data/model/user_model.dart';
+import 'package:solution_challenge/routes/app_pages.dart';
+import 'package:solution_challenge/service/auth_service.dart';
 
 class RegisterController extends GetxController {
+  AuthService authService = AuthService();
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
@@ -73,11 +79,18 @@ class RegisterController extends GetxController {
   }
 
   // 회원가입 완료
-  void registerComplete() {
-    Get.snackbar(
-      "계정 정보",
-      "이름 : ${nameController.text}\n번호 : ${phoneController.text}\n이메일 : ${emailController.text}\n비밀번호: ${passwordController.text}\n타입 : ${!typeSelected.value ? "보호자" : "노인"}",
-    );
+  Future<void> registerComplete() async {
+    final userModel = UserModel(
+        name: nameController.text,
+        phone: phoneController.text,
+        email: emailController.text,
+        password: passwordController.text,
+        type: typeSelected.value);
+
+    if (await authService.register(userModel)) {
+      Get.toNamed(Routes.HOME);
+    } else
+      log("회원가입 오류");
   }
 
   //상태 초기화
