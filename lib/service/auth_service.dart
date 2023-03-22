@@ -20,9 +20,10 @@ class AuthService with StorageUtil {
       credential.user!.updateDisplayName(userModel.name);
       credential.user!.updatePhotoURL(refType); //URL에 가입 타입 저장
 
-      database.child(refType).child(uid).set(userModel.toJson());
+      databaseRef.child(refType).child(uid).set(userModel.toJson());
 
       saveString(UID_KEY, uid);
+      return 0;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         log("6자이상 비밀번호가 필요합니다");
@@ -35,7 +36,7 @@ class AuthService with StorageUtil {
       log(e.toString());
       return 3;
     }
-    return 0;
+    return -1;
   }
 
   //로그인
@@ -44,6 +45,7 @@ class AuthService with StorageUtil {
       UserCredential credential = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       saveString(UID_KEY, credential.user!.uid);
+      return 0;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         log("가입된 이메일이 아닙니다");
@@ -56,7 +58,7 @@ class AuthService with StorageUtil {
       log(e.toString());
       return 3;
     }
-    return 0;
+    return -1;
   }
 
   //로그아웃

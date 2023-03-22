@@ -26,7 +26,7 @@ class MyPage extends GetView<MyPageController> {
                       color: todoBorder,
                       shape: BoxShape.circle,
                     ),
-                    child: Image.network(controller.user.photoURL!),
+                    child: Image.network(controller.imgUrl),
                   ),
                 ),
                 TextButton(

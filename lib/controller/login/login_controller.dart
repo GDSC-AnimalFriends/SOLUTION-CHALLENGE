@@ -9,13 +9,9 @@ class LoginController extends GetxController {
   final emailInput = TextEditingController();
   final passwordInput = TextEditingController();
 
-  RxInt loginResult = 0.obs;
-  int loginCnt = 0;
+  RxInt loginResult = 9.obs;
 
   void login() async {
-    if (loginCnt > 0) return;
-    loginCnt++;
-
     loginResult.value =
         await authService.login(emailInput.text, passwordInput.text);
 

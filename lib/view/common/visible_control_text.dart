@@ -13,17 +13,17 @@ class VisibleControlText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 5),
-        Opacity(
-          opacity: visible ? 1.0 : 0.0,
-          child: Text(
+    return Visibility(
+      visible: visible,
+      child: Column(
+        children: [
+          const SizedBox(height: 5),
+          Text(
             text,
             style: errorText,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

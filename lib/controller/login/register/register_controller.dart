@@ -19,8 +19,7 @@ class RegisterController extends GetxController {
   Rx<String> password = "".obs;
   Rx<bool> passwordEnabled = false.obs;
 
-  RxInt registerResult = 0.obs;
-  int registerCnt = 0;
+  RxInt registerResult = 9.obs;
 
   //타입을 변경해요
   void changeType() {
@@ -86,9 +85,6 @@ class RegisterController extends GetxController {
 
   // 회원가입 완료
   Future<void> registerComplete() async {
-    if (registerCnt > 0) return;
-    registerCnt++;
-
     final userModel = UserModel(
       name: nameController.text,
       phone: phoneController.text,
