@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/view/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,7 +24,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.LOGIN,
+      initialRoute:
+          firebaseAuth.currentUser == null ? Routes.LOGIN : Routes.HOME,
       getPages: AppPages.pages,
       theme: appThemeData,
       defaultTransition: Transition.fade, //전환 효과

@@ -32,7 +32,6 @@ class LoginPage extends GetView<LoginController> {
           inputType: TextInputType.emailAddress,
           needHideText: false,
         ),
-        const SizedBox(height: 5),
         Obx(() => VisibleControlText(
               visible: controller.loginResult.value == 1,
               text: "이메일을 확인해주세요",
@@ -45,7 +44,6 @@ class LoginPage extends GetView<LoginController> {
           inputType: TextInputType.text,
           needHideText: true,
         ),
-        const SizedBox(height: 5),
         Obx(() => VisibleControlText(
               visible: controller.loginResult.value == 2,
               text: "비밀번호를 확인해주세요",

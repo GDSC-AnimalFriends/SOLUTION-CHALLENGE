@@ -6,6 +6,9 @@ class SubscribeAddController extends GetxController {
 
   Rx<bool> buttonEnabled = false.obs;
 
+  RxBool userSearch = false.obs;
+  RxBool searchResult = false.obs;
+
   // 이메일 정규식
   void emailValidation(String value) {
     String pattern =
@@ -18,9 +21,16 @@ class SubscribeAddController extends GetxController {
     }
   }
 
-  void searchEmail() {}
+  void searchEmail() {
+    userSearch.value = true;
+  }
 
-  void onCancel() {}
+  void onCancel() {
+    userSearch.value = false;
+  }
 
-  void onSubscribe() {}
+  void onSubscribe() {
+    userSearch.value = false;
+    //구독 로직 필요
+  }
 }

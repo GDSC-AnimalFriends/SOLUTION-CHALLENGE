@@ -40,7 +40,10 @@ class SubscribeAddPage extends GetView<SubscribeAddController> {
                       needHideText: false,
                     ),
                     const SizedBox(height: 24),
-                    const _SearchResult(),
+                    Obx(() => _SearchResult(
+                          userSearch: controller.userSearch.value,
+                          findUser: controller.searchResult.value,
+                        )),
                   ],
                 ),
               ),
@@ -67,53 +70,67 @@ class SubscribeAddPage extends GetView<SubscribeAddController> {
 }
 
 class _SearchResult extends GetView<SubscribeAddController> {
-  const _SearchResult();
+  final bool userSearch;
+  final bool findUser;
+  const _SearchResult({
+    required this.userSearch,
+    required this.findUser,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "검색 결과",
-          style: Theme.of(context).textTheme.displaySmall,
-        ),
-        const SizedBox(height: 12),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: buttonDisabled,
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
+    return Opacity(
+      opacity: userSearch ? 1.0 : 0.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "검색 결과",
+            style: Theme.of(context).textTheme.displaySmall,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const _ResultInfo(),
-              Row(
-                children: [
-                  _ResultButton(
-                    buttonText: '취소',
-                    style: bold24,
-                    onPressed: () => controller.onCancel(),
+          const SizedBox(height: 12),
+          findUser
+              ? Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: buttonDisabled,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                   ),
-                  Container(
-                    width: 1,
-                    height: 30,
-                    color: buttonDisabled,
-                  ),
-                  _ResultButton(
-                    buttonText: '구독',
-                    style: boldPrimary24,
-                    onPressed: () => controller.onSubscribe(),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const _ResultInfo(),
+                      Row(
+                        children: [
+                          _ResultButton(
+                            buttonText: '취소',
+                            style: bold24,
+                            onPressed: () => controller.onCancel(),
+                          ),
+                          Container(
+                            width: 1,
+                            height: 30,
+                            color: buttonDisabled,
+                          ),
+                          _ResultButton(
+                            buttonText: '구독',
+                            style: boldPrimary24,
+                            onPressed: () => controller.onSubscribe(),
+                          ),
+                        ],
+                      )
+                    ],
+                  ))
+              : Column(
+                  children: const [
+                    SizedBox(height: 30),
+                    Text("검색 결과가 없습니다"),
+                  ],
+                ),
+        ],
+      ),
     );
   }
 }

@@ -1,27 +1,26 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:solution_challenge/data/model/user_model.dart';
-import 'package:solution_challenge/util/storage_key.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
+import 'package:solution_challenge/util/const_key.dart';
 import 'package:solution_challenge/util/storage_util.dart';
 
 class AuthService with StorageUtil {
   //회원가입
-  Future<int> register(UserModel userModel, String password) async {
+  Future<int> register(UserModel userModel, String password, bool type) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: userModel.email, password: password);
+      final credential = await firebaseAuth.createUserWithEmailAndPassword(
+          email: userModel.email, password: password);
 
-      final refType = userModel.type ? "old" : "young";
+      final refType = type ? TYPE_OLD : TYPE_YOUNG;
       final uid = credential.user!.uid;
+      userModel.id = uid;
+      userModel.imageUrl = DEFUALT_URL;
       credential.user!.updateDisplayName(userModel.name);
-      credential.user!.updatePhotoURL(
-          "https://firebasestorage.googleapis.com/v0/b/gdsc-solution-challenge-183be.appspot.com/o/user-account.png?alt=media&token=e826f6ec-5147-4d68-a928-22b426a6d385"); //기본 이미지 url 들어가면 됨
+      credential.user!.updatePhotoURL(refType); //URL에 가입 타입 저장
 
-      DatabaseReference ref = FirebaseDatabase.instance.ref().child(refType);
-      ref.child(uid).set(userModel.toJson());
+      database.child(refType).child(uid).set(userModel.toJson());
 
       saveString(UID_KEY, uid);
     } on FirebaseAuthException catch (e) {
@@ -42,8 +41,8 @@ class AuthService with StorageUtil {
   //로그인
   Future<int> login(String email, String password) async {
     try {
-      UserCredential credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      UserCredential credential = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       saveString(UID_KEY, credential.user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -62,11 +61,6 @@ class AuthService with StorageUtil {
 
   //로그아웃
   void signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
-  //현재 유저정보 조회 (이메일,이름,프로필url,uid)
-  User? getUserInfo() {
-    return FirebaseAuth.instance.currentUser;
+    await firebaseAuth.signOut();
   }
 }

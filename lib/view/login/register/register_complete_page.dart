@@ -28,7 +28,6 @@ class RegisterCompletePage extends GetView<RegisterController> {
           inputType: TextInputType.emailAddress,
           needHideText: false,
         ),
-        const SizedBox(height: 5),
         Obx(() => VisibleControlText(
               visible: controller.registerResult.value == 2,
               text: "이미 가입된 이메일입니다",
@@ -49,7 +48,6 @@ class RegisterCompletePage extends GetView<RegisterController> {
           inputType: TextInputType.text,
           needHideText: true,
         ),
-        const SizedBox(height: 5),
         Obx(() => VisibleControlText(
               visible: controller.registerResult.value == 1,
               text: "6자 이상 비밀번호가 필요합니다",

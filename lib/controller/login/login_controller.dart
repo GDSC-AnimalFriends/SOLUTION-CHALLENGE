@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
@@ -11,28 +10,12 @@ class LoginController extends GetxController {
   final passwordInput = TextEditingController();
 
   RxInt loginResult = 0.obs;
-
-  late Rx<User?> firebaseUser;
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    firebaseUser = Rx<User?>(FirebaseAuth.instance.currentUser);
-
-    firebaseUser.bindStream(FirebaseAuth.instance.userChanges());
-    ever(firebaseUser, _setInitialScreen);
-  }
-
-  _setInitialScreen(User? user) {
-    if (user == null) {
-      Get.offNamed(Routes.LOGIN);
-    } else {
-      Get.offNamed(Routes.HOME);
-    }
-  }
+  int loginCnt = 0;
 
   void login() async {
+    if (loginCnt > 0) return;
+    loginCnt++;
+
     loginResult.value =
         await authService.login(emailInput.text, passwordInput.text);
 
