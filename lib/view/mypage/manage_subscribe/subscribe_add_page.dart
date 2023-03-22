@@ -79,8 +79,8 @@ class _SearchResult extends GetView<SubscribeAddController> {
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: userSearch ? 1.0 : 0.0,
+    return Visibility(
+      visible: userSearch,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -89,46 +89,51 @@ class _SearchResult extends GetView<SubscribeAddController> {
             style: Theme.of(context).textTheme.displaySmall,
           ),
           const SizedBox(height: 12),
-          findUser
-              ? Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: buttonDisabled,
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+          if (findUser)
+            Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: buttonDisabled,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const _ResultInfo(),
-                      Row(
-                        children: [
-                          _ResultButton(
-                            buttonText: '취소',
-                            style: bold24,
-                            onPressed: () => controller.onCancel(),
-                          ),
-                          Container(
-                            width: 1,
-                            height: 30,
-                            color: buttonDisabled,
-                          ),
-                          _ResultButton(
-                            buttonText: '구독',
-                            style: boldPrimary24,
-                            onPressed: () => controller.onSubscribe(),
-                          ),
-                        ],
-                      )
-                    ],
-                  ))
-              : Column(
-                  children: const [
-                    SizedBox(height: 30),
-                    Text("검색 결과가 없습니다"),
-                  ],
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                 ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _ResultInfo(
+                      name: controller.resultUser!.name,
+                      email: controller.resultUser!.email,
+                      imgUrl: controller.resultUser!.imageUrl!,
+                    ),
+                    Row(
+                      children: [
+                        _ResultButton(
+                          buttonText: '취소',
+                          style: bold24,
+                          onPressed: () => controller.onCancel(),
+                        ),
+                        Container(
+                          width: 1,
+                          height: 30,
+                          color: buttonDisabled,
+                        ),
+                        _ResultButton(
+                          buttonText: '구독',
+                          style: boldPrimary24,
+                          onPressed: () => controller.onSubscribe(),
+                        ),
+                      ],
+                    )
+                  ],
+                ))
+          else
+            Column(
+              children: const [
+                SizedBox(height: 30),
+                Text("검색 결과가 없습니다"),
+              ],
+            ),
         ],
       ),
     );
@@ -166,9 +171,12 @@ class _ResultButton extends StatelessWidget {
 }
 
 class _ResultInfo extends StatelessWidget {
-  const _ResultInfo({
-    Key? key,
-  }) : super(key: key);
+  final String name;
+  final String email;
+  final String imgUrl;
+  const _ResultInfo(
+      {Key? key, required this.name, required this.email, required this.imgUrl})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -176,23 +184,23 @@ class _ResultInfo extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(22, 40, 0, 40),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        // ignore: prefer_const_literals_to_create_immutables
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             backgroundColor: buttonDisabled,
             radius: 40,
+            child: Image.network(imgUrl),
           ),
           const SizedBox(width: 18),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                "안승우",
+                name,
                 style: common22,
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
-                "rio970319@gmail.com",
+                email,
                 style: common18,
               ),
             ],
