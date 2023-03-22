@@ -8,3 +8,4 @@ const Color white = Colors.white;
 const Color buttonDisabled = Colors.grey;
 const Color grey = Color(0xffAAAAAA);
 const Color todoBorder = Color(0xffE5E5E5);
+const Color red = Colors.red;

@@ -25,3 +25,6 @@ const TextStyle common22 =
 
 const TextStyle common18 =
     TextStyle(fontSize: 18, color: black, fontWeight: FontWeight.w400);
+
+const TextStyle errorText =
+    TextStyle(fontSize: 14, color: red, fontWeight: FontWeight.w400);

@@ -30,22 +30,23 @@ class AuthService {
   }
 
   //로그인
-  Future<UserCredential?> login(String email, String password) async {
+  Future<int> login(String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         log("가입된 이메일이 아닙니다");
+        return 1;
       } else if (e.code == 'wrong-password') {
         log("비밀번호가 틀렸습니다");
+        return 2;
       }
-      return null;
     } catch (e) {
       log(e.toString());
-      return null;
+      return 3;
     }
+    return 0;
   }
 
   //로그아웃
