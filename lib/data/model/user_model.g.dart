@@ -10,14 +10,15 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       name: json['name'] as String,
       phone: json['phone'] as String,
       email: json['email'] as String,
-      password: json['password'] as String,
       type: json['type'] as bool,
-    );
+    )..todoList = (json['todoList'] as List<dynamic>?)
+        ?.map((e) => TodoModel.fromJson(e as Map<String, dynamic>))
+        .toList();
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'name': instance.name,
       'phone': instance.phone,
       'email': instance.email,
-      'password': instance.password,
       'type': instance.type,
+      'todoList': instance.todoList,
     };

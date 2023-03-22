@@ -10,17 +10,14 @@ class SubscriberManage extends GetView<SubscriberManageController> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: const AppBarOnlyBack(
-          appBarTitle: '구독 관리',
-        ),
-        body: subscriberListView(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => controller.toAddSubscirber(),
-          child: const Icon(Icons.add),
-        ),
+    return Scaffold(
+      appBar: const AppBarOnlyBack(
+        appBarTitle: '구독 관리',
+      ),
+      body: subscriberListView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => controller.toAddSubscirber(),
+        child: const Icon(Icons.add),
       ),
     );
   }

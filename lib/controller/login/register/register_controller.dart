@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/user_model.dart';
@@ -20,6 +18,8 @@ class RegisterController extends GetxController {
   Rx<bool> emailEnabled = false.obs;
   Rx<String> password = "".obs;
   Rx<bool> passwordEnabled = false.obs;
+
+  RxInt registerResult = 0.obs;
 
   //타입을 변경해요
   void changeType() {
@@ -61,6 +61,11 @@ class RegisterController extends GetxController {
   // 비밀번호 가져오기
   void setPassword(String value) {
     password.value = value;
+    if (value.isNotEmpty && value == rePasswordController.text) {
+      passwordEnabled.value = true;
+    } else {
+      passwordEnabled.value = false;
+    }
   }
 
   // 다시 쓴 비밀번호 규칙
@@ -84,17 +89,21 @@ class RegisterController extends GetxController {
         name: nameController.text,
         phone: phoneController.text,
         email: emailController.text,
-        password: passwordController.text,
         type: typeSelected.value);
 
-    if (await authService.register(userModel)) {
-      Get.toNamed(Routes.HOME);
-    } else
-      log("회원가입 오류");
+    registerResult.value = await authService.register(
+      userModel,
+      rePasswordController.text,
+    );
+
+    if (registerResult.value == 0) {
+      Get.offAllNamed(Routes.HOME);
+      _clearAllState();
+    }
   }
 
   //상태 초기화
-  void clearAllState() {
+  void _clearAllState() {
     nameController.clear();
     phoneController.clear();
     emailController.clear();
