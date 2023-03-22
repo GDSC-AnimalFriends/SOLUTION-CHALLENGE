@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/my_page/my_page_controller.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
 
 class MyPage extends GetView<MyPageController> {
   const MyPage({super.key});
@@ -22,7 +23,7 @@ class MyPage extends GetView<MyPageController> {
                     height: 120,
                     width: 120,
                     decoration: const BoxDecoration(
-                      color: Color(0xFF707DF1),
+                      color: primaryColor,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -32,7 +33,7 @@ class MyPage extends GetView<MyPageController> {
                     child: const Text('프로필 사진 변경',
                         style: TextStyle(
                           fontSize: 22,
-                          color: Color(0xFF707DF1),
+                          color: primaryColor,
                         )))
               ],
             ),
