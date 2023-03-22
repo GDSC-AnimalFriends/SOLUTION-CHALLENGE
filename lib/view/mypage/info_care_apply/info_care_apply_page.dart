@@ -2,9 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/my_page/apply_care_controller.dart';
-import 'package:solution_challenge/controller/my_page/my_page_controller.dart';
 import 'package:solution_challenge/view/common/appbar_only_back.dart';
-import 'package:solution_challenge/view/mypage/info_care_apply/official_page_webview.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
 import '../../../routes/app_pages.dart';
@@ -38,7 +36,7 @@ class InfoCareApply extends GetView<ApplyCareController> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(30, 25, 0, 0),
-                      child: Text(
+                      child: const Text(
                         '혼자\n살고 있나요?',
                         style: TextStyle(
                             height: 1.2,
@@ -50,7 +48,7 @@ class InfoCareApply extends GetView<ApplyCareController> {
                       padding: const EdgeInsets.fromLTRB(25, 10, 20, 20),
                       child: Container(
                           width: double.infinity,
-                          child: AutoSizeText(
+                          child: const AutoSizeText(
                             ' 나의 할일을 함께 봐주고 도와주는 돌보미가\n 필요하신 여러분께 노인맞춤돌봄서비스로\n 도움을 드릴게요',
                             style: TextStyle(fontSize: 15, height: 1.2),
                             maxLines: 3,
@@ -64,7 +62,7 @@ class InfoCareApply extends GetView<ApplyCareController> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: AssetImage('assets/images/care_picture.jpg')
+                            image: const AssetImage('assets/images/care_picture.jpg')
                               )
                           )
                           ),
@@ -106,13 +104,13 @@ class InfoCareApply extends GetView<ApplyCareController> {
                     Container(
                       margin: EdgeInsets.fromLTRB(9, 27, 9, 7),
                         width: MediaQuery.of(context).size.width*0.84,
-                      child: Text('일상생활 영위가 어려운 취약노인에게 적절한 돌봄서비스를 제공하여 안정적인 노후생활 보장 및 노인의 기능, 건강 유지를 통한 기능악화를 예방하는 서비스입니다.',style: TextStyle(color: Colors.black54),),
+                      child: const Text('일상생활 영위가 어려운 취약노인에게 적절한 돌봄서비스를 제공하여 안정적인 노후생활 보장 및 노인의 기능, 건강 유지를 통한 기능악화를 예방하는 서비스입니다.',style: TextStyle(color: Colors.black54),),
                     ),
                     Positioned(
                         left: 12,
                         child: Container(
                           color: Colors.white,
-                          child: Text("         '노인맞춤돌봄서비스'란?  ",
+                          child: const Text("         '노인맞춤돌봄서비스'란?  ",
                             style: TextStyle(
                                 color: Colors.grey,
                               fontWeight: FontWeight.bold,
@@ -136,7 +134,7 @@ class InfoCareApply extends GetView<ApplyCareController> {
                             ),
                           ],
                         ),
-                        child: Icon(Icons.question_mark,size: 15,),
+                        child: const Icon(Icons.question_mark,size: 15,),
                       ),
                     ),
                   ],
@@ -170,12 +168,12 @@ class InfoCareApply extends GetView<ApplyCareController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.manage_search,size: 50,),
-                            Text(
+                            const Text(
                               '신청 방법 확인하기',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                             ),
-                            Text(' '),
+                            const Text(' '),
                           ],
                         ),
                       ),
@@ -201,12 +199,12 @@ class InfoCareApply extends GetView<ApplyCareController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.travel_explore,size: 50,),
-                            Text(
+                            const Text(
                               '노인맞춤 돌봄서비스',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                             ),
-                            Text(
+                            const Text(
                               '공식 페이지로 이동하기',
                               style: TextStyle(fontSize: 13, color: Colors.grey),
                             )
