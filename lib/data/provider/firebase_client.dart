@@ -12,6 +12,7 @@ class FirebaseClient with StorageUtil {
     final uid = getString(UID_KEY);
     databaseRef.child('$userType/$uid').once().then((value) {
       Map<dynamic, dynamic> user = value.snapshot.value as Map;
+      print(user["imageUrl"]);
       return user["imageUrl"];
     });
     return DEFUALT_URL;
@@ -31,12 +32,12 @@ class FirebaseClient with StorageUtil {
       Map<dynamic, dynamic> user = value.snapshot.value as Map;
       final uid = user.keys.first;
       result = UserModel(
+        id: uid,
         name: user[uid]['name'],
         phone: user[uid]['phone'],
         email: user[uid]['email'],
+        imageUrl: user[uid]['imageUrl'],
       );
-      result.id = uid;
-      result.imageUrl = user[uid]['imageUrl'];
     });
     return result;
   }

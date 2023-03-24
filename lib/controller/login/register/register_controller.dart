@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/user_model.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/service/auth_service.dart';
+import 'package:solution_challenge/util/const_key.dart';
 
 class RegisterController extends GetxController {
   AuthService authService = AuthService();
@@ -89,12 +90,13 @@ class RegisterController extends GetxController {
       name: nameController.text,
       phone: phoneController.text,
       email: emailController.text,
+      imageUrl: DEFUALT_URL,
+      type: typeSelected.value ? TYPE_YOUNG : TYPE_OLD,
     );
 
     registerResult.value = await authService.register(
       userModel,
       rePasswordController.text,
-      typeSelected.value,
     );
 
     if (registerResult.value == 0) {

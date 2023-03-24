@@ -8,19 +8,17 @@ import 'package:solution_challenge/util/storage_util.dart';
 
 class AuthService with StorageUtil {
   //회원가입
-  Future<int> register(UserModel userModel, String password, bool type) async {
+  Future<int> register(UserModel userModel, String password) async {
     try {
       final credential = await firebaseAuth.createUserWithEmailAndPassword(
           email: userModel.email, password: password);
 
-      final refType = type ? TYPE_OLD : TYPE_YOUNG;
       final uid = credential.user!.uid;
       userModel.id = uid;
-      userModel.imageUrl = DEFUALT_URL;
       credential.user!.updateDisplayName(userModel.name);
-      credential.user!.updatePhotoURL(refType); //URL에 가입 타입 저장
+      credential.user!.updatePhotoURL(userModel.type); //URL에 가입 타입 저장
 
-      databaseRef.child(refType).child(uid).set(userModel.toJson());
+      databaseRef.child(userModel.type!).child(uid).set(userModel.toJson());
 
       saveString(UID_KEY, uid);
       return 0;
