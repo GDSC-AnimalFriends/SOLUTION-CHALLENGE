@@ -97,7 +97,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.ALARM,
-      page: () => AlarmPage(),
+      page: () => const AlarmPage(),
       binding: MyPageBinding(),
     ),
     GetPage(

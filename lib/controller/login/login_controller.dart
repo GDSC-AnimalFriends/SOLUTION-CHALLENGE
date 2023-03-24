@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/service/auth_service.dart';
 
@@ -15,7 +16,7 @@ class LoginController extends GetxController {
     loginResult.value =
         await authService.login(emailInput.text, passwordInput.text);
 
-    if (loginResult.value == 0) {
+    if (loginResult.value == SUCCESS) {
       Get.offNamed(Routes.HOME);
     }
   }
