@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/home/alarm_controller.dart';
 
-class AlarmPage extends StatelessWidget {
-  AlarmPage({super.key});
-
-  final AlarmController alarmController = Get.put(AlarmController());
+class AlarmPage extends GetView<AlarmController> {
+  const AlarmPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,7 @@ class AlarmPage extends StatelessWidget {
         child: Align(
           alignment: Alignment.topLeft,
           child: Text(
-            '읽지 않은 알람이 ${alarmController.alarms.length}개 있어요!',
+            '읽지 않은 알람이 ${controller.alarms.length}개 있어요!',
             style: const TextStyle(
               color: Color.fromARGB(255, 112, 125, 241),
               fontSize: 20,
@@ -45,7 +43,7 @@ class AlarmPage extends StatelessWidget {
     return Obx(
       () => ListView.builder(
         shrinkWrap: true,
-        itemCount: alarmController.alarms.length,
+        itemCount: controller.alarms.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
@@ -60,7 +58,7 @@ class AlarmPage extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    alarmController.alarms[index],
+                    controller.alarms[index],
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.normal,
@@ -69,8 +67,8 @@ class AlarmPage extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                alarmController.checkAlarm(index);
-                alarmController.update();
+                controller.checkAlarm(index);
+                controller.update();
               },
             ),
           );
