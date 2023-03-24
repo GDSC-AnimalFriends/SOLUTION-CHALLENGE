@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/user_model.dart';
 import 'package:solution_challenge/data/provider/firebase_client.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
 
 class SubscribeAddController extends GetxController {
   FirebaseClient client = FirebaseClient();
@@ -24,6 +25,7 @@ class SubscribeAddController extends GetxController {
     }
   }
 
+  // 이메일로 검색
   void searchEmail() async {
     resultUser = await client.searchUser(searchInput.text);
     userSearch.value = true;
@@ -34,14 +36,29 @@ class SubscribeAddController extends GetxController {
     }
   }
 
+  // 취소
   void onCancel() {
     userSearch.value = false;
     searchInput.text = "";
   }
 
-  void onSubscribe() {
+  // 구독하기
+  void onSubscribe() async {
+    int resultCode = await client.sendSubscribeAlarm(resultUser!.id!);
+    switch (resultCode) {
+      case SUCCESS:
+        Get.snackbar("알림", "상대방에게 구독요청을 전송했어요");
+        break;
+      case FAIL_ONE:
+        Get.snackbar("알림", "이미 구독중인 유저에요");
+        break;
+      case FAIL_SECOND:
+        Get.snackbar("알림", "이미 구독요청을 보냈어요");
+        break;
+      default:
+        Get.snackbar("에러", "구독요청 전송에 실패했어요");
+    }
     userSearch.value = false;
     searchInput.text = "";
-    //구독 로직 필요
   }
 }

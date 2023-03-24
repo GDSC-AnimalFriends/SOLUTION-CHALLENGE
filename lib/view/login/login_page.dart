@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/login/login_controller.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/view/common/visible_control_text.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 
@@ -33,7 +34,7 @@ class LoginPage extends GetView<LoginController> {
           needHideText: false,
         ),
         Obx(() => VisibleControlText(
-              visible: controller.loginResult.value == 1,
+              visible: controller.loginResult.value == FAIL_ONE,
               text: "이메일을 확인해주세요",
             )),
         const SizedBox(height: 12),
@@ -45,7 +46,7 @@ class LoginPage extends GetView<LoginController> {
           needHideText: true,
         ),
         Obx(() => VisibleControlText(
-              visible: controller.loginResult.value == 2,
+              visible: controller.loginResult.value == FAIL_SECOND,
               text: "비밀번호를 확인해주세요",
             )),
         const SizedBox(height: 32),

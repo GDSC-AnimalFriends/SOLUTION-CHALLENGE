@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/user_model.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 import 'package:solution_challenge/service/auth_service.dart';
 import 'package:solution_challenge/util/const_key.dart';
@@ -99,7 +100,7 @@ class RegisterController extends GetxController {
       rePasswordController.text,
     );
 
-    if (registerResult.value == 0) {
+    if (registerResult.value == SUCCESS) {
       Get.offAllNamed(Routes.HOME);
       _clearAllState();
     }

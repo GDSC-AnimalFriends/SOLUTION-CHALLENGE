@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/login/register/register_controller.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/common/common_input.dart';
 import 'package:solution_challenge/view/common/visible_control_text.dart';
@@ -29,7 +30,7 @@ class RegisterCompletePage extends GetView<RegisterController> {
           needHideText: false,
         ),
         Obx(() => VisibleControlText(
-              visible: controller.registerResult.value == 2,
+              visible: controller.registerResult.value == FAIL_SECOND,
               text: "이미 가입된 이메일입니다",
             )),
         const SizedBox(height: 20),
@@ -49,7 +50,7 @@ class RegisterCompletePage extends GetView<RegisterController> {
           needHideText: true,
         ),
         Obx(() => VisibleControlText(
-              visible: controller.registerResult.value == 1,
+              visible: controller.registerResult.value == FAIL_ONE,
               text: "6자 이상 비밀번호가 필요합니다",
             )),
       ],
