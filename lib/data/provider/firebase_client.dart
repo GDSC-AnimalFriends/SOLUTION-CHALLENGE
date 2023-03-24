@@ -29,8 +29,11 @@ class FirebaseClient with StorageUtil {
     Query query =
         databaseRef.child(oppositeType).orderByChild("email").equalTo(email);
     await query.once().then((value) {
+      final snapshotValue = value.snapshot.value;
+      if (snapshotValue == null) return null;
       Map<dynamic, dynamic> user = value.snapshot.value as Map;
       final uid = user.keys.first;
+      print(uid);
       result = UserModel(
         id: uid,
         name: user[uid]['name'],
