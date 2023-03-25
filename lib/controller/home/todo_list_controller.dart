@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/todo_model.dart';
+import 'package:solution_challenge/data/provider/firebase_client.dart';
 import 'package:solution_challenge/service/todo_service.dart';
 
 class TodoListController extends GetxController {
@@ -73,5 +74,11 @@ class TodoListController extends GetxController {
 
   void back() {
     Get.back();
+  }
+
+  @override
+  void onInit() {
+    FirebaseClient().getMyAlarmList();
+    super.onInit();
   }
 }

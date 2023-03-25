@@ -4,47 +4,139 @@ import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/alarm_model.dart';
+import 'package:solution_challenge/data/model/subscriber_model.dart';
 import 'package:solution_challenge/data/model/user_model.dart';
 import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/util/const_key.dart';
 import 'package:solution_challenge/util/storage_util.dart';
 
 class FirebaseClient with StorageUtil {
-  //내 이미지 가져오기
-  // String getImgUrl() {
-  //   final uid = getString(UID_KEY);
-  //   databaseRef.child('$userType/$uid').once().then((value) {
-  //     Map<dynamic, dynamic> user = value.snapshot.value as Map;
-  //     print(user["imageUrl"]);
-  //     return user["imageUrl"];
-  //   });
-  //   return DEFUALT_URL;
-  // }
+  //싱글톤
+  FirebaseClient._privateConstructor();
+  static final FirebaseClient _instace = FirebaseClient._privateConstructor();
+  factory FirebaseClient() {
+    return _instace;
+  }
+
+  //내 알람을 저장하는 공간
+  RxList<AlarmModel> remoteAlarmList = <AlarmModel>[].obs;
+
+  //검색된 유저를 저장하는 공간
+  UserModel? searchedUser;
+
+  //내 알람 가져오기
+  Future<void> getMyAlarmList() async {
+    try {
+      Query query = databaseRef
+          .child(userType!)
+          .child(getString(UID_KEY)!)
+          .child("alarmList");
+
+      final queryStr = "$userType/${getString(UID_KEY)}/alarmList";
+      log(queryStr);
+
+      await query.once().then((value) {
+        Map<dynamic, dynamic> remoteAlarms = value.snapshot.value as Map;
+        List<dynamic> resultList = remoteAlarms.values.toList();
+        List<AlarmModel> list = <AlarmModel>[];
+        for (var result in resultList) {
+          final model = AlarmModel.fromJson(result);
+          list.add(model);
+        }
+        remoteAlarmList.value = list;
+      });
+    } catch (e) {
+      return;
+    }
+    return;
+  }
+
+  //알림리스트에서 구독하기 눌렀을때 구독
+  Future<int> subscribeUser(AlarmModel model) async {
+    try {
+      final ref = "$userType/${model.toUid}/subscribeList/${model.fromUid}";
+      final otherRef =
+          "$oppositeType/${model.fromUid}/subscribeList/${model.toUid}";
+
+      //내 구독목록에 추가
+      if (await addSubscriber(
+              model.fromUid, ref, otherRef, model.imageUrl, model.name) ==
+          false) {
+        log("내 구독목록에 추가실패");
+        return FAIL_ONE;
+      }
+      //상대 구독목록에 추가
+      if (await addSubscriber(
+              model.toUid, otherRef, ref, getString(IMAGE_KEY)!, myName!) ==
+          false) {
+        log("상대 구독목록에 추가실패");
+        return FAIL_SECOND;
+      }
+      return SUCCESS;
+    } catch (e) {
+      return ERROR;
+    }
+  }
+
+  //알림 리스트에서 삭제
+  Future<int> deleteAlarm(String ref) async {
+    try {
+      await databaseRef.child(ref).remove();
+      return SUCCESS;
+    } catch (e) {
+      return ERROR;
+    }
+  }
+
+  //구독자 목록에 추가
+  Future<bool> addSubscriber(String targetId, String ref, String otherRef,
+      String imageUrl, String name) async {
+    try {
+      final subscriberModel = SubscriberModel(
+        id: targetId,
+        ref: ref,
+        otherRef: otherRef,
+        imageUrl: imageUrl,
+        name: name,
+        auth: true,
+      );
+      await databaseRef.child(ref).set(subscriberModel.toJson());
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   //유저 검색 (구독자 찾기)
-  Future<UserModel?> searchUser(String email) async {
+  Future<int> searchUser(String email) async {
     if (email == firebaseAuth.currentUser?.email) {
       Get.snackbar("검색오류", "본인 아이디는 구독할 수 없습니다");
-      return null;
+      return FAIL_ONE;
     }
-    late UserModel result;
+
+    var resultCode = ERROR;
+
     Query query =
         databaseRef.child(oppositeType).orderByChild("email").equalTo(email);
     await query.once().then((value) {
       final snapshotValue = value.snapshot.value;
-      if (snapshotValue == null) return null;
-      Map<dynamic, dynamic> user = snapshotValue as Map;
-      final uid = user.keys.first;
-      print(uid);
-      result = UserModel(
-        id: uid,
-        name: user[uid]['name'],
-        phone: user[uid]['phone'],
-        email: user[uid]['email'],
-        imageUrl: user[uid]['imageUrl'],
-      );
+      if (snapshotValue == null) {
+        resultCode = FAIL_SECOND;
+      } else {
+        Map<dynamic, dynamic> user = snapshotValue as Map;
+        final uid = user.keys.first;
+        log(uid);
+        searchedUser = UserModel(
+          id: uid,
+          name: user[uid]['name'],
+          phone: user[uid]['phone'],
+          email: user[uid]['email'],
+          imageUrl: user[uid]['imageUrl'],
+        );
+        resultCode = SUCCESS;
+      }
     });
-    return result;
+    return resultCode;
   }
 
   //구독 추가 알람보내기
@@ -60,15 +152,15 @@ class FirebaseClient with StorageUtil {
         return FAIL_SECOND;
       }
 
-      DatabaseReference pushedPostRef = databaseRef
-          .child(oppositeType)
-          .child(toUid)
-          .child("alarmList")
-          .push();
+      final ref = "$oppositeType/$toUid/alarmList";
+
+      DatabaseReference pushedPostRef = databaseRef.child(ref).push();
       String? pushKey = pushedPostRef.key;
 
       final alarm = AlarmModel(
         id: pushKey!,
+        ref: "$ref/$pushKey",
+        toUid: toUid,
         fromUid: uid,
         name: myName!,
         imageUrl: getString(IMAGE_KEY)!,
