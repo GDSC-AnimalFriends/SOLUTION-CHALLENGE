@@ -51,7 +51,7 @@ class FirebaseClient with StorageUtil {
     return;
   }
 
-  //알림에서 구독하기 눌렀을때 구독
+  //알림리스트에서 구독하기 눌렀을때 구독
   Future<int> subscribeUser(AlarmModel model) async {
     try {
       final ref = "$userType/${model.toUid}/subscribeList/${model.fromUid}";
@@ -72,6 +72,16 @@ class FirebaseClient with StorageUtil {
         log("상대 구독목록에 추가실패");
         return FAIL_SECOND;
       }
+      return SUCCESS;
+    } catch (e) {
+      return ERROR;
+    }
+  }
+
+  //알림 리스트에서 삭제
+  Future<int> deleteAlarm(String ref) async {
+    try {
+      await databaseRef.child(ref).remove();
       return SUCCESS;
     } catch (e) {
       return ERROR;

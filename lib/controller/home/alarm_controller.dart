@@ -28,7 +28,9 @@ class AlarmController extends GetxController {
     }
   }
 
-  void deleteAlarm(int index) {
-    alarmList.removeAt(index);
+  void deleteAlarm(int index) async {
+    if (await client.deleteAlarm(alarmList[index].ref) == SUCCESS) {
+      alarmList.removeAt(index);
+    }
   }
 }
