@@ -14,6 +14,9 @@ const TextStyle textfieldInfo =
 const TextStyle todoPageText =
     TextStyle(fontSize: 22, color: black, fontWeight: FontWeight.w400);
 
+const TextStyle bold18 =
+    TextStyle(fontSize: 18, color: black, fontWeight: FontWeight.w600);
+
 const TextStyle bold24 =
     TextStyle(fontSize: 24, color: black, fontWeight: FontWeight.w600);
 
