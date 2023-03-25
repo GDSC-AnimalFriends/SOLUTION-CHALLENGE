@@ -12,29 +12,29 @@ class AlarmPage extends GetView<AlarmController> {
     return SingleChildScrollView(
       child: Container(
         color: Colors.white,
-        child: Obx(
-          () => Column(
-            children: [
-              alarmCountText(),
-              alarmListView(),
-            ],
-          ),
+        child: Column(
+          children: [
+            alarmCountText(),
+            alarmListView(),
+          ],
         ),
       ),
     );
   }
 
   Widget alarmCountText() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Text(
-          '읽지 않은 알람이 ${controller.alarmList.length}개 있어요!',
-          style: const TextStyle(
-            color: Color.fromARGB(255, 112, 125, 241),
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+    return Obx(
+      () => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            '읽지 않은 알람이 ${controller.alarmList.length}개 있어요!',
+            style: const TextStyle(
+              color: Color.fromARGB(255, 112, 125, 241),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
@@ -42,48 +42,50 @@ class AlarmPage extends GetView<AlarmController> {
   }
 
   Widget alarmListView() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: controller.alarmList.length,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: buttonDisabled,
-              radius: 30,
-              child: Image.network(controller.alarmList[index].imageUrl),
-            ),
-            title: Text(
-              controller.alarmList[index].name,
-              style: bold18,
-            ),
-            subtitle: const Text("구독 요청이 왔어요"),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: AlarmButton(
-                    text: "구독하기",
-                    textColor: primaryColor,
-                    isRead: controller.alarmList[index].read,
+    return Obx(
+      () => ListView.builder(
+        shrinkWrap: true,
+        itemCount: controller.alarmList.length,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: buttonDisabled,
+                radius: 30,
+                child: Image.network(controller.alarmList[index].imageUrl),
+              ),
+              title: Text(
+                controller.alarmList[index].name,
+                style: bold18,
+              ),
+              subtitle: const Text("구독 요청이 왔어요"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextButton(
+                    onPressed: () => controller.subscribeUser(index),
+                    child: AlarmButton(
+                      text: "구독하기",
+                      textColor: primaryColor,
+                      isRead: controller.alarmList[index].read,
+                    ),
                   ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const AlarmButton(
-                    text: "삭제",
-                    textColor: grey,
-                    isRead: false,
+                  TextButton(
+                    onPressed: () => controller.deleteAlarm(index),
+                    child: const AlarmButton(
+                      text: "삭제",
+                      textColor: grey,
+                      isRead: false,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -5,6 +5,8 @@ part 'alarm_model.g.dart';
 @JsonSerializable()
 class AlarmModel {
   String id;
+  String ref;
+  String toUid;
   String fromUid;
   String name;
   String imageUrl;
@@ -12,6 +14,8 @@ class AlarmModel {
 
   AlarmModel({
     required this.id,
+    required this.ref,
+    required this.toUid,
     required this.fromUid,
     required this.name,
     required this.imageUrl,

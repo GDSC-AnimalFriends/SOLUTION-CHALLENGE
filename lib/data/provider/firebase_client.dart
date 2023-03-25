@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/alarm_model.dart';
+import 'package:solution_challenge/data/model/subscriber_model.dart';
 import 'package:solution_challenge/data/model/user_model.dart';
 import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/util/const_key.dart';
@@ -48,6 +49,52 @@ class FirebaseClient with StorageUtil {
       return;
     }
     return;
+  }
+
+  //알림에서 구독하기 눌렀을때 구독
+  Future<int> subscribeUser(AlarmModel model) async {
+    try {
+      final ref = "$userType/${model.toUid}/subscribeList/${model.fromUid}";
+      final otherRef =
+          "$oppositeType/${model.fromUid}/subscribeList/${model.toUid}";
+
+      //내 구독목록에 추가
+      if (await addSubscriber(
+              model.fromUid, ref, otherRef, model.imageUrl, model.name) ==
+          false) {
+        log("내 구독목록에 추가실패");
+        return FAIL_ONE;
+      }
+      //상대 구독목록에 추가
+      if (await addSubscriber(
+              model.toUid, otherRef, ref, getString(IMAGE_KEY)!, myName!) ==
+          false) {
+        log("상대 구독목록에 추가실패");
+        return FAIL_SECOND;
+      }
+      return SUCCESS;
+    } catch (e) {
+      return ERROR;
+    }
+  }
+
+  //구독자 목록에 추가
+  Future<bool> addSubscriber(String targetId, String ref, String otherRef,
+      String imageUrl, String name) async {
+    try {
+      final subscriberModel = SubscriberModel(
+        id: targetId,
+        ref: ref,
+        otherRef: otherRef,
+        imageUrl: imageUrl,
+        name: name,
+        auth: true,
+      );
+      await databaseRef.child(ref).set(subscriberModel.toJson());
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   //유저 검색 (구독자 찾기)
@@ -95,15 +142,15 @@ class FirebaseClient with StorageUtil {
         return FAIL_SECOND;
       }
 
-      DatabaseReference pushedPostRef = databaseRef
-          .child(oppositeType)
-          .child(toUid)
-          .child("alarmList")
-          .push();
+      final ref = "$oppositeType/$toUid/alarmList";
+
+      DatabaseReference pushedPostRef = databaseRef.child(ref).push();
       String? pushKey = pushedPostRef.key;
 
       final alarm = AlarmModel(
         id: pushKey!,
+        ref: "$ref/$pushKey",
+        toUid: toUid,
         fromUid: uid,
         name: myName!,
         imageUrl: getString(IMAGE_KEY)!,
