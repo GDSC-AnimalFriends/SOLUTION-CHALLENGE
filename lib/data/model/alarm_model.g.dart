@@ -6,7 +6,7 @@ part of 'alarm_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AlarmModel _$AlarmModelFromJson(Map<String, dynamic> json) => AlarmModel(
+AlarmModel _$AlarmModelFromJson(Map<dynamic, dynamic> json) => AlarmModel(
       id: json['id'] as String,
       fromUid: json['fromUid'] as String,
       name: json['name'] as String,

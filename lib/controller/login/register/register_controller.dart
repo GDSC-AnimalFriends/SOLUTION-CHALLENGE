@@ -92,7 +92,7 @@ class RegisterController extends GetxController {
       phone: phoneController.text,
       email: emailController.text,
       imageUrl: DEFUALT_URL,
-      type: typeSelected.value ? TYPE_YOUNG : TYPE_OLD,
+      type: typeSelected.value ? TYPE_OLD : TYPE_YOUNG,
     );
 
     registerResult.value = await authService.register(

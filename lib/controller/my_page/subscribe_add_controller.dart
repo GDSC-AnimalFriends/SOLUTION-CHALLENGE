@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/user_model.dart';
@@ -15,6 +17,10 @@ class SubscribeAddController extends GetxController {
 
   // 이메일 정규식
   void emailValidation(String value) {
+    if (value.isEmpty) {
+      buttonEnabled.value = false;
+      userSearch.value = false;
+    }
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = RegExp(pattern);
@@ -27,7 +33,13 @@ class SubscribeAddController extends GetxController {
 
   // 이메일로 검색
   void searchEmail() async {
-    resultUser = await client.searchUser(searchInput.text);
+    resultUser = null;
+    final resultCode = await client.searchUser(searchInput.text);
+    if (resultCode == SUCCESS) {
+      resultUser = client.searchedUser;
+    } else if (resultCode == FAIL_ONE) {
+      return;
+    }
     userSearch.value = true;
     if (resultUser != null) {
       searchResult.value = true;
@@ -38,6 +50,7 @@ class SubscribeAddController extends GetxController {
 
   // 취소
   void onCancel() {
+    buttonEnabled.value = false;
     userSearch.value = false;
     searchInput.text = "";
   }
@@ -58,6 +71,7 @@ class SubscribeAddController extends GetxController {
       default:
         Get.snackbar("에러", "구독요청 전송에 실패했어요");
     }
+    buttonEnabled.value = false;
     userSearch.value = false;
     searchInput.text = "";
   }

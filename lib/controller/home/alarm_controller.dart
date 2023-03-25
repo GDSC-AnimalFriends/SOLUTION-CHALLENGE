@@ -1,16 +1,26 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
+import 'package:solution_challenge/data/model/alarm_model.dart';
+import 'package:solution_challenge/data/provider/firebase_client.dart';
 
 class AlarmController extends GetxController {
-  List alarms = ["hello"].obs;
+  RxList<AlarmModel> alarmList = <AlarmModel>[].obs;
 
   @override
   void onInit() {
-    alarms.add("test");
+    log("컨트롤러 시작");
+    _getRemoteAlarmList();
     super.onInit();
   }
 
-  void checkAlarm(int index) {
-    alarms.removeAt(index);
+  void _getRemoteAlarmList() async {
+    await FirebaseClient().getMyAlarmList();
+    alarmList.value = FirebaseClient().remoteAlarmList;
+    log(FirebaseClient().remoteAlarmList.length.toString());
+  }
+
+  void checkAlarm(String id) {
     refresh();
   }
 }

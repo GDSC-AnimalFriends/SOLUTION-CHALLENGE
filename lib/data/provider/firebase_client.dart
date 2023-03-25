@@ -10,41 +10,76 @@ import 'package:solution_challenge/util/const_key.dart';
 import 'package:solution_challenge/util/storage_util.dart';
 
 class FirebaseClient with StorageUtil {
-  //내 이미지 가져오기
-  // String getImgUrl() {
-  //   final uid = getString(UID_KEY);
-  //   databaseRef.child('$userType/$uid').once().then((value) {
-  //     Map<dynamic, dynamic> user = value.snapshot.value as Map;
-  //     print(user["imageUrl"]);
-  //     return user["imageUrl"];
-  //   });
-  //   return DEFUALT_URL;
-  // }
+  //싱글톤
+  FirebaseClient._privateConstructor();
+  static final FirebaseClient _instace = FirebaseClient._privateConstructor();
+  factory FirebaseClient() {
+    return _instace;
+  }
+
+  //내 알람을 저장하는 공간
+  RxList<AlarmModel> remoteAlarmList = <AlarmModel>[].obs;
+
+  //검색된 유저를 저장하는 공간
+  UserModel? searchedUser;
+
+  //내 알람 가져오기
+  Future<void> getMyAlarmList() async {
+    try {
+      Query query = databaseRef
+          .child(userType!)
+          .child(getString(UID_KEY)!)
+          .child("alarmList");
+
+      final queryStr = "$userType/${getString(UID_KEY)}/alarmList";
+      log(queryStr);
+
+      await query.once().then((value) {
+        Map<dynamic, dynamic> remoteAlarms = value.snapshot.value as Map;
+        List<dynamic> resultList = remoteAlarms.values.toList();
+        List<AlarmModel> list = <AlarmModel>[];
+        for (var result in resultList) {
+          final model = AlarmModel.fromJson(result);
+          list.add(model);
+        }
+        remoteAlarmList.value = list;
+      });
+    } catch (e) {
+      return;
+    }
+    return;
+  }
 
   //유저 검색 (구독자 찾기)
-  Future<UserModel?> searchUser(String email) async {
+  Future<int> searchUser(String email) async {
     if (email == firebaseAuth.currentUser?.email) {
       Get.snackbar("검색오류", "본인 아이디는 구독할 수 없습니다");
-      return null;
+      return FAIL_ONE;
     }
-    late UserModel result;
+
+    var resultCode = ERROR;
+
     Query query =
         databaseRef.child(oppositeType).orderByChild("email").equalTo(email);
     await query.once().then((value) {
       final snapshotValue = value.snapshot.value;
-      if (snapshotValue == null) return null;
-      Map<dynamic, dynamic> user = snapshotValue as Map;
-      final uid = user.keys.first;
-      print(uid);
-      result = UserModel(
-        id: uid,
-        name: user[uid]['name'],
-        phone: user[uid]['phone'],
-        email: user[uid]['email'],
-        imageUrl: user[uid]['imageUrl'],
-      );
+      if (snapshotValue == null) {
+        resultCode = FAIL_SECOND;
+      } else {
+        Map<dynamic, dynamic> user = snapshotValue as Map;
+        final uid = user.keys.first;
+        log(uid);
+        searchedUser = UserModel(
+          id: uid,
+          name: user[uid]['name'],
+          phone: user[uid]['phone'],
+          email: user[uid]['email'],
+          imageUrl: user[uid]['imageUrl'],
+        );
+        resultCode = SUCCESS;
+      }
     });
-    return result;
+    return resultCode;
   }
 
   //구독 추가 알람보내기
