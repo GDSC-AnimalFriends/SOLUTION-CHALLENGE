@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/view/theme/app_colors.dart';
+import 'package:solution_challenge/view/theme/app_text_theme.dart';
 import '../../../controller/home/alarm_controller.dart';
 
 class AlarmPage extends GetView<AlarmController> {
@@ -46,32 +48,62 @@ class AlarmPage extends GetView<AlarmController> {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          padding: const EdgeInsets.symmetric(vertical: 5),
           child: ListTile(
-            title: Row(
+            leading: CircleAvatar(
+              backgroundColor: buttonDisabled,
+              radius: 30,
+              child: Image.network(controller.alarmList[index].imageUrl),
+            ),
+            title: Text(
+              controller.alarmList[index].name,
+              style: bold18,
+            ),
+            subtitle: const Text("구독 요청이 왔어요"),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.notifications,
+                TextButton(
+                  onPressed: () {},
+                  child: AlarmButton(
+                    text: "구독하기",
+                    textColor: primaryColor,
+                    isRead: controller.alarmList[index].read,
+                  ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  controller.alarmList[index].name,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.normal,
+                TextButton(
+                  onPressed: () {},
+                  child: const AlarmButton(
+                    text: "삭제",
+                    textColor: grey,
+                    isRead: false,
                   ),
                 ),
               ],
             ),
-            onTap: () {
-              controller.checkAlarm(controller.alarmList[index].id);
-              controller.update();
-            },
           ),
         );
       },
+    );
+  }
+}
+
+class AlarmButton extends StatelessWidget {
+  final String text;
+  final Color textColor;
+  final bool isRead;
+  const AlarmButton({
+    Key? key,
+    required this.text,
+    required this.textColor,
+    required this.isRead,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(color: isRead ? buttonDisabled : textColor),
     );
   }
 }

@@ -9,7 +9,6 @@ class AlarmController extends GetxController {
 
   @override
   void onInit() {
-    log("컨트롤러 시작");
     _getRemoteAlarmList();
     super.onInit();
   }
@@ -17,7 +16,6 @@ class AlarmController extends GetxController {
   void _getRemoteAlarmList() async {
     await FirebaseClient().getMyAlarmList();
     alarmList.value = FirebaseClient().remoteAlarmList;
-    log(FirebaseClient().remoteAlarmList.length.toString());
   }
 
   void checkAlarm(String id) {
