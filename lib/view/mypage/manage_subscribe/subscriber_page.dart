@@ -23,10 +23,10 @@ class SubscriberManage extends GetView<SubscriberManageController> {
   }
 
   Widget subscriberListView() {
-    return Obx(() => ListView.builder(
+    return Obx(() => controller.subscriberList.length > 0 ? ListView.builder(
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(10),
-        itemCount: controller.subscribers.length,
+        itemCount: controller.subscriberList.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(10.0),
@@ -54,8 +54,8 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                         margin: const EdgeInsets.fromLTRB(18, 18, 0, 0),
                         child: Column(
                           children: [
-                            Text(controller.subscribers[index]),
-                            const Text('mail'),
+                            Text(controller.subscriberList[index].name), //구독자 이름
+                            Text(controller.searchSubscriberEmail(controller.subscriberList[index].id)), //구독자 id로 메일찾아와
                           ],
                         ),
                       ),
@@ -74,14 +74,13 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                       ],
                       selectedTextStyle: const TextStyle(color: Colors.white),
                       unSelectedTextStyle: const TextStyle(color: Colors.black),
-                      labels: controller.listTextTabToggle,
+                      labels: controller.listTextTabToggle, //수정허용,거부
                       selectedLabelIndex: (buttonIndex) {
                         //buttonIndex가 togglebutton(0,1) 중 index
-                        controller.subscriberButtonIndex[index].value =
-                            buttonIndex;
+                        controller.isAuthButtonIndex(buttonIndex, index);
                       },
                       selectedIndex:
-                          controller.subscriberButtonIndex[index].value,
+                          controller.authBoolToSelectedIndex(index),
                       isScroll: true,
                     ),
                   ),
@@ -94,6 +93,9 @@ class SubscriberManage extends GetView<SubscriberManageController> {
               ),
             ),
           );
-        }));
+        })
+        : const Center(child: Text('구독자가 없습니다.\n구독자를 추가해서 나의 할 일을 공유해보세요!', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
+
+    );
   }
 }

@@ -21,6 +21,12 @@ class FirebaseClient with StorageUtil {
   //내 알람을 저장하는 공간
   RxList<AlarmModel> remoteAlarmList = <AlarmModel>[].obs;
 
+  //구독자를 저장하는 공간
+  RxList<SubscriberModel> remoteSubscriberList = <SubscriberModel>[].obs;
+
+  //유저를 저장하는 공간
+  List<UserModel> remoteUserList = <UserModel>[];
+
   //검색된 유저를 저장하는 공간
   UserModel? searchedUser;
 
