@@ -6,7 +6,7 @@ part of 'subscriber_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SubscriberModel _$SubscriberModelFromJson(Map<dynamic, dynamic> json) =>
+SubscriberModel _$SubscriberModelFromJson(Map<String, dynamic> json) =>
     SubscriberModel(
       id: json['id'] as String,
       ref: json['ref'] as String,

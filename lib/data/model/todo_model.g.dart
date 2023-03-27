@@ -11,8 +11,8 @@ TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
       date: DateTime.parse(json['date'] as String),
       alarmDate: DateTime.parse(json['alarmDate'] as String),
       title: json['title'] as String,
-      dayRepeat: json['dayRepeat'] as bool,
-      weekRepeat: json['weekRepeat'] as bool,
+      dayRepeat: json['dayRepeat'] as int,
+      weekRepeat: json['weekRepeat'] as int,
       repeat: (json['repeat'] as List<dynamic>)
           .map((e) => Map<String, bool>.from(e as Map))
           .toList(),

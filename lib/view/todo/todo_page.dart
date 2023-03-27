@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/todo_model.dart';
+import 'package:solution_challenge/util/const_key.dart';
+import 'package:solution_challenge/util/storage_util.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 import 'package:solution_challenge/view/todo/todo_alram_toggle_button.dart';
@@ -12,8 +14,8 @@ import 'package:solution_challenge/view/todo/todo_input.dart';
 import '../../controller/home/todo_list_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
 
-class TodoPage extends GetView<TodoListController> {
-  const TodoPage({super.key});
+class TodoPage extends GetView<TodoListController> with StorageUtil {
+  TodoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -282,18 +284,19 @@ class TodoPage extends GetView<TodoListController> {
               alarmDate: todoListController.alarmDate.value,
               date: todoListController.todoDate.value,
               title: todoListController.todoInput.text,
-              dayRepeat: false,
-              weekRepeat: true,
+              dayRepeat: 0,
+              weekRepeat: 1,
               repeat: [
                 {"월": true},
               ],
-              user: "nhg1113@icloud.com",
-              creator: "NOGUEN",
+              user: getString(UID_KEY)!,
+              creator: getString(UID_KEY)!,
               alarm: todoListController.alarmEnabled.value,
               description: todoListController.todoDescriptionInput.text,
               complete: false,
             );
-            Get.find<TodoListController>().addTodo(todo);
+            Get.find<TodoListController>().readTodo(getString(UID_KEY)!);
+            //Get.find<TodoListController>().addTodo(todo);
             Get.back();
           },
           enabled: true),

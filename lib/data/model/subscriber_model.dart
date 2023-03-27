@@ -20,7 +20,7 @@ class SubscriberModel {
     required this.auth,
   });
 
-  factory SubscriberModel.fromJson(Map<dynamic, dynamic> json) =>
+  factory SubscriberModel.fromJson(Map<String, dynamic> json) =>
       _$SubscriberModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SubscriberModelToJson(this);

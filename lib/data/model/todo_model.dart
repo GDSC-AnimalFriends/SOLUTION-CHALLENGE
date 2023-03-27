@@ -23,8 +23,8 @@ class TodoModel {
   DateTime date;
   DateTime alarmDate;
   String title;
-  bool dayRepeat;
-  bool weekRepeat;
+  int dayRepeat;
+  int weekRepeat;
   List<Map<String, bool>> repeat;
   String user;
   String creator;
