@@ -6,7 +6,7 @@ import 'package:solution_challenge/routes/app_pages.dart';
 import '../../data/model/user_model.dart';
 import '../../data/provider/firebase_client.dart';
 
-class SubscriberManageController extends GetxController{
+class SubscriberManageController extends GetxController {
   RxList<SubscriberModel> subscriberList = <SubscriberModel>[].obs;
   List<UserModel> userList = <UserModel>[]; //구독자의 email 가져오기
   final subscriber = FirebaseClient();
@@ -15,15 +15,16 @@ class SubscriberManageController extends GetxController{
   // await subscriber.update({
   // "auth": 19
   // });
+  //await subscriber.update(){};
 
   final List<RxInt> subscriberButtonIndex = <RxInt>[];
 
   void initializeButtonIndex() {
     for (int i = 0; i < subscriberList.length; i++) {
-      if(subscriberList[i].auth == true){
+      if (subscriberList[i].auth == true) {
         subscriberButtonIndex.add(RxInt(0));
       }
-      else{
+      else {
         subscriberButtonIndex.add(RxInt(1));
       }
     }
@@ -41,29 +42,32 @@ class SubscriberManageController extends GetxController{
     subscriberList.value = subscriber.remoteSubscriberList;
   }
 
-  void _getRemoteUserList() async{
+  void _getRemoteUserList() async {
     userList = subscriber.remoteUserList;
   }
 
-  int authBoolToSelectedIndex(index){
-    if(subscriberList[index].auth == true){//수정 허용
-      return 0;
-    }
-    else{
-      return 1;
-    }
-  }
 
 
   void isAuthButtonIndex(buttonIndex,index){
     if(buttonIndex == 0){//수정허용
-      subscriberList[index].auth = true;
-      subscriberButtonIndex[index].value = buttonIndex;
+      subscriber.updateSubscriberAuth(subscriberList[index], true).then((value) {
+        print("true로 update됨");
+        // The subscriber data has been successfully updated in Firebase
+      }).catchError((error) {
+        // An error occurred while updating the subscriber data in Firebase
+      });
     }
     else {
-      subscriberList[index].auth == false;
-      subscriberButtonIndex[index].value = buttonIndex;
+      subscriber.updateSubscriberAuth(subscriberList[index], false).then((value) {
+        print("false로 update됨");
+        // The subscriber data has been successfully updated in Firebase
+      }).catchError((error) {
+      });
     }
+    subscriberButtonIndex[index].value = buttonIndex;
+
+
+
   }
 
   String searchSubscriberEmail(id) { //구독자 id로 구독자의 email 찾기

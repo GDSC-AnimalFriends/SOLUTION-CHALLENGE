@@ -39,6 +39,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                   ),
                   borderRadius: BorderRadius.circular(9.0)),
               child: ExpansionTile(
+                initiallyExpanded: true,
                 title: SizedBox(
                   height: 75,
                   child: Row(
@@ -81,7 +82,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                       selectedLabelIndex: (buttonIndex) {
                         //buttonIndex가 togglebutton(0,1) 중 index
                         controller.subscriberButtonIndex[index].value = buttonIndex;
-                        //controller.isAuthButtonIndex(buttonIndex, index);
+                        controller.isAuthButtonIndex(buttonIndex, index);
                       },
                       selectedIndex:
                         //controller.authBoolToSelectedIndex(index),
