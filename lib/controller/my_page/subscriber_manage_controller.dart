@@ -12,11 +12,28 @@ class SubscriberManageController extends GetxController{
   final subscriber = FirebaseClient();
   final listTextTabToggle = ["수정허용", "수정거부"];
 
+  // await subscriber.update({
+  // "auth": 19
+  // });
 
-  @override
+  final List<RxInt> subscriberButtonIndex = <RxInt>[];
+
+  void initializeButtonIndex() {
+    for (int i = 0; i < subscriberList.length; i++) {
+      if(subscriberList[i].auth == true){
+        subscriberButtonIndex.add(RxInt(0));
+      }
+      else{
+        subscriberButtonIndex.add(RxInt(1));
+      }
+    }
+  }
+
   void onInit() {
+    subscriber.getMySubscriberList();
     _getRemoteSubscriberList();
     _getRemoteUserList();
+    initializeButtonIndex();
     super.onInit();
   }
 
@@ -24,7 +41,7 @@ class SubscriberManageController extends GetxController{
     subscriberList.value = subscriber.remoteSubscriberList;
   }
 
-  void _getRemoteUserList(){
+  void _getRemoteUserList() async{
     userList = subscriber.remoteUserList;
   }
 
@@ -37,12 +54,15 @@ class SubscriberManageController extends GetxController{
     }
   }
 
+
   void isAuthButtonIndex(buttonIndex,index){
     if(buttonIndex == 0){//수정허용
       subscriberList[index].auth = true;
+      subscriberButtonIndex[index].value = buttonIndex;
     }
     else {
       subscriberList[index].auth == false;
+      subscriberButtonIndex[index].value = buttonIndex;
     }
   }
 

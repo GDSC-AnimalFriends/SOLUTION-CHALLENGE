@@ -8,6 +8,7 @@ import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 class SubscriberManage extends GetView<SubscriberManageController> {
   const SubscriberManage({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +24,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
   }
 
   Widget subscriberListView() {
-    return Obx(() => controller.subscriberList.length > 0 ? ListView.builder(
+    return Obx(() => controller.subscriberList.isNotEmpty ? ListView.builder(
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(10),
         itemCount: controller.subscriberList.length,
@@ -53,9 +54,11 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(18, 18, 0, 0),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(controller.subscriberList[index].name), //구독자 이름
-                            Text(controller.searchSubscriberEmail(controller.subscriberList[index].id)), //구독자 id로 메일찾아와
+                            Text('email'),
+                            //controller.searchSubscriberEmail(controller.subscriberList[index].id)), //구독자 id로 메일찾아와
                           ],
                         ),
                       ),
@@ -77,10 +80,12 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                       labels: controller.listTextTabToggle, //수정허용,거부
                       selectedLabelIndex: (buttonIndex) {
                         //buttonIndex가 togglebutton(0,1) 중 index
-                        controller.isAuthButtonIndex(buttonIndex, index);
+                        controller.subscriberButtonIndex[index].value = buttonIndex;
+                        //controller.isAuthButtonIndex(buttonIndex, index);
                       },
                       selectedIndex:
-                          controller.authBoolToSelectedIndex(index),
+                        //controller.authBoolToSelectedIndex(index),
+                        controller.subscriberButtonIndex[index].value,
                       isScroll: true,
                     ),
                   ),
@@ -94,7 +99,8 @@ class SubscriberManage extends GetView<SubscriberManageController> {
             ),
           );
         })
-        : const Center(child: Text('구독자가 없습니다.\n구독자를 추가해서 나의 할 일을 공유해보세요!', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
+        //: Text(controller.isSubscriberListExist()), //구독자 있는지 확인
+       :const Center(child: Text('구독자가 없습니다.\n구독자를 추가해서 나의 할 일을 공유해보세요!', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
 
     );
   }

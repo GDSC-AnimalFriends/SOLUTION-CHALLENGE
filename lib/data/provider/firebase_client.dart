@@ -30,6 +30,32 @@ class FirebaseClient with StorageUtil {
   //검색된 유저를 저장하는 공간
   UserModel? searchedUser;
 
+  Future<void> getMySubscriberList() async { //내 구독자 가져와볼게
+    try {
+      Query query = databaseRef
+          .child(userType!)
+          .child(getString(UID_KEY)!)
+          .child("subscribeList");
+
+      final queryStr = "$userType/${getString(UID_KEY)}/SubscribeList";
+      log(queryStr);
+
+      await query.once().then((value) {
+        Map<dynamic, dynamic> remoteSubscribers = value.snapshot.value as Map;
+        List<dynamic> resultList = remoteSubscribers.values.toList();
+        List<SubscriberModel> list = <SubscriberModel>[];
+        for (var result in resultList) {
+          final model = SubscriberModel.fromJson(result);
+          list.add(model);
+        }
+        remoteSubscriberList.value = list;
+      });
+    } catch (e) {
+      return;
+    }
+    return;
+  }
+
   //내 알람 가져오기
   Future<void> getMyAlarmList() async {
     try {
