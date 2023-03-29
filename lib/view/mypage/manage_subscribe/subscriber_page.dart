@@ -8,6 +8,7 @@ import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 class SubscriberManage extends GetView<SubscriberManageController> {
   const SubscriberManage({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +24,10 @@ class SubscriberManage extends GetView<SubscriberManageController> {
   }
 
   Widget subscriberListView() {
-    return Obx(() => ListView.builder(
+    return Obx(() => controller.subscriberList.isNotEmpty ? ListView.builder(
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(10),
-        itemCount: controller.subscribers.length,
+        itemCount: controller.subscriberList.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(10.0),
@@ -38,6 +39,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                   ),
                   borderRadius: BorderRadius.circular(9.0)),
               child: ExpansionTile(
+                initiallyExpanded: true,
                 title: SizedBox(
                   height: 75,
                   child: Row(
@@ -46,16 +48,19 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                         height: 60,
                         width: 60,
                         decoration: const BoxDecoration(
-                          color: Colors.black,
+                          color: todoBorder,
                           shape: BoxShape.circle,
                         ),
+                        child: Image.network(controller.subscriberList[index].imageUrl),
                       ),
                       Container(
                         margin: const EdgeInsets.fromLTRB(18, 18, 0, 0),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(controller.subscribers[index]),
-                            const Text('mail'),
+                            Text(controller.subscriberList[index].name), //구독자 이름
+                            Text('email'),
+                            //controller.searchSubscriberEmail(controller.subscriberList[index].id)), //구독자 id로 메일찾아와
                           ],
                         ),
                       ),
@@ -74,14 +79,15 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                       ],
                       selectedTextStyle: const TextStyle(color: Colors.white),
                       unSelectedTextStyle: const TextStyle(color: Colors.black),
-                      labels: controller.listTextTabToggle,
+                      labels: controller.listTextTabToggle, //수정허용,거부
                       selectedLabelIndex: (buttonIndex) {
                         //buttonIndex가 togglebutton(0,1) 중 index
-                        controller.subscriberButtonIndex[index].value =
-                            buttonIndex;
+                        controller.subscriberButtonIndex[index].value = buttonIndex;
+                        controller.isAuthButtonIndex(buttonIndex, index);
                       },
                       selectedIndex:
-                          controller.subscriberButtonIndex[index].value,
+                        //controller.authBoolToSelectedIndex(index),
+                        controller.subscriberButtonIndex[index].value,
                       isScroll: true,
                     ),
                   ),
@@ -94,6 +100,10 @@ class SubscriberManage extends GetView<SubscriberManageController> {
               ),
             ),
           );
-        }));
+        })
+        //: Text(controller.isSubscriberListExist()), //구독자 있는지 확인
+       :const Center(child: Text('구독자가 없습니다.\n구독자를 추가해서 나의 할 일을 공유해보세요!', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
+
+    );
   }
 }

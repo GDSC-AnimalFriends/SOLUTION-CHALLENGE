@@ -21,8 +21,58 @@ class FirebaseClient with StorageUtil {
   //내 알람을 저장하는 공간
   RxList<AlarmModel> remoteAlarmList = <AlarmModel>[].obs;
 
+  //구독자를 저장하는 공간
+  RxList<SubscriberModel> remoteSubscriberList = <SubscriberModel>[].obs;
+
+  //유저를 저장하는 공간
+  List<UserModel> remoteUserList = <UserModel>[];
+
   //검색된 유저를 저장하는 공간
   UserModel? searchedUser;
+
+  Future<void> updateSubscriberAuth(SubscriberModel subscriber, bool trueOrFalse) async {//구독자 auth수정
+    // Get a reference to the subscriber in Firebase
+    DatabaseReference subscriberRef = databaseRef.child(subscriber.ref);
+    await subscriberRef.update({"auth": trueOrFalse});
+    print(trueOrFalse);
+    print('여기가 저장된곳 ${subscriber.auth}');
+  }
+
+  Future<void> getMySubscriberList() async { //내 구독자 가져와볼게
+    try {
+      Query query = databaseRef
+          .child(userType!)
+          .child(getString(UID_KEY)!)
+          .child("subscribeList");
+
+      final queryStr = "$userType/${getString(UID_KEY)}/SubscribeList";
+      log(queryStr);
+
+      await query.once().then((value) {
+        Map<dynamic, dynamic> remoteSubscribers = value.snapshot.value as Map;
+        List<dynamic> resultList = remoteSubscribers.values.toList();
+        List<SubscriberModel> list = <SubscriberModel>[];
+        for (var result in resultList) {
+          final model = SubscriberModel.fromJson(result);
+          list.add(model);
+        }
+        remoteSubscriberList.value = list;
+      });
+    } catch (e) {
+      return;
+    }
+    return;
+  }
+
+  Future<int> deleteSubscriber(String ref) async {
+    try {
+      await databaseRef.child(ref).remove();
+      return SUCCESS;
+    } catch (e) {
+      return ERROR;
+    }
+  }
+
 
   //내 알람 가져오기
   Future<void> getMyAlarmList() async {
