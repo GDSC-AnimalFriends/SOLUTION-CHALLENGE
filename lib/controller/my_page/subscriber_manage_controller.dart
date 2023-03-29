@@ -45,7 +45,8 @@ class SubscriberManageController extends GetxController {
   void isAuthButtonIndex(buttonIndex,index){
     if(buttonIndex == 0){//수정허용
       subscriber.updateSubscriberAuth(subscriberList[index], true).then((value) {
-      }).catchError((error) {});
+      }).catchError((error) {}); //나의 구독자 auth 바꾸기
+
     }
     else {
       subscriber.updateSubscriberAuth(subscriberList[index], false).then((value) {

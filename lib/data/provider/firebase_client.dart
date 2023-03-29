@@ -30,15 +30,7 @@ class FirebaseClient with StorageUtil {
   //검색된 유저를 저장하는 공간
   UserModel? searchedUser;
 
-  Future<void> updateSubscriberAuth(SubscriberModel subscriber, bool trueOrFalse) async {//구독자 auth수정
-    // Get a reference to the subscriber in Firebase
-    DatabaseReference subscriberRef = databaseRef.child(subscriber.ref);
-    await subscriberRef.update({"auth": trueOrFalse});
-    print(trueOrFalse);
-    print('여기가 저장된곳 ${subscriber.auth}');
-  }
-
-  Future<void> getMySubscriberList() async { //내 구독자 가져와볼게
+  Future<void> getMySubscriberList() async { //내 구독자의 remoteUserLIst -email, subscribeList 필요
     try {
       Query query = databaseRef
           .child(userType!)
@@ -63,6 +55,16 @@ class FirebaseClient with StorageUtil {
     }
     return;
   }
+
+//노인의 구독자 auth, 보호자의 구독자 auth 수정 변경사항 update
+  Future<void> updateSubscriberAuth(SubscriberModel subscriber, bool trueOrFalse) async {
+    // Get a reference to the subscriber in Firebase
+    DatabaseReference subscriberRef = databaseRef.child(subscriber.ref);
+    DatabaseReference subscriberOtherRef = databaseRef.child(subscriber.otherRef);
+    await subscriberRef.update({"auth": trueOrFalse});
+    await subscriberOtherRef.update({"auth" : trueOrFalse});
+  }
+
 
   Future<int> deleteSubscriber(String ref) async {
     try {
