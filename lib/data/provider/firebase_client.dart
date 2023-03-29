@@ -64,6 +64,15 @@ class FirebaseClient with StorageUtil {
     return;
   }
 
+  Future<int> deleteSubscriber(String ref) async {
+    try {
+      await databaseRef.child(ref).remove();
+      return SUCCESS;
+    } catch (e) {
+      return ERROR;
+    }
+  }
+
 
   //내 알람 가져오기
   Future<void> getMyAlarmList() async {

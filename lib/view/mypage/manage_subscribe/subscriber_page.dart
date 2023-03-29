@@ -48,9 +48,10 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                         height: 60,
                         width: 60,
                         decoration: const BoxDecoration(
-                          color: Colors.black,
+                          color: todoBorder,
                           shape: BoxShape.circle,
                         ),
+                        child: Image.network(controller.subscriberList[index].imageUrl),
                       ),
                       Container(
                         margin: const EdgeInsets.fromLTRB(18, 18, 0, 0),

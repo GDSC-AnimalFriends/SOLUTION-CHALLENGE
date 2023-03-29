@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/subscriber_model.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/routes/app_pages.dart';
 
 import '../../data/model/user_model.dart';
@@ -11,12 +12,6 @@ class SubscriberManageController extends GetxController {
   List<UserModel> userList = <UserModel>[]; //구독자의 email 가져오기
   final subscriber = FirebaseClient();
   final listTextTabToggle = ["수정허용", "수정거부"];
-
-  // await subscriber.update({
-  // "auth": 19
-  // });
-  //await subscriber.update(){};
-
   final List<RxInt> subscriberButtonIndex = <RxInt>[];
 
   void initializeButtonIndex() {
@@ -47,28 +42,18 @@ class SubscriberManageController extends GetxController {
   }
 
 
-
   void isAuthButtonIndex(buttonIndex,index){
     if(buttonIndex == 0){//수정허용
       subscriber.updateSubscriberAuth(subscriberList[index], true).then((value) {
-        print("true로 update됨");
-        // The subscriber data has been successfully updated in Firebase
-      }).catchError((error) {
-        // An error occurred while updating the subscriber data in Firebase
-      });
+      }).catchError((error) {});
     }
     else {
       subscriber.updateSubscriberAuth(subscriberList[index], false).then((value) {
-        print("false로 update됨");
-        // The subscriber data has been successfully updated in Firebase
-      }).catchError((error) {
-      });
+      }).catchError((error) {});
     }
     subscriberButtonIndex[index].value = buttonIndex;
-
-
-
   }
+
 
   String searchSubscriberEmail(id) { //구독자 id로 구독자의 email 찾기
     final subscriberEmail = userList[id].email;
@@ -84,7 +69,8 @@ class SubscriberManageController extends GetxController {
         actions: [
           TextButton(
               onPressed: () => {
-                subscriberList.removeAt(index),
+                deleteSubscriber(index),
+                //subscriberList.removeAt(index),
                 Get.back(),
               },
               child: const Text('네')),
@@ -93,38 +79,16 @@ class SubscriberManageController extends GetxController {
       ),
     );
   }
+
+  void deleteSubscriber(int index) async {
+    if (await subscriber.deleteSubscriber(subscriberList[index].ref) ==
+        SUCCESS) {//내 구독자리스트에서 삭제
+      subscriberList.removeAt(index);
+    }
+    //구독자의 구독자리스트에서 나를 삭제해야돼
+  }
+
   void toAddSubscirber() {
     Get.toNamed(Routes.SUBSCRIBE_ADD);
   }
-
-
 }
-
-// class SubscriberManageController extends GetxController {
-//   final RxList<String> subscribers = <String>['승우', '여경', '지수'].obs;
-//   final List<RxInt> subscriberButtonIndex = <RxInt>[0.obs, 0.obs, 0.obs];
-//   RxInt list로 subscriber.length만큼의 0으로 있어야함...?
-//   final listTextTabToggle = ["수정허용", "수정거부"];
-//
-//   void openDialog(index) {
-//     Get.dialog(
-//       AlertDialog(
-//         title: Text('정말 ${subscribers[index]}님을 구독 취소하시겠습니까?'),
-//         content: const Text('구독 취소하면 나의 할 일 목록을 볼 수 없습니다.'),
-//         actions: [
-//           TextButton(
-//               onPressed: () => {
-//                     subscribers.removeAt(index),
-//                     Get.back(),
-//                   },
-//               child: const Text('네')),
-//           TextButton(onPressed: () => Get.back(), child: const Text('아니요'))
-//         ],
-//       ),
-//     );
-//   }
-//
-//   void toAddSubscirber() {
-//     Get.toNamed(Routes.SUBSCRIBE_ADD);
-//   }
-// }
