@@ -10,9 +10,10 @@ import '../../util/const_key.dart';
 class TodoListController extends GetxController with StorageUtil {
   List<TodoModel> todos = List<TodoModel>.empty(growable: true).obs;
   List<TodoModel> done = List<TodoModel>.empty(growable: true).obs;
-  TextEditingController todoInput = TextEditingController(); // 투두 제목
-  TextEditingController todoDescriptionInput = TextEditingController(); // 투두 설명
-  Rx<DateTime> todoDate = DateTime.now().obs; // 투두 날짜
+  List<TodoModel> todayTodos = List<TodoModel>.empty(growable: true).obs;
+  TextEditingController todoInput = TextEditingController();
+  TextEditingController todoDescriptionInput = TextEditingController();
+  Rx<DateTime> todoDate = DateTime.now().obs;
 
   @override
   void onInit() async {
@@ -20,7 +21,21 @@ class TodoListController extends GetxController with StorageUtil {
 
     dataSnapshot = await TodoService().readTodo(userId: getString(UID_KEY)!);
     if (dataSnapshot.exists) {
-      print(dataSnapshot.value);
+      Map<dynamic, dynamic> values =
+          dataSnapshot.value as Map<Object?, Object?>;
+
+      (values).forEach((key, value) {
+        TodoModel convertedTodo = TodoModel(
+          todoid: value["todoid"],
+          date: DateTime.parse(value["date"].toString()),
+          title: value["title"],
+          user: value["user"],
+          creator: value["creator"],
+          description: value["description"],
+          complete: value["complete"],
+        );
+        todos.add(convertedTodo);
+      });
     }
     super.onInit();
   }
