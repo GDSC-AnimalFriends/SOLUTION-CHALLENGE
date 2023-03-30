@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/util/storage_util.dart';
+import 'package:solution_challenge/view/theme/app_text_theme.dart';
 
 import '../../../controller/home/todo_list_controller.dart';
 import '../../../data/model/todo_model.dart';
@@ -142,27 +143,37 @@ class AllTodoPage extends StatelessWidget with StorageUtil {
           ),
           IconButton(
             onPressed: () {
-              showCupertinoDialog(
-                barrierLabel: '할일 사용자 배정 다이얼로그',
-                context: context,
-                barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
-                builder: (BuildContext context) {
-                  return Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                        padding: const EdgeInsets.all(14),
-                        color: Colors.white,
-                        width: double.infinity,
-                        height: 400,
-                        child: const Text(
-                          '할일 배정하기',
-                          style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.black,
-                              backgroundColor: null),
-                        )),
-                  );
-                },
+              //   showCupertinoDialog(
+              //     barrierLabel: '할일 사용자 배정 다이얼로그',
+              //     context: context,
+              //     barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
+              //     builder: (BuildContext context) {
+              //       return Container(
+              //           padding: const EdgeInsets.all(14),
+              //           color: Colors.white,
+              //           width: double.infinity,
+              //           height: 400,
+              //           child: const Text(
+              //             '할일 배정하기',
+              //             style: TextStyle(
+              //                 fontSize: 30,
+              //                 color: Colors.black,
+              //                 backgroundColor: null),
+              //           ));
+              //     },
+              //   );
+              Get.bottomSheet(
+                Column(
+                  children: const [
+                    SizedBox(height: 5),
+                    Text('할 일 배정하기', style: common22),
+                    Text('아래로 구독자? 또는 부양자 목록을 불러옵니다', style: common22),
+                  ],
+                ),
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                enableDrag: true,
               );
             },
             icon: const Icon(Icons.arrow_forward_ios),
