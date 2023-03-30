@@ -10,7 +10,6 @@ import '../../util/const_key.dart';
 class TodoListController extends GetxController with StorageUtil {
   List<TodoModel> todos = List<TodoModel>.empty(growable: true).obs;
   List<TodoModel> done = List<TodoModel>.empty(growable: true).obs;
-  List<TodoModel> todayTodos = List<TodoModel>.empty(growable: true).obs;
   TextEditingController todoInput = TextEditingController();
   TextEditingController todoDescriptionInput = TextEditingController();
   Rx<DateTime> todoDate = DateTime.now().obs;
@@ -34,7 +33,11 @@ class TodoListController extends GetxController with StorageUtil {
           description: value["description"],
           complete: value["complete"],
         );
-        todos.add(convertedTodo);
+        if (convertedTodo.complete) {
+          done.add(convertedTodo);
+        } else {
+          todos.add(convertedTodo);
+        }
       });
     }
     super.onInit();

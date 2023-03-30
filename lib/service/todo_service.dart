@@ -20,9 +20,14 @@ class TodoService with StorageUtil {
 
   void deleteTodo({required String todoid, required String userid}) {
     DatabaseReference ref =
-        FirebaseDatabase.instance.ref("young/$userid/todos/$todoid");
+        FirebaseDatabase.instance.ref("$userType/$userid/todos/$todoid");
     ref.remove();
   }
 
-  void updateTodo({required String todouid, required TodoModel todo}) {}
+  void updateTodo(
+      {required userid, required String todoid, required TodoModel todo}) {
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("$userType/$userid/todos/");
+    ref.update({todoid: todo});
+  }
 }
