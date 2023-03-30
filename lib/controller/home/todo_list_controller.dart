@@ -42,7 +42,7 @@ class TodoListController extends GetxController {
   );
 
   void readTodo(String userId) {
-    //TodoService().readTodo(userId: userId);
+    TodoService().readTodo(userId: userId);
   }
 
   void addTodo(TodoModel todo) {
