@@ -18,6 +18,20 @@ class TodoService with StorageUtil {
     ref.set(todo.toJson());
   }
 
+  TodoModel getTodo({required TodoModel todo}) {
+    DatabaseReference ref = FirebaseDatabase.instance.ref(
+        "$userType/${getString(UID_KEY)!}/todos/${todo.todoid.toString().replaceAll('.', '_')}");
+    ref.get();
+    todo.user = ref.child("user") as String;
+    todo.complete = ref.child("complete") as bool;
+    todo.creator = ref.child("creator") as String;
+    todo.date = ref.child("date") as DateTime;
+    todo.description = ref.child("description") as String;
+    todo.title = ref.child("title") as String;
+    todo.todoid = ref.child("todoid") as String;
+    return todo;
+  }
+
   void deleteTodo({required String todoid, required String userid}) {
     DatabaseReference ref =
         FirebaseDatabase.instance.ref("$userType/$userid/todos/$todoid");
