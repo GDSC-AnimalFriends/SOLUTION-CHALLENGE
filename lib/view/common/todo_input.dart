@@ -27,7 +27,7 @@ class TodoInput extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       width: double.infinity,
-      height: heightLimit ? 80 : null,
+      height: heightLimit ? 75 : null,
       decoration: BoxDecoration(
         border: enableBottomBorder
             ? const Border(

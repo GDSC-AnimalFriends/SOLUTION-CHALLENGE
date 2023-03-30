@@ -47,6 +47,7 @@ class AllTodoPage extends StatelessWidget with StorageUtil {
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
+                  enableDrag: true,
                 );
               },
               label: const Text('할 일 추가'),
@@ -75,7 +76,7 @@ class AllTodoPage extends StatelessWidget with StorageUtil {
     return Container(
       padding: const EdgeInsets.all(14),
       width: double.infinity,
-      height: 80,
+      height: 75,
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(color: todoBorder, width: 1),
@@ -122,7 +123,7 @@ class AllTodoPage extends StatelessWidget with StorageUtil {
     return Container(
       padding: const EdgeInsets.all(14),
       width: double.infinity,
-      height: 80,
+      height: 75,
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -173,7 +174,7 @@ class AllTodoPage extends StatelessWidget with StorageUtil {
 
   Widget _todoInfoInput(TodoListController todoListController) {
     return SizedBox(
-      height: 100,
+      height: 96.7,
       child: TodoInput(
         controller: todoListController.todoDescriptionInput,
         hintText: '할 일 설명을 입력하세요',
