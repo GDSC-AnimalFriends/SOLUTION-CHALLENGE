@@ -5,7 +5,6 @@ import '../../controller/home/todo_list_controller.dart';
 import '../theme/app_colors.dart';
 
 const List<Widget> onOffList = <Widget>[
-  // 알림
   Text('ON'),
   Text('OFF'),
 ];
@@ -23,25 +22,26 @@ class _AlramToggleButtonState extends State<AlramToggleButton> {
   Widget build(BuildContext context) {
     Get.put(TodoListController());
     return GetBuilder<TodoListController>(
-        builder: (controller) => ToggleButtons(
-              onPressed: (int index) {
-                setState(() {
-                  for (int i = 0; i < _isSelected.length; i++) {
-                    _isSelected[i] = i == index;
-                  }
-                  if (_isSelected[0] == true) {
-                    controller.alramCheck();
-                  } else {
-                    controller.alramCheck();
-                  }
-                });
-              },
-              borderRadius: const BorderRadius.all(Radius.circular(100)),
-              selectedColor: Colors.white,
-              fillColor: primaryColor,
-              color: primaryColor,
-              isSelected: _isSelected,
-              children: onOffList,
-            ));
+      builder: (controller) => ToggleButtons(
+        onPressed: (int index) {
+          setState(() {
+            for (int i = 0; i < _isSelected.length; i++) {
+              _isSelected[i] = i == index;
+            }
+            if (_isSelected[0] == true) {
+              controller.alramCheck();
+            } else {
+              controller.alramCheck();
+            }
+          });
+        },
+        borderRadius: const BorderRadius.all(Radius.circular(100)),
+        selectedColor: Colors.white,
+        fillColor: primaryColor,
+        color: primaryColor,
+        isSelected: _isSelected,
+        children: onOffList,
+      ),
+    );
   }
 }

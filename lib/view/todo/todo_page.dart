@@ -15,6 +15,15 @@ import '../../controller/home/todo_list_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
 
 class TodoPage extends GetView<TodoListController> with StorageUtil {
+  List<Map<String, bool>> dayList = [
+    {"월": false},
+    {"화": false},
+    {"수": false},
+    {"목": false},
+    {"금": false},
+    {"토": false},
+    {"일": false}
+  ];
   TodoPage({super.key});
 
   @override
@@ -129,6 +138,63 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
           IconButton(
             onPressed: () {
               showCupertinoDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      height: 400,
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.all(14),
+                              child: DefaultTextStyle(
+                                style: TextStyle(
+                                    fontSize: 24, color: Colors.black),
+                                child: Text(
+                                  "반복 선택",
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 100,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: dayList.length,
+                              itemBuilder: (context, index) {
+                                return ButtonTheme(
+                                  minWidth: 10.0,
+                                  height: 10.0,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ButtonStyle(
+                                        shape: MaterialStateProperty.all(
+                                            CircleBorder())),
+                                    child: Text(
+                                      dayList[index].keys.elementAt(0),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+
+              /*
+              showCupertinoDialog(
                 barrierLabel: '반복 선택 다이얼로그',
                 context: context,
                 barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
@@ -156,8 +222,10 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
                           Obx(
                             () => _TypeButton(
                               typeName: "미반복",
-                              selected: !controller.weekRepeatEnabled.value,
-                              onPressed: () => controller.weekRepeatCheck(),
+                              selected:
+                                  !todoListController.weekRepeatEnabled.value,
+                              onPressed: () =>
+                                  todoListController.weekRepeatCheck(),
                             ),
                           ),
                         ],
@@ -165,7 +233,7 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
                     ),
                   );
                 },
-              );
+              );*/
             },
             icon: Icon(Icons.arrow_forward_ios),
           ),
@@ -257,17 +325,15 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
     );
   }
 
-  Expanded _todoInfoInput(TodoListController todoListController) {
-    return Expanded(
-      child: TodoInput(
-        controller: todoListController.todoDescriptionInput,
-        hintText: '할 일 설명을 입력하세요',
-        inputType: TextInputType.text,
-        enableBottomBorder: false,
-        heightLimit: false,
-        maxLine: 7,
-        maxLength: 100,
-      ),
+  TodoInput _todoInfoInput(TodoListController todoListController) {
+    return TodoInput(
+      controller: todoListController.todoDescriptionInput,
+      hintText: '할 일 설명을 입력하세요',
+      inputType: TextInputType.text,
+      enableBottomBorder: false,
+      heightLimit: false,
+      maxLine: 7,
+      maxLength: 100,
     );
   }
 
