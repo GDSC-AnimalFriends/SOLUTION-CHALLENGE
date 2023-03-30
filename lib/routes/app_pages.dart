@@ -62,7 +62,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.TODO,
-      page: () => const TodoPage(),
+      page: () => TodoPage(),
       binding: TodoBinding(),
     ),
     GetPage(

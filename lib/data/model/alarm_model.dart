@@ -22,7 +22,7 @@ class AlarmModel {
     required this.read,
   });
 
-  factory AlarmModel.fromJson(Map<dynamic, dynamic> json) =>
+  factory AlarmModel.fromJson(Map<String, dynamic> json) =>
       _$AlarmModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$AlarmModelToJson(this);

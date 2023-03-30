@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 const String UID_KEY = "UID_KEY";
 const String TYPE_OLD = "old";
 const String TYPE_YOUNG = "young";

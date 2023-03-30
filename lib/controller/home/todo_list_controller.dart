@@ -31,8 +31,8 @@ class TodoListController extends GetxController {
     date: DateTime.now(),
     alarmDate: DateTime.now(),
     title: "할 일",
-    dayRepeat: false,
-    weekRepeat: false,
+    dayRepeat: 0,
+    weekRepeat: 0,
     repeat: List.empty(),
     user: "userid",
     creator: "userid",
@@ -41,9 +41,13 @@ class TodoListController extends GetxController {
     complete: false,
   );
 
+  void readTodo(String userId) {
+    TodoService().readTodo(userId: userId);
+  }
+
   void addTodo(TodoModel todo) {
     todos.add(todo);
-    TodoService().addTodo(todo: todo, username: 'noguen');
+    TodoService().addTodo(todo: todo, userid: 'noguen');
   }
 
   void checkToDone(int index) {

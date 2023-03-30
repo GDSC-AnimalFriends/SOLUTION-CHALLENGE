@@ -8,7 +8,7 @@ class CheckHowToApply extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarOnlyBack(
+      appBar: const AppBarOnlyBack(
         appBarTitle: '노인맞춤돌봄서비스 신청 방법',
       ),
       body: SingleChildScrollView(
@@ -17,34 +17,32 @@ class CheckHowToApply extends StatelessWidget {
             Container(
               height: 10,
               width: MediaQuery.of(context).size.width,
-              color: Color(0xFFFFD9D9),
+              color: const Color(0xFFFFD9D9),
             ),
             Container(
-              margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
+              margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.play_arrow_rounded,
-                          color: primaryColor,
-                        ),
-                        Text(
-                          '노인맞춤돌봄서비스 대상자',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        color: primaryColor,
+                      ),
+                      Text(
+                        '노인맞춤돌봄서비스 대상자',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   Center(
                     child: Container(
-                      margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: Column(
-                        children: [
+                        children: const [
                           Text(
                               '√ 만 65세 이상 1) 국민기초생활수급자, 2) 차상위계층 또는 3) 기초연금수급자로서 유사 중복사업 자격에 해당되지 않는 자'),
                           Text('√ 사회관계 단절, 신체적 기능 저하, 정신적 어려움 등으로 돌봄이 필요한 노인'),
@@ -60,57 +58,53 @@ class CheckHowToApply extends StatelessWidget {
             Container(
               height: 10,
               width: MediaQuery.of(context).size.width,
-              color: Color(0xFFFFD9D9),
+              color: const Color(0xFFFFD9D9),
             ),
             Container(
-              margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
+              margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               width: MediaQuery.of(context).size.width,
               child: Column(children: [
-                Container(
-                  child: Row(
-                    children: [
-                      Icon(Icons.play_arrow_rounded, color: primaryColor),
-                      Text(
-                        '노인맞춤돌봄서비스 대상자',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                Row(
+                  children: const [
+                    Icon(Icons.play_arrow_rounded, color: primaryColor),
+                    Text(
+                      '노인맞춤돌봄서비스 대상자',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
                 Center(
                   child: Container(
-                      margin: EdgeInsets.only(top: 8.0),
+                      margin: const EdgeInsets.only(top: 8.0),
                       width: MediaQuery.of(context).size.width * 0.9,
-                      child: Text('노인맞춤돌봄서비스 신청자격이 있는 노인 또는 그 가족')),
+                      child: const Text('노인맞춤돌봄서비스 신청자격이 있는 노인 또는 그 가족')),
                 ),
               ]),
             ),
             Container(
               height: 10,
               width: MediaQuery.of(context).size.width,
-              color: Color(0xFFFFD9D9),
+              color: const Color(0xFFFFD9D9),
             ),
             Container(
-              margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
+              margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Icon(Icons.play_arrow_rounded, color: primaryColor),
-                        Text(
-                          '신청 또는 신청자격 확인하기',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                  Row(
+                    children: const [
+                      Icon(Icons.play_arrow_rounded, color: primaryColor),
+                      Text(
+                        '신청 또는 신청자격 확인하기',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   Center(
                     child: Container(
-                      margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: Row(
                         children: [
@@ -121,8 +115,8 @@ class CheckHowToApply extends StatelessWidget {
                                   width: 3,
                                 ),
                                 borderRadius: BorderRadius.circular(9.0)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
                                   vertical: 4.0, horizontal: 10.0),
                               child: Text(
                                 '가까운 \n읍･면･동사무소로',
@@ -130,11 +124,9 @@ class CheckHowToApply extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.only(left: 35),
-                            child: Container(
-                              child: Text('√ 방문 신청 또는\n√ 전화･우편･팩스 신청'),
-                            ),
+                            child: Text('√ 방문 신청 또는\n√ 전화･우편･팩스 신청'),
                           ),
                         ],
                       ),
@@ -146,12 +138,12 @@ class CheckHowToApply extends StatelessWidget {
             Container(
               height: 10,
               width: MediaQuery.of(context).size.width,
-              color: Color(0xFFFFD9D9),
+              color: const Color(0xFFFFD9D9),
             ),
             Container(
-              margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
+              margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Row(
-                children: [
+                children: const [
                   Icon(
                     Icons.play_arrow_rounded,
                     color: primaryColor,
@@ -164,14 +156,14 @@ class CheckHowToApply extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 30),
+              margin: const EdgeInsets.only(bottom: 30),
               width: MediaQuery.of(context).size.width * 0.9,
               decoration: BoxDecoration(
                   border: Border.all(
                 color: Colors.black26,
                 width: 2.0,
               )),
-              child: Center(
+              child: const Center(
                 child: Image(
                   image: AssetImage('assets/images/senior_care.png'),
                 ),
