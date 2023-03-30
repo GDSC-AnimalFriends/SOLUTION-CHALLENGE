@@ -3,7 +3,6 @@ import 'package:solution_challenge/bindings/home_binding.dart';
 import 'package:solution_challenge/bindings/login_binding.dart';
 import 'package:solution_challenge/bindings/mypage_binding.dart';
 import 'package:solution_challenge/bindings/register_binding.dart';
-import 'package:solution_challenge/bindings/todo_binding.dart';
 import 'package:solution_challenge/view/home/home_page.dart';
 import 'package:solution_challenge/view/home/home_subpages/alarm_page.dart';
 import 'package:solution_challenge/view/login/login_page.dart';
@@ -14,7 +13,6 @@ import 'package:solution_challenge/view/mypage/manage_my_account/my_account_page
 import 'package:solution_challenge/view/mypage/manage_subscribe/subscribe_add_page.dart';
 import 'package:solution_challenge/view/mypage/manage_subscribe/subscriber_page.dart';
 import 'package:solution_challenge/view/mypage/setting_app/setting_page.dart';
-import 'package:solution_challenge/view/home/home_subpages/todo_page.dart';
 import 'package:solution_challenge/view/login/register/register_complete_page.dart';
 import 'package:solution_challenge/view/login/register/register_name_page.dart';
 import 'package:solution_challenge/view/login/register/register_number_page.dart';
@@ -59,11 +57,6 @@ class AppPages {
       name: Routes.HOME,
       page: () => const HomePage(),
       binding: HomeBinding(),
-    ),
-    GetPage(
-      name: Routes.TODO,
-      page: () => TodoPage(),
-      binding: TodoBinding(),
     ),
     GetPage(
       name: Routes.MYPAGE,
