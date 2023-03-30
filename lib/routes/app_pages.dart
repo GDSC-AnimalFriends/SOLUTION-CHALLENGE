@@ -14,7 +14,7 @@ import 'package:solution_challenge/view/mypage/manage_my_account/my_account_page
 import 'package:solution_challenge/view/mypage/manage_subscribe/subscribe_add_page.dart';
 import 'package:solution_challenge/view/mypage/manage_subscribe/subscriber_page.dart';
 import 'package:solution_challenge/view/mypage/setting_app/setting_page.dart';
-import 'package:solution_challenge/view/todo/todo_page.dart';
+import 'package:solution_challenge/view/home/home_subpages/todo_page.dart';
 import 'package:solution_challenge/view/login/register/register_complete_page.dart';
 import 'package:solution_challenge/view/login/register/register_name_page.dart';
 import 'package:solution_challenge/view/login/register/register_number_page.dart';

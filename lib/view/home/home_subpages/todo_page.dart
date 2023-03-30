@@ -8,24 +8,11 @@ import 'package:solution_challenge/util/const_key.dart';
 import 'package:solution_challenge/util/storage_util.dart';
 import 'package:solution_challenge/view/common/common_button.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
-import 'package:solution_challenge/view/todo/todo_alram_toggle_button.dart';
-import 'package:solution_challenge/view/todo/todo_input.dart';
 
-import '../../controller/home/todo_list_controller.dart';
-import '../common/appbar_with_bottom_line.dart';
+import '../../../controller/home/todo_list_controller.dart';
+import '../../common/appbar_with_bottom_line.dart';
 
 class TodoPage extends StatelessWidget with StorageUtil {
-  List<Widget> dayList = <Widget>[
-    Text('월'),
-    Text('화'),
-    Text('수'),
-    Text('목'),
-    Text('금'),
-    Text('토'),
-    Text('일')
-  ];
-  List<bool> repeatSelected =
-      [false, false, false, false, false, false, false].obs;
   TodoListController todoListController = Get.put(TodoListController()).obs();
 
   @override
@@ -38,9 +25,7 @@ class TodoPage extends StatelessWidget with StorageUtil {
           children: [
             _todoInput(todoListController),
             _datePick(context, todoListController),
-            _repeat(),
             _assignUser(context, todoListController),
-            _alram(todoListController),
             _todoInfoInput(todoListController),
             _doneButton(todoListController),
           ],
@@ -108,70 +93,6 @@ class TodoPage extends StatelessWidget with StorageUtil {
     );
   }
 
-  Widget _repeat() {
-    return Container(
-      padding: EdgeInsets.all(14),
-      width: double.infinity,
-      height: 80,
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: todoBorder,
-            width: 1,
-          ),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Text('반복 : '),
-              Obx(
-                () => todoListController.weekRepeatEnabled.value ||
-                        todoListController.dayRepeatEnabled.value
-                    ? Text('있음')
-                    : Text('없음'),
-              ),
-            ],
-          ),
-          IconButton(
-            onPressed: () {
-              Get.bottomSheet(
-                Obx(
-                  () => Column(
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        child: ToggleButtons(
-                          isSelected: todoListController.repeatSelected,
-                          selectedColor: Colors.white,
-                          fillColor: primaryColor,
-                          onPressed: (index) {
-                            todoListController.repeatSelected[index] =
-                                !todoListController.repeatSelected[index];
-                            todoListController.update();
-                          },
-                          borderRadius: BorderRadius.circular(12),
-                          children: dayList,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-              );
-            },
-            icon: Icon(Icons.arrow_forward_ios),
-          ),
-        ],
-      ),
-    );
-  }
-
   Container _assignUser(
       BuildContext context, TodoListController todoListController) {
     return Container(
@@ -190,13 +111,8 @@ class TodoPage extends StatelessWidget with StorageUtil {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            children: [
+            children: const [
               Text('누구의 할일 : '),
-              Obx(
-                () => todoListController.weekRepeatEnabled.value
-                    ? Text('있음')
-                    : Text('없음'),
-              ),
             ],
           ),
           IconButton(
@@ -231,30 +147,6 @@ class TodoPage extends StatelessWidget with StorageUtil {
     );
   }
 
-  Container _alram(TodoListController todoListController) {
-    return Container(
-      padding: EdgeInsets.all(14),
-      width: double.infinity,
-      height: 80,
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: todoBorder, width: 1),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Obx(() => Text('알림 : ${todoListController.alarmEnabled.value}')),
-            ],
-          ),
-          AlramToggleButton(),
-        ],
-      ),
-    );
-  }
-
   TodoInput _todoInfoInput(TodoListController todoListController) {
     return TodoInput(
       controller: todoListController.todoDescriptionInput,
@@ -277,21 +169,14 @@ class TodoPage extends StatelessWidget with StorageUtil {
           onPressed: () {
             TodoModel todo = TodoModel(
               todoid: DateTime.now().toString().replaceAll('.', '_'),
-              alarmDate: todoListController.alarmDate.value,
               date: todoListController.todoDate.value,
               title: todoListController.todoInput.text,
-              dayRepeat: 0,
-              weekRepeat: 1,
-              repeat: [
-                {"월": true},
-              ],
               user: getString(UID_KEY)!,
               creator: getString(UID_KEY)!,
-              alarm: todoListController.alarmEnabled.value,
               description: todoListController.todoDescriptionInput.text,
               complete: false,
             );
-            Get.find<TodoListController>().readTodo(getString(UID_KEY)!);
+            Get.find<TodoListController>().addTodo(todo);
             Get.back();
           },
           enabled: true),
@@ -299,36 +184,55 @@ class TodoPage extends StatelessWidget with StorageUtil {
   }
 }
 
-class _TypeButton extends StatelessWidget {
-  final String typeName;
-  final bool selected;
-  final GestureTapCallback onPressed;
-  const _TypeButton(
-      {required this.typeName,
-      required this.selected,
-      required this.onPressed});
+class TodoInput extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final TextInputType inputType;
+  final bool enableBottomBorder;
+  final int maxLine;
+  final int maxLength;
+  final bool heightLimit;
+
+  const TodoInput({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.inputType,
+    required this.enableBottomBorder,
+    required this.maxLine,
+    required this.maxLength,
+    required this.heightLimit,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      flex: 1,
-      child: GestureDetector(
-        onTap: onPressed,
-        child: Container(
-          height: 170,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: selected ? primaryColor : Colors.grey[100],
-          ),
-          child: Center(
-            child: Text(
-              typeName,
-              style: selected
-                  ? const TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.w500, color: white)
-                  : Theme.of(context).textTheme.displayMedium,
+    return Container(
+      padding: const EdgeInsets.all(14),
+      width: double.infinity,
+      height: heightLimit ? 80 : null,
+      decoration: BoxDecoration(
+        border: enableBottomBorder
+            ? const Border(
+                bottom: BorderSide(
+                  color: todoBorder,
+                  width: 1,
+                ),
+              )
+            : const Border(),
+      ),
+      child: Center(
+        child: TextField(
+          maxLines: maxLine,
+          controller: controller,
+          decoration: InputDecoration(
+            border: InputBorder.none, // TextField 자체의 하단 선 제거
+            hintText: hintText,
+            labelStyle: const TextStyle(
+              fontSize: 10,
             ),
           ),
+          keyboardType: inputType,
+          autofocus: false,
         ),
       ),
     );
