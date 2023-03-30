@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/subscriber_model.dart';
@@ -8,6 +9,7 @@ import '../../data/model/user_model.dart';
 import '../../data/provider/firebase_client.dart';
 
 class SubscriberManageController extends GetxController {
+  User user = firebaseAuth.currentUser!;
   RxList<SubscriberModel> subscriberList = <SubscriberModel>[].obs;
   List<UserModel> userList = <UserModel>[]; //구독자의 email 가져오기
   final subscriber = FirebaseClient();
@@ -28,17 +30,13 @@ class SubscriberManageController extends GetxController {
   void onInit() {
     subscriber.getMySubscriberList();
     _getRemoteSubscriberList();
-    _getRemoteUserList();
+    //_getRemoteUserList();
     initializeButtonIndex();
     super.onInit();
   }
 
   void _getRemoteSubscriberList() async {
     subscriberList.value = subscriber.remoteSubscriberList;
-  }
-
-  void _getRemoteUserList() async {
-    userList = subscriber.remoteUserList;
   }
 
 
@@ -56,12 +54,6 @@ class SubscriberManageController extends GetxController {
   }
 
 
-  String searchSubscriberEmail(id) { //구독자 id로 구독자의 email 찾기
-    final subscriberEmail = userList[id].email;
-    return subscriberEmail;
-  }
-
-
   void openDialog(index) async {
     Get.dialog(
       AlertDialog(
@@ -71,7 +63,6 @@ class SubscriberManageController extends GetxController {
           TextButton(
               onPressed: () => {
                 deleteSubscriber(index),
-                //subscriberList.removeAt(index),
                 Get.back(),
               },
               child: const Text('네')),
@@ -82,7 +73,7 @@ class SubscriberManageController extends GetxController {
   }
 
   void deleteSubscriber(int index) async {
-    if (await subscriber.deleteSubscriber(subscriberList[index].ref) ==
+    if (await subscriber.deleteSubscriber(subscriberList[index]) ==
         SUCCESS) {//내 구독자리스트에서 삭제
       subscriberList.removeAt(index);
     }
@@ -92,4 +83,13 @@ class SubscriberManageController extends GetxController {
   void toAddSubscirber() {
     Get.toNamed(Routes.SUBSCRIBE_ADD);
   }
+
+  /*void _getRemoteUserList() async {
+    userList = subscriber.remoteUserList;
+  }
+  String searchSubscriberEmail(id) { //구독자 id로 구독자의 email 찾기
+    final subscriberEmail = userList[id].email;
+    return subscriberEmail;
+  }
+*/
 }

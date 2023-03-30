@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/controller/my_page/subscriber_manage_controller.dart';
+import 'package:solution_challenge/data/provider/firebase_const.dart';
 import 'package:solution_challenge/view/common/appbar_only_back.dart';
 import 'package:solution_challenge/view/theme/app_colors.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
@@ -59,7 +60,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(controller.subscriberList[index].name), //구독자 이름
-                            Text('email'),
+                            const Text('email'),
                             //controller.searchSubscriberEmail(controller.subscriberList[index].id)), //구독자 id로 메일찾아와
                           ],
                         ),
@@ -69,8 +70,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                 ),
                 children: [
                   const Text('권한 설정'),
-                  Obx(
-                    () => FlutterToggleTab(
+                  Obx(() => userType=='old'? FlutterToggleTab(
                       width: 50,
                       borderRadius: 15,
                       selectedBackgroundColors: const [
@@ -80,16 +80,16 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                       selectedTextStyle: const TextStyle(color: Colors.white),
                       unSelectedTextStyle: const TextStyle(color: Colors.black),
                       labels: controller.listTextTabToggle, //수정허용,거부
-                      selectedLabelIndex: (buttonIndex) {
-                        //buttonIndex가 togglebutton(0,1) 중 index
-                        controller.subscriberButtonIndex[index].value = buttonIndex;
-                        controller.isAuthButtonIndex(buttonIndex, index);
+                      selectedLabelIndex: (buttonIndex) {//buttonIndex- togglebutton(0,1) 중 index
+                          controller.subscriberButtonIndex[index].value = buttonIndex;
+                          controller.isAuthButtonIndex(buttonIndex, index);
                       },
                       selectedIndex:
                         //controller.authBoolToSelectedIndex(index),
                         controller.subscriberButtonIndex[index].value,
                       isScroll: true,
-                    ),
+                    )
+                    : const Text(''),
                   ),
                   const SizedBox(height: 16.0),
                   TextButton(

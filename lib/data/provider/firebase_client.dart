@@ -30,7 +30,7 @@ class FirebaseClient with StorageUtil {
   //검색된 유저를 저장하는 공간
   UserModel? searchedUser;
 
-  Future<void> getMySubscriberList() async { //내 구독자의 remoteUserLIst -email, subscribeList 필요
+  Future<void> getMySubscriberList() async {//구독자 가져와볼게
     try {
       Query query = databaseRef
           .child(userType!)
@@ -65,10 +65,13 @@ class FirebaseClient with StorageUtil {
     await subscriberOtherRef.update({"auth" : trueOrFalse});
   }
 
-
-  Future<int> deleteSubscriber(String ref) async {
+  //구독자리스트에서 구독취소
+  Future<int> deleteSubscriber(subscriber) async {
     try {
-      await databaseRef.child(ref).remove();
+      DatabaseReference subscriberRef = databaseRef.child(subscriber.ref);
+      DatabaseReference subscriberOtherRef = databaseRef.child(subscriber.otherRef);
+      await subscriberRef.child(subscriber).remove(); //나의 구독자
+      await subscriberOtherRef.child(subscriber).remove(); //구독자의 나
       return SUCCESS;
     } catch (e) {
       return ERROR;
