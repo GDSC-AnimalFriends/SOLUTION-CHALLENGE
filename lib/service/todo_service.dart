@@ -5,18 +5,11 @@ import 'package:solution_challenge/util/storage_util.dart';
 import 'package:solution_challenge/util/const_key.dart';
 
 class TodoService with StorageUtil {
-  void readTodo({required String userId}) async {
+  Future<DataSnapshot> readTodo({required String userId}) async {
     DatabaseReference ref =
-        FirebaseDatabase.instance.ref("young/$userId/todos/");
-    ref.onValue.listen((DatabaseEvent event) {
-      final data = event.snapshot.value;
-    });
-    final snapshot = await ref.child('users/$userId').get();
-    if (snapshot.exists) {
-      print(snapshot.value);
-    } else {
-      print('No data available.');
-    }
+        FirebaseDatabase.instance.ref("$userType/$userId/todos/");
+    final snapshot = await ref.child("").get();
+    return snapshot;
   }
 
   void addTodo({required TodoModel todo}) {

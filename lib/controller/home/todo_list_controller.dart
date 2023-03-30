@@ -1,8 +1,11 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/todo_model.dart';
 import 'package:solution_challenge/service/todo_service.dart';
 import 'package:solution_challenge/util/storage_util.dart';
+
+import '../../util/const_key.dart';
 
 class TodoListController extends GetxController with StorageUtil {
   List<TodoModel> todos = List<TodoModel>.empty(growable: true).obs;
@@ -10,6 +13,17 @@ class TodoListController extends GetxController with StorageUtil {
   TextEditingController todoInput = TextEditingController(); // 투두 제목
   TextEditingController todoDescriptionInput = TextEditingController(); // 투두 설명
   Rx<DateTime> todoDate = DateTime.now().obs; // 투두 날짜
+
+  @override
+  void onInit() async {
+    DataSnapshot dataSnapshot;
+
+    dataSnapshot = await TodoService().readTodo(userId: getString(UID_KEY)!);
+    if (dataSnapshot.exists) {
+      print(dataSnapshot.value);
+    }
+    super.onInit();
+  }
 
   TodoModel todo = TodoModel(
     todoid: "",
@@ -20,10 +34,6 @@ class TodoListController extends GetxController with StorageUtil {
     description: "설명",
     complete: false,
   );
-
-  void readTodo(String userId) {
-    TodoService().readTodo(userId: userId);
-  }
 
   void addTodo(TodoModel todo) {
     todos.add(todo);

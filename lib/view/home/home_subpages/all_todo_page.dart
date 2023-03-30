@@ -1,6 +1,8 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge/service/todo_service.dart';
 import 'package:solution_challenge/util/storage_util.dart';
 
 import '../../../controller/home/todo_list_controller.dart';
@@ -32,6 +34,9 @@ class AllTodoPage extends StatelessWidget with StorageUtil {
             child: FloatingActionButton.extended(
               backgroundColor: const Color.fromARGB(255, 112, 125, 241),
               onPressed: () {
+                TodoService todoService = TodoService();
+                Future<DataSnapshot> dd =
+                    todoService.readTodo(userId: getString(UID_KEY)!);
                 Get.bottomSheet(
                   Column(
                     children: [
