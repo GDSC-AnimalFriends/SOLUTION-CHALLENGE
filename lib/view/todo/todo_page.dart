@@ -14,34 +14,35 @@ import 'package:solution_challenge/view/todo/todo_input.dart';
 import '../../controller/home/todo_list_controller.dart';
 import '../common/appbar_with_bottom_line.dart';
 
-class TodoPage extends GetView<TodoListController> with StorageUtil {
-  List<Map<String, bool>> dayList = [
-    {"월": false},
-    {"화": false},
-    {"수": false},
-    {"목": false},
-    {"금": false},
-    {"토": false},
-    {"일": false}
+class TodoPage extends StatelessWidget with StorageUtil {
+  List<Widget> dayList = <Widget>[
+    Text('월'),
+    Text('화'),
+    Text('수'),
+    Text('목'),
+    Text('금'),
+    Text('토'),
+    Text('일')
   ];
-  TodoPage({super.key});
+  List<bool> repeatSelected =
+      [false, false, false, false, false, false, false].obs;
+  TodoListController todoListController = Get.put(TodoListController()).obs();
 
   @override
   Widget build(BuildContext context) {
-    TodoListController todoListcontroller = Get.put(TodoListController()).obs();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarWithBottomLine(appBarTitle: '할일 추가하기'),
       body: SafeArea(
         child: ListView(
           children: [
-            _todoInput(todoListcontroller),
-            _datePick(context, todoListcontroller),
-            _repeat(context, todoListcontroller),
-            _assignUser(context, todoListcontroller),
-            _alram(todoListcontroller),
-            _todoInfoInput(todoListcontroller),
-            _doneButton(todoListcontroller),
+            _todoInput(todoListController),
+            _datePick(context, todoListController),
+            _repeat(),
+            _assignUser(context, todoListController),
+            _alram(todoListController),
+            _todoInfoInput(todoListController),
+            _doneButton(todoListController),
           ],
         ),
       ),
@@ -75,7 +76,7 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Obx(() => Text(
-              '${todoListController.todoDate.value.year}. ${todoListController.todoDate.value.month}. ${controller.todoDate.value.day}')),
+              '${todoListController.todoDate.value.year}. ${todoListController.todoDate.value.month}. ${todoListController.todoDate.value.day}')),
           IconButton(
             onPressed: () {
               showCupertinoDialog(
@@ -107,8 +108,7 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
     );
   }
 
-  Container _repeat(
-      BuildContext context, TodoListController todoListController) {
+  Widget _repeat() {
     return Container(
       padding: EdgeInsets.all(14),
       width: double.infinity,
@@ -137,103 +137,33 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
           ),
           IconButton(
             onPressed: () {
-              showCupertinoDialog(
-                context: context,
-                barrierDismissible: true,
-                builder: (BuildContext context) {
-                  return Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
+              Get.bottomSheet(
+                Obx(
+                  () => Column(
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: ToggleButtons(
+                          isSelected: todoListController.repeatSelected,
+                          selectedColor: Colors.white,
+                          fillColor: primaryColor,
+                          onPressed: (index) {
+                            todoListController.repeatSelected[index] =
+                                !todoListController.repeatSelected[index];
+                            todoListController.update();
+                          },
+                          borderRadius: BorderRadius.circular(12),
+                          children: dayList,
+                        ),
                       ),
-                      height: 400,
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.all(14),
-                              child: DefaultTextStyle(
-                                style: TextStyle(
-                                    fontSize: 24, color: Colors.black),
-                                child: Text(
-                                  "반복 선택",
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 100,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: dayList.length,
-                              itemBuilder: (context, index) {
-                                return ButtonTheme(
-                                  minWidth: 10.0,
-                                  height: 10.0,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                            CircleBorder())),
-                                    child: Text(
-                                      dayList[index].keys.elementAt(0),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+                    ],
+                  ),
+                ),
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
               );
-
-              /*
-              showCupertinoDialog(
-                barrierLabel: '반복 선택 다이얼로그',
-                context: context,
-                barrierDismissible: true, // 다른 부분 클릭하면 꺼짐
-                builder: (BuildContext context) {
-                  return Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      padding: EdgeInsets.all(14),
-                      color: Colors.white,
-                      width: double.infinity,
-                      height: 400,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Obx(
-                            () => _TypeButton(
-                              typeName: "반복",
-                              selected:
-                                  todoListController.weekRepeatEnabled.value,
-                              onPressed: () =>
-                                  todoListController.weekRepeatCheck(),
-                            ),
-                          ),
-                          SizedBox(width: 14),
-                          Obx(
-                            () => _TypeButton(
-                              typeName: "미반복",
-                              selected:
-                                  !todoListController.weekRepeatEnabled.value,
-                              onPressed: () =>
-                                  todoListController.weekRepeatCheck(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );*/
             },
             icon: Icon(Icons.arrow_forward_ios),
           ),
@@ -362,7 +292,6 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
               complete: false,
             );
             Get.find<TodoListController>().readTodo(getString(UID_KEY)!);
-            //Get.find<TodoListController>().addTodo(todo);
             Get.back();
           },
           enabled: true),

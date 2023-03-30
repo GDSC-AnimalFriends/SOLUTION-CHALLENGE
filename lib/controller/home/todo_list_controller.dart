@@ -25,6 +25,8 @@ class TodoListController extends GetxController {
     {"SAT": false},
     {"SON": false},
   ]; // 주 반복 단위
+  List<bool> repeatSelected =
+      [false, false, false, false, false, false, false].obs;
 
   TodoModel todo = TodoModel(
     todoid: "",
