@@ -31,4 +31,12 @@ class TodoService {
   void updateTodo({required String todouid, required TodoModel todo}) {
     //등록한 todo uid를 수정함.
   }
+
+  TodoModel getTodo({required TodoModel todo, required String userid}) {
+    DatabaseReference ref = FirebaseDatabase.instance.ref(
+        "young/$userid/todos/${todo.todoid.toString().replaceAll('.', '_')}");
+    this.
+
+    return ref.get(); // 반환값: TodoModel
+  }
 }

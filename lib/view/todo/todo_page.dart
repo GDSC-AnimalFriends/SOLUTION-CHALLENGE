@@ -281,17 +281,13 @@ class TodoPage extends GetView<TodoListController> with StorageUtil {
           onPressed: () {
             TodoModel todo = TodoModel(
               todoid: DateTime.now().toString().replaceAll('.', '_'),
-              alarmDate: todoListController.alarmDate.value,
               date: todoListController.todoDate.value,
               title: todoListController.todoInput.text,
-              dayRepeat: 0,
-              weekRepeat: 1,
               repeat: [
                 {"월": true},
               ],
               user: getString(UID_KEY)!,
               creator: getString(UID_KEY)!,
-              alarm: todoListController.alarmEnabled.value,
               description: todoListController.todoDescriptionInput.text,
               complete: false,
             );
