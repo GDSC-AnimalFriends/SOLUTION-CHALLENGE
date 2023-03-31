@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:solution_challenge/controller/home/todo_list_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:solution_challenge/util/storage_util.dart';
+import 'package:solution_challenge/view/common/todo_list_view.dart';
+
+import '../../theme/app_colors.dart';
 
 class TodayTodoPage extends StatelessWidget with StorageUtil {
   TodayTodoPage({super.key});
@@ -20,29 +23,33 @@ class TodayTodoPage extends StatelessWidget with StorageUtil {
               alignment: Alignment.topLeft,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
+                  vertical: 0.0,
                   horizontal: 16.0,
                 ),
                 child: categoryText("남았어요"),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: todoListView(),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: TodoListView(
+                todoListController: todoListController,
+              ),
             ),
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
+                  vertical: 0.0,
                   horizontal: 16.0,
                 ),
                 child: categoryText("끝났어요"),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: doneListView(),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: DoneListView(
+                todoListController: todoListController,
+              ),
             ),
           ],
         ),
