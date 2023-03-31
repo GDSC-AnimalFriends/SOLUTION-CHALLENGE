@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge/data/model/subscriber_model.dart';
@@ -8,6 +9,7 @@ import '../../data/model/user_model.dart';
 import '../../data/provider/firebase_client.dart';
 
 class SubscriberManageController extends GetxController {
+  User user = firebaseAuth.currentUser!;
   RxList<SubscriberModel> subscriberList = <SubscriberModel>[].obs;
   List<UserModel> userList = <UserModel>[]; //구독자의 email 가져오기
   final subscriber = FirebaseClient();
@@ -25,39 +27,29 @@ class SubscriberManageController extends GetxController {
     }
   }
 
-  void onInit() {
-    subscriber.getMySubscriberList();
-    _getRemoteSubscriberList();
-    _getRemoteUserList();
+  void onInit() async{
+    await subscriber.getMySubscriberList();
+    await _getRemoteSubscriberList();
     initializeButtonIndex();
     super.onInit();
   }
 
-  void _getRemoteSubscriberList() async {
+  Future<void> _getRemoteSubscriberList() async {
     subscriberList.value = subscriber.remoteSubscriberList;
   }
 
-  void _getRemoteUserList() async {
-    userList = subscriber.remoteUserList;
-  }
 
-
-  void isAuthButtonIndex(buttonIndex,index){
+  void isAuthButtonIndex(buttonIndex,index) async{
     if(buttonIndex == 0){//수정허용
       subscriber.updateSubscriberAuth(subscriberList[index], true).then((value) {
-      }).catchError((error) {});
+      }).catchError((error) {}); //나의 구독자 auth 바꾸기
+
     }
     else {
       subscriber.updateSubscriberAuth(subscriberList[index], false).then((value) {
       }).catchError((error) {});
     }
     subscriberButtonIndex[index].value = buttonIndex;
-  }
-
-
-  String searchSubscriberEmail(id) { //구독자 id로 구독자의 email 찾기
-    final subscriberEmail = userList[id].email;
-    return subscriberEmail;
   }
 
 
@@ -70,7 +62,6 @@ class SubscriberManageController extends GetxController {
           TextButton(
               onPressed: () => {
                 deleteSubscriber(index),
-                //subscriberList.removeAt(index),
                 Get.back(),
               },
               child: const Text('네')),
@@ -81,14 +72,22 @@ class SubscriberManageController extends GetxController {
   }
 
   void deleteSubscriber(int index) async {
-    if (await subscriber.deleteSubscriber(subscriberList[index].ref) ==
+    if (await subscriber.deleteSubscriber(subscriberList[index]) ==
         SUCCESS) {//내 구독자리스트에서 삭제
       subscriberList.removeAt(index);
     }
-    //구독자의 구독자리스트에서 나를 삭제해야돼
   }
 
   void toAddSubscirber() {
     Get.toNamed(Routes.SUBSCRIBE_ADD);
+  }
+
+  String isOldYoung(){
+    if(userType == 'old') {
+      return '노인';
+    }
+    else {
+      return '보호자';
+    }
   }
 }
