@@ -59,12 +59,43 @@ class TodoListController extends GetxController with StorageUtil {
   }
 
   void checkToDone(int index) {
+    TodoModel updatedTodo = TodoModel(
+      todoid: todos[index].todoid,
+      date: todos[index].date,
+      title: todos[index].title,
+      user: todos[index].user,
+      creator: todos[index].creator,
+      description: todos[index].description,
+      complete: true,
+    );
+
+    TodoService().addTodo(todo: updatedTodo);
     done.add(todos.removeAt(index));
     refresh();
   }
 
   void checkToTodos(int index) {
+    TodoModel updatedTodo = TodoModel(
+      todoid: done[index].todoid,
+      date: done[index].date,
+      title: done[index].title,
+      user: done[index].user,
+      creator: done[index].creator,
+      description: done[index].description,
+      complete: false,
+    );
+
+    TodoService().addTodo(todo: updatedTodo);
     todos.add(done.removeAt(index));
+    refresh();
+  }
+
+  void deleteTodo(int index, List<TodoModel> todo) {
+    TodoService().deleteTodo(
+      todoid: todo[index].todoid,
+      userid: getString(UID_KEY)!,
+    );
+    todo.removeAt(index);
     refresh();
   }
 
