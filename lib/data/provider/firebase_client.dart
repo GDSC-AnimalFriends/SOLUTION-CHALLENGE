@@ -30,6 +30,7 @@ class FirebaseClient with StorageUtil {
   //검색된 유저를 저장하는 공간
   UserModel? searchedUser;
 
+
   Future<void> getMySubscriberList() async {//구독자 가져와볼게
     try {
       Query query = databaseRef
@@ -77,7 +78,6 @@ class FirebaseClient with StorageUtil {
       return ERROR;
     }
   }
-
 
   //내 알람 가져오기
   Future<void> getMyAlarmList() async {

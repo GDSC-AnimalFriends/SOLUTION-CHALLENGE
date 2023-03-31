@@ -9,7 +9,6 @@ import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 class SubscriberManage extends GetView<SubscriberManageController> {
   const SubscriberManage({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,12 +51,12 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                           color: todoBorder,
                           shape: BoxShape.circle,
                         ),
-                        child: Image.network(controller.subscriberList[index].imageUrl),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(18, 18, 0, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        borderRadius: BorderRadius.circular(9.0)),
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      title: SizedBox(
+                        height: 75,
+                        child: Row(
                           children: [
                             Text(controller.subscriberList[index].name), //구독자 이름
                             Text(controller.isOldYoung()),
@@ -103,7 +102,6 @@ class SubscriberManage extends GetView<SubscriberManageController> {
           );
         })
         //:const Center(child: Text('구독자가 없습니다.\n구독자를 추가해서 나의 할 일을 공유해보세요!', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
-
     );
   }
 

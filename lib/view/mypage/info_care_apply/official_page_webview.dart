@@ -10,7 +10,7 @@ class OfficialPageWebview extends GetView<ApplyCareController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarOnlyBack(
+      appBar: const AppBarOnlyBack(
         appBarTitle: ' ',
       ),
       body: WebViewWidget(controller: controller.getController()),

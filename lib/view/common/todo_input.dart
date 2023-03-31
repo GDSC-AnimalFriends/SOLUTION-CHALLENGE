@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:solution_challenge/view/theme/app_colors.dart';
+
+import '../theme/app_colors.dart';
 
 class TodoInput extends StatelessWidget {
   final TextEditingController controller;
