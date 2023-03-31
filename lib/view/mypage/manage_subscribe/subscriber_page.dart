@@ -25,7 +25,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
   }
 
   Widget subscriberListView() {
-    return Obx(() => controller.subscriberList.isNotEmpty ? ListView.builder(
+    return Obx(() => ListView.builder(
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(10),
         itemCount: controller.subscriberList.length,
@@ -60,8 +60,7 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(controller.subscriberList[index].name), //구독자 이름
-                            const Text('email'),
-                            //controller.searchSubscriberEmail(controller.subscriberList[index].id)), //구독자 id로 메일찾아와
+                            Text(controller.isOldYoung()),
                           ],
                         ),
                       ),
@@ -70,26 +69,28 @@ class SubscriberManage extends GetView<SubscriberManageController> {
                 ),
                 children: [
                   const Text('권한 설정'),
-                  Obx(() => userType=='old'? FlutterToggleTab(
-                      width: 50,
-                      borderRadius: 15,
-                      selectedBackgroundColors: const [
-                        primaryColor,
-                        lightPrimaryColor
-                      ],
-                      selectedTextStyle: const TextStyle(color: Colors.white),
-                      unSelectedTextStyle: const TextStyle(color: Colors.black),
-                      labels: controller.listTextTabToggle, //수정허용,거부
-                      selectedLabelIndex: (buttonIndex) {//buttonIndex- togglebutton(0,1) 중 index
-                          controller.subscriberButtonIndex[index].value = buttonIndex;
-                          controller.isAuthButtonIndex(buttonIndex, index);
-                      },
-                      selectedIndex:
-                        //controller.authBoolToSelectedIndex(index),
-                        controller.subscriberButtonIndex[index].value,
-                      isScroll: true,
-                    )
-                    : const Text(''),
+                  Obx(() => FlutterToggleTab(
+                    width: 50,
+                    borderRadius: 15,
+                    selectedBackgroundColors: const [
+                      primaryColor,
+                      lightPrimaryColor
+                    ],
+                    selectedTextStyle: const TextStyle(color: Colors.white),
+                    unSelectedTextStyle: const TextStyle(color: Colors.black),
+                    labels: controller.listTextTabToggle, //수정허용,거부
+                    selectedLabelIndex: (buttonIndex) {//buttonIndex- togglebutton(0,1) 중 index
+                      if(userType == 'young') {
+                        controller.subscriberButtonIndex[index].value =
+                            buttonIndex;
+                        controller.isAuthButtonIndex(buttonIndex, index);
+                      }
+                      else{} // 보호자는 수정x
+                    },
+                    selectedIndex:
+                    controller.subscriberButtonIndex[index].value,
+                    isScroll: true,
+                  )
                   ),
                   const SizedBox(height: 16.0),
                   TextButton(
@@ -101,9 +102,10 @@ class SubscriberManage extends GetView<SubscriberManageController> {
             ),
           );
         })
-        //: Text(controller.isSubscriberListExist()), //구독자 있는지 확인
-       :const Center(child: Text('구독자가 없습니다.\n구독자를 추가해서 나의 할 일을 공유해보세요!', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
+        //:const Center(child: Text('구독자가 없습니다.\n구독자를 추가해서 나의 할 일을 공유해보세요!', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
 
     );
   }
+
 }
+

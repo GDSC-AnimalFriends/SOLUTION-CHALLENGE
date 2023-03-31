@@ -61,8 +61,8 @@ class FirebaseClient with StorageUtil {
     // Get a reference to the subscriber in Firebase
     DatabaseReference subscriberRef = databaseRef.child(subscriber.ref);
     DatabaseReference subscriberOtherRef = databaseRef.child(subscriber.otherRef);
-    await subscriberRef.update({"auth": trueOrFalse});
-    await subscriberOtherRef.update({"auth" : trueOrFalse});
+    subscriberRef.update({"auth": trueOrFalse});
+    subscriberOtherRef.update({"auth" : trueOrFalse});
   }
 
   //구독자리스트에서 구독취소

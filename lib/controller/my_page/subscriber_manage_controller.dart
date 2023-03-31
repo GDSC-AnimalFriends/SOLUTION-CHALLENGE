@@ -27,20 +27,19 @@ class SubscriberManageController extends GetxController {
     }
   }
 
-  void onInit() {
-    subscriber.getMySubscriberList();
-    _getRemoteSubscriberList();
-    //_getRemoteUserList();
+  void onInit() async{
+    await subscriber.getMySubscriberList();
+    await _getRemoteSubscriberList();
     initializeButtonIndex();
     super.onInit();
   }
 
-  void _getRemoteSubscriberList() async {
+  Future<void> _getRemoteSubscriberList() async {
     subscriberList.value = subscriber.remoteSubscriberList;
   }
 
 
-  void isAuthButtonIndex(buttonIndex,index){
+  void isAuthButtonIndex(buttonIndex,index) async{
     if(buttonIndex == 0){//수정허용
       subscriber.updateSubscriberAuth(subscriberList[index], true).then((value) {
       }).catchError((error) {}); //나의 구독자 auth 바꾸기
@@ -77,19 +76,18 @@ class SubscriberManageController extends GetxController {
         SUCCESS) {//내 구독자리스트에서 삭제
       subscriberList.removeAt(index);
     }
-    //구독자의 구독자리스트에서 나를 삭제해야돼
   }
 
   void toAddSubscirber() {
     Get.toNamed(Routes.SUBSCRIBE_ADD);
   }
 
-  /*void _getRemoteUserList() async {
-    userList = subscriber.remoteUserList;
+  String isOldYoung(){
+    if(userType == 'old') {
+      return '노인';
+    }
+    else {
+      return '보호자';
+    }
   }
-  String searchSubscriberEmail(id) { //구독자 id로 구독자의 email 찾기
-    final subscriberEmail = userList[id].email;
-    return subscriberEmail;
-  }
-*/
 }
