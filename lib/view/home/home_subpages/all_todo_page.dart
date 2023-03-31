@@ -8,6 +8,7 @@ import '../../../data/model/todo_model.dart';
 import '../../../util/const_key.dart';
 import '../../common/common_button.dart';
 import '../../common/todo_input.dart';
+import '../../common/todo_list_view.dart';
 import '../../theme/app_colors.dart';
 
 class AllTodoPage extends StatelessWidget with StorageUtil {
@@ -22,8 +23,12 @@ class AllTodoPage extends StatelessWidget with StorageUtil {
         children: [
           Column(
             children: [
-              todoListView(),
-              doneListView(),
+              TodoListView(
+                todoListController: todoListController,
+              ),
+              DoneListView(
+                todoListController: todoListController,
+              ),
             ],
           ),
           Positioned(

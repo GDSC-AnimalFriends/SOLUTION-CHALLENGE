@@ -5,8 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:solution_challenge/util/storage_util.dart';
 import 'package:solution_challenge/view/common/todo_list_view.dart';
 
-import '../../theme/app_colors.dart';
-
 class TodayTodoPage extends StatelessWidget with StorageUtil {
   TodayTodoPage({super.key});
   final TodoListController todoListController = Get.put(TodoListController());
@@ -53,85 +51,6 @@ class TodayTodoPage extends StatelessWidget with StorageUtil {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget todoListView() {
-    return Obx(
-      () => ListView.builder(
-        shrinkWrap: true,
-        itemCount: todoListController.todos.length,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0),
-            child: ListTile(
-              title: Text(
-                todoListController.todos[index].title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: Text(
-                todoListController.todos[index].description,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              trailing: const Icon(
-                Icons.circle_outlined,
-                color: Color.fromARGB(255, 112, 125, 241),
-                size: 50.0,
-              ),
-              onTap: () {
-                todoListController.checkToDone(index);
-                todoListController.update();
-              },
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget doneListView() {
-    return Obx(
-      () => ListView.builder(
-        shrinkWrap: true,
-        itemCount: todoListController.done.length,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0),
-            child: ListTile(
-              title: Text(
-                todoListController.done[index].title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 210, 210, 210),
-                  decoration: TextDecoration.lineThrough,
-                ),
-              ),
-              subtitle: Text(
-                todoListController.done[index].title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                  color: Color.fromARGB(255, 210, 210, 210),
-                  decoration: TextDecoration.lineThrough,
-                ),
-              ),
-              onTap: () {
-                todoListController.checkToTodos(index);
-                todoListController.update();
-              },
-            ),
-          );
-        },
       ),
     );
   }

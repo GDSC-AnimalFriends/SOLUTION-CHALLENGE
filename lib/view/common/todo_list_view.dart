@@ -108,7 +108,7 @@ Widget swipeActionCell(List<TodoModel> listToShow, int index,
               ),
             ),
             Text(
-              listToShow[index].title,
+              listToShow[index].description,
               textAlign: TextAlign.left,
               style: const TextStyle(
                 fontSize: 16,
@@ -120,7 +120,7 @@ Widget swipeActionCell(List<TodoModel> listToShow, int index,
         IconButton(
           icon: const Icon(Icons.circle_outlined),
           color: primaryColor,
-          iconSize: 50.0,
+          iconSize: 40.0,
           onPressed: () {
             todoListController.checkToDone(index);
           },
@@ -162,7 +162,7 @@ class DoneListView extends StatelessWidget {
 Widget doneSwipeActionCell(List<TodoModel> listToShow, int index,
     TodoListController todoListController) {
   return SwipeActionCell(
-    key: ObjectKey(listToShow[index]),
+    key: ObjectKey(todoListController.done[index]),
     trailingActions: <SwipeAction>[
       SwipeAction(
         nestedAction: SwipeNestedAction(
@@ -215,6 +215,7 @@ Widget doneSwipeActionCell(List<TodoModel> listToShow, int index,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
+                color: Colors.grey,
               ),
             ),
             Text(
@@ -222,15 +223,16 @@ Widget doneSwipeActionCell(List<TodoModel> listToShow, int index,
               textAlign: TextAlign.left,
               style: const TextStyle(
                 fontSize: 16,
+                color: Colors.grey,
               ),
             ),
           ],
         ),
         const Spacer(),
         IconButton(
-          icon: const Icon(Icons.circle_outlined),
+          icon: const Icon(Icons.circle),
           color: primaryColor,
-          iconSize: 50.0,
+          iconSize: 40.0,
           onPressed: () {
             todoListController.checkToTodos(index);
           },

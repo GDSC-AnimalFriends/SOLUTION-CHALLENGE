@@ -40,8 +40,6 @@ class TodoListController extends GetxController with StorageUtil {
         }
       });
     }
-
-    print(done.length);
     super.onInit();
   }
 
@@ -73,8 +71,6 @@ class TodoListController extends GetxController with StorageUtil {
 
     TodoService().addTodo(todo: updatedTodo);
     done.add(todos.removeAt(index));
-    print(todos.length);
-    print(done.length);
     refresh();
   }
 
@@ -91,8 +87,6 @@ class TodoListController extends GetxController with StorageUtil {
 
     TodoService().addTodo(todo: updatedTodo);
     todos.add(done.removeAt(index));
-    print(todos.length);
-    print(done.length);
     refresh();
   }
 
